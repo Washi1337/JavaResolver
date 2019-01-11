@@ -12,7 +12,10 @@ namespace JavaResolver.Class.Constants
         /// <returns>The method reference that was read.</returns>
         public new static MethodRefInfo FromReader(IBigEndianReader reader)
         {
-            var info = new MethodRefInfo();
+            var info = new MethodRefInfo
+            {
+                StartOffset = reader.Position - 1
+            };
             info.ReadRemainingFields(reader);
             return info;
         }

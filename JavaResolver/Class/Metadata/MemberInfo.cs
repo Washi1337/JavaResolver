@@ -5,7 +5,7 @@ namespace JavaResolver.Class.Metadata
     /// <summary>
     /// Provides a base for all raw metadata structures describing a member stored in a Java class file.
     /// </summary>
-    public abstract class MemberInfo
+    public abstract class MemberInfo : FileSegment
     {
         /// <summary>
         /// Gets or sets an index into the constant pool that references the name of the member.
@@ -48,6 +48,17 @@ namespace JavaResolver.Class.Metadata
                 Attributes.Add(AttributeInfo.FromReader(reader));
         }
 
+        /// <inheritdoc />
+        public override void Write(WritingContext context)
+        {
+            var writer = context.Writer;
+            writer.Write(NameIndex);
+            writer.Write(DescriptorIndex);
+            
+            writer.Write((ushort) Attributes.Count);
+            foreach (var attribute in Attributes)
+                attribute.Write(context);
+        }
     }
 
 }

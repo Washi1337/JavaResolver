@@ -14,6 +14,7 @@ namespace JavaResolver.Class.Constants
         {
             return new StringInfo
             {
+                StartOffset = reader.Position - 1,
                 StringIndex = reader.ReadUInt16()
             };
         }
@@ -37,6 +38,12 @@ namespace JavaResolver.Class.Constants
         {
             get;
             set;
+        }
+
+        public override void Write(WritingContext context)
+        {
+            base.Write(context);
+            context.Writer.Write(StringIndex);
         }
 
         public override string ToString()

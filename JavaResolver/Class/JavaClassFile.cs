@@ -148,5 +148,33 @@ namespace JavaResolver.Class
             get;
         } = new List<AttributeInfo>();
 
+        public override void Write(WritingContext context)
+        {
+            var writer = context.Writer;
+            writer.Write(Magic);
+            writer.Write(MinorVersion);
+            writer.Write(MajorVersion);
+            ConstantPool.Write(context);
+            writer.Write((ushort) AccessFlags);
+            writer.Write(ThisClass);
+            writer.Write(SuperClass);
+
+            writer.Write((ushort) Interfaces.Count);
+            foreach (var @interface in Interfaces)
+                writer.Write(@interface);
+
+            writer.Write((ushort) Fields.Count);
+            foreach (var field in Fields)
+                field.Write(context);
+
+            writer.Write((ushort) Methods.Count);
+            foreach (var method in Methods)
+                method.Write(context);
+
+            writer.Write((ushort) Attributes.Count);
+            foreach (var attribute in Attributes)
+                attribute.Write(context);
+
+        }
     }
 }

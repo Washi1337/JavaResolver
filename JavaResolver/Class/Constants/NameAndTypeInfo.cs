@@ -15,6 +15,7 @@ namespace JavaResolver.Class.Constants
         {
             return new NameAndTypeInfo
             {
+                StartOffset = reader.Position - 1,
                 NameIndex = reader.ReadUInt16(),
                 DescriptorIndex = reader.ReadUInt16()
             };
@@ -49,6 +50,14 @@ namespace JavaResolver.Class.Constants
         {
             get;
             set;
+        }
+
+        public override void Write(WritingContext context)
+        {
+            base.Write(context);
+            var writer = context.Writer;
+            writer.Write(NameIndex);
+            writer.Write(DescriptorIndex);
         }
 
         public override string ToString()

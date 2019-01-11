@@ -14,6 +14,7 @@ namespace JavaResolver.Class.Constants
         {
             return new MethodTypeInfo
             {
+                StartOffset = reader.Position - 1,
                 DescriptorIndex = reader.ReadUInt16(),
             };
         }
@@ -28,6 +29,12 @@ namespace JavaResolver.Class.Constants
         {
             get;
             set;
+        }
+
+        public override void Write(WritingContext context)
+        {
+            base.Write(context);
+            context.Writer.Write(DescriptorIndex);
         }
 
         public override string ToString()

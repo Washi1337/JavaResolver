@@ -12,7 +12,10 @@ namespace JavaResolver.Class.Constants
         /// <returns>The field reference that was read.</returns>
         public new static FieldRefInfo FromReader(IBigEndianReader reader)
         {
-            var info = new FieldRefInfo();
+            var info = new FieldRefInfo
+            {
+                StartOffset = reader.Position - 1
+            };
             info.ReadRemainingFields(reader);
             return info;
         }

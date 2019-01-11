@@ -15,10 +15,10 @@ namespace JavaResolver.Class.Constants
         /// <returns>The UTF8 string that was read.</returns>
         public new static Utf8Info FromReader(IBigEndianReader reader)
         {
-            ushort length = reader.ReadUInt16();
             return new Utf8Info
             {
-                Value = Encoding.UTF8.GetString(reader.ReadBytes(length))
+                StartOffset = reader.Position - 1,
+                Value = Encoding.UTF8.GetString(reader.ReadBytes(reader.ReadUInt16()))
             };
         }
 
@@ -32,6 +32,14 @@ namespace JavaResolver.Class.Constants
         {
             get;
             set;
+        }
+
+        public override void Write(WritingContext context)
+        {
+            base.Write(context);
+            var writer = context.Writer;
+            writer.Write((ushort) Value.Length);
+            writer.Write(Encoding.UTF8.GetBytes(Value));
         }
 
         public override string ToString()

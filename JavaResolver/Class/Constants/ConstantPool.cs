@@ -35,6 +35,13 @@ namespace JavaResolver.Class.Constants
         {
             get;
         } = new List<ConstantInfo>();
-        
+
+        public override void Write(WritingContext context)
+        {
+            var writer = context.Writer;
+            writer.Write((ushort) (Constants.Count + 1));
+            foreach (var constant in Constants)
+                constant.Write(context);
+        }
     }
 }

@@ -60,5 +60,10 @@ namespace JavaResolver.Class.Constants
         {
             get;
         }
+
+        public override void Write(WritingContext context)
+        {
+            context.Writer.Write((byte) Tag);
+        }
     }
 }

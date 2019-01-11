@@ -14,6 +14,7 @@ namespace JavaResolver.Class.Constants
         {
             return new MethodHandleInfo
             {
+                StartOffset = reader.Position - 1,
                 ReferenceKind = (MethodReferenceKind) reader.ReadByte(),
                 ReferenceIndex = reader.ReadUInt16(),
             };
@@ -38,6 +39,14 @@ namespace JavaResolver.Class.Constants
         {
             get;
             set;
+        }
+
+        public override void Write(WritingContext context)
+        {
+            base.Write(context);
+            var writer = context.Writer;
+            writer.Write((byte) ReferenceKind);
+            writer.Write(ReferenceIndex);
         }
 
         public override string ToString()

@@ -17,6 +17,7 @@ namespace JavaResolver.Class.Constants
         {
             return new ClassInfo
             {
+                StartOffset = reader.Position - 1,
                 NameIndex = reader.ReadUInt16()
             };
         }
@@ -36,6 +37,12 @@ namespace JavaResolver.Class.Constants
         public override string ToString()
         {
             return "Class (Name: " + NameIndex + ")";
+        }
+
+        public override void Write(WritingContext context)
+        {
+            base.Write(context);
+            context.Writer.Write(NameIndex);
         }
     }
 }

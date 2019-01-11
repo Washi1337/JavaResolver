@@ -45,6 +45,29 @@ namespace JavaResolver.Class.Constants
             set => _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        public override void Write(WritingContext context)
+        {
+            base.Write(context);
+            var writer = context.Writer;
+            switch (Tag)
+            {
+                case ConstantPoolTag.Integer:
+                    writer.Write((int) Value);
+                    break;
+                case ConstantPoolTag.Long:
+                    writer.Write((long) Value);
+                    break;
+                case ConstantPoolTag.Float:
+                    writer.Write((float) Value);
+                    break;
+                case ConstantPoolTag.Double:
+                    writer.Write((double) Value);
+                    break;
+                default:
+                    throw new ArgumentException("Value must be either an integer, a long, a float or a double.");
+            }
+        }
+
         public override string ToString()
         {
             return $"{Tag} (Value: {Value})";

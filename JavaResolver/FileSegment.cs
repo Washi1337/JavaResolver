@@ -13,5 +13,11 @@ namespace JavaResolver
             get;
             set;
         }
+
+        /// <summary>
+        /// Writes the segment to the provided writing context.
+        /// </summary>
+        /// <param name="context">The writing context to use</param>
+        public abstract void Write(WritingContext context);
     }
 }

@@ -14,6 +14,7 @@ namespace JavaResolver.Class.Constants
         {
             return new InvokeDynamicInfo
             {
+                StartOffset = reader.Position - 1,
                 BootstrapMethodAttrIndex = reader.ReadUInt16(),
                 NameAndTypeIndex = reader.ReadInt16(),
             };
@@ -38,6 +39,14 @@ namespace JavaResolver.Class.Constants
         {
             get;
             set;
+        }
+
+        public override void Write(WritingContext context)
+        {
+            base.Write(context);
+            var writer = context.Writer;
+            writer.Write(BootstrapMethodAttrIndex);
+            writer.Write(NameAndTypeIndex);
         }
 
         public override string ToString()

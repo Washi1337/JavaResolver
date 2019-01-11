@@ -14,6 +14,7 @@ namespace JavaResolver.Class.Metadata
         {
             var info = new MethodInfo
             {
+                StartOffset = reader.Position,
                 AccessFlags = (MethodAccessFlags) reader.ReadUInt16(),
             };
             info.ReadRemainingFields(reader);
@@ -27,6 +28,18 @@ namespace JavaResolver.Class.Metadata
         {
             get;
             set;
+        }
+
+        /// <inheritdoc />
+        public override void Write(WritingContext context)
+        {
+            context.Writer.Write((ushort) AccessFlags);
+            base.Write(context);
+        }
+
+        public override string ToString()
+        {
+            return $"Method (Name: {NameIndex}, Descriptor: {DescriptorIndex}, Access: {AccessFlags})";
         }
     }
 }

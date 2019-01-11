@@ -33,6 +33,14 @@ namespace JavaResolver.Class.Constants
             set;
         }
 
+        public override void Write(WritingContext context)
+        {
+            base.Write(context);
+            var writer = context.Writer;
+            writer.Write(ClassIndex);
+            writer.Write(NameAndTypeIndex);
+        }
+
         public override string ToString()
         {
             return $"{Tag} (Class: {ClassIndex}, NameAndType: {NameAndTypeIndex})";
