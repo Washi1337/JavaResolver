@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver", "JavaResolve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver.Sample", "JavaResolver.Sample\JavaResolver.Sample.csproj", "{C6E25E4D-E872-45FA-BE6B-FABFF6A8B43C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver.Tests", "JavaResolver.Tests\JavaResolver.Tests.csproj", "{55EC704D-6BD3-46EE-A15D-653D76CE943E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{C6E25E4D-E872-45FA-BE6B-FABFF6A8B43C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6E25E4D-E872-45FA-BE6B-FABFF6A8B43C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6E25E4D-E872-45FA-BE6B-FABFF6A8B43C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55EC704D-6BD3-46EE-A15D-653D76CE943E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EC704D-6BD3-46EE-A15D-653D76CE943E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EC704D-6BD3-46EE-A15D-653D76CE943E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EC704D-6BD3-46EE-A15D-653D76CE943E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

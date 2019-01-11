@@ -4,12 +4,13 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{08D550A9-6173-478B-99EB-281EA5806D4B}</ProjectGuid>
+        <ProjectGuid>{55EC704D-6BD3-46EE-A15D-653D76CE943E}</ProjectGuid>
+        <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>JavaResolver</RootNamespace>
-        <AssemblyName>JavaResolver</AssemblyName>
-        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+        <RootNamespace>JavaResolver.Tests</RootNamespace>
+        <AssemblyName>JavaResolver.Tests</AssemblyName>
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -36,38 +37,28 @@
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
+        <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+            <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+        </Reference>
+        <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+            <HintPath>..\packages\xunit.assert.2.1.0\lib\dotnet\xunit.assert.dll</HintPath>
+        </Reference>
+        <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+            <HintPath>..\packages\xunit.extensibility.core.2.1.0\lib\dotnet\xunit.core.dll</HintPath>
+        </Reference>
+        <Reference Include="xunit.execution.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+            <HintPath>..\packages\xunit.extensibility.execution.2.1.0\lib\net45\xunit.execution.desktop.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="BigEndianStreamWriter.cs" />
-        <Compile Include="Class\ClassAccessFlags.cs" />
-        <Compile Include="Class\Constants\ClassInfo.cs" />
-        <Compile Include="Class\Constants\ConstantInfo.cs" />
-        <Compile Include="Class\Constants\ConstantPool.cs" />
-        <Compile Include="Class\Constants\ConstantPoolTag.cs" />
-        <Compile Include="Class\Constants\FieldRefInfo.cs" />
-        <Compile Include="Class\Constants\InterfaceMethodRefInfo.cs" />
-        <Compile Include="Class\Constants\InvokeDynamicInfo.cs" />
-        <Compile Include="Class\Constants\MemberRefInfo.cs" />
-        <Compile Include="Class\Constants\MethodHandleInfo.cs" />
-        <Compile Include="Class\Constants\MethodReferenceKind.cs" />
-        <Compile Include="Class\Constants\MethodRefInfo.cs" />
-        <Compile Include="Class\Constants\MethodTypeInfo.cs" />
-        <Compile Include="Class\Constants\NameAndTypeInfo.cs" />
-        <Compile Include="Class\Constants\PrimitiveInfo.cs" />
-        <Compile Include="Class\Constants\StringInfo.cs" />
-        <Compile Include="Class\Constants\Utf8Info.cs" />
-        <Compile Include="Class\JavaClassFile.cs" />
-        <Compile Include="Class\Metadata\AttributeInfo.cs" />
-        <Compile Include="Class\Metadata\FieldAccessFlags.cs" />
-        <Compile Include="Class\Metadata\FieldInfo.cs" />
-        <Compile Include="Class\Metadata\MemberInfo.cs" />
-        <Compile Include="Class\Metadata\MethodAccessFlags.cs" />
-        <Compile Include="Class\Metadata\MethodInfo.cs" />
-        <Compile Include="IBigEndianReader.cs" />
-        <Compile Include="FileSegment.cs" />
-        <Compile Include="IBigEndianWriter.cs" />
-        <Compile Include="MemoryBigEndianReader.cs" />
+        <Compile Include="ReaderWriterTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\JavaResolver\JavaResolver.csproj">
+        <Project>{08d550a9-6173-478b-99eb-281ea5806d4b}</Project>
+        <Name>JavaResolver</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -77,5 +68,4 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-
 </Project>
