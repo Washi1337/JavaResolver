@@ -1,6 +1,6 @@
-namespace JavaResolver.Class
+namespace JavaResolver.Class.Descriptors
 {
-    public enum FieldType : byte
+    public enum BaseTypeValue : byte 
     {
         Byte = (byte) 'B',
         Char = (byte) 'C',
@@ -8,9 +8,8 @@ namespace JavaResolver.Class
         Float = (byte) 'F',
         Int = (byte) 'I',
         Long = (byte) 'J',
-        Class = (byte) 'L',
         Short = (byte) 'S',
         Boolean = (byte) 'Z',
-        Array = (byte) '['
+        Void = (byte) 'V',
     }
 }

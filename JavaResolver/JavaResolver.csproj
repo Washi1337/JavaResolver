@@ -70,7 +70,13 @@
         <Compile Include="Class\Constants\PrimitiveInfo.cs" />
         <Compile Include="Class\Constants\StringInfo.cs" />
         <Compile Include="Class\Constants\Utf8Info.cs" />
-        <Compile Include="Class\FieldType.cs" />
+        <Compile Include="Class\Descriptors\ArrayType.cs" />
+        <Compile Include="Class\Descriptors\BaseTypeValue.cs" />
+        <Compile Include="Class\Descriptors\DescriptorParser.cs" />
+        <Compile Include="Class\Descriptors\FieldDescriptor.cs" />
+        <Compile Include="Class\Descriptors\BaseType.cs" />
+        <Compile Include="Class\Descriptors\FieldType.cs" />
+        <Compile Include="Class\Descriptors\ObjectType.cs" />
         <Compile Include="Class\JavaClassFile.cs" />
         <Compile Include="Class\Metadata\AttributeInfo.cs" />
         <Compile Include="Class\Metadata\FieldAccessFlags.cs" />
