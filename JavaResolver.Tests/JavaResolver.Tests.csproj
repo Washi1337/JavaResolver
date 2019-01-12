@@ -53,6 +53,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Class\Descriptors\FieldDescriptorTest.cs" />
+        <Compile Include="Class\Descriptors\MethodDescriptorTest.cs" />
         <Compile Include="Properties\Resources.Designer.cs" />
         <Compile Include="ReaderWriterTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

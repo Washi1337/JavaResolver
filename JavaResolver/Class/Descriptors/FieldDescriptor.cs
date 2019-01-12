@@ -29,32 +29,12 @@ namespace JavaResolver.Class.Descriptors
         public FieldType FieldType
         {
             get;
+            set;
         }
 
         public override string ToString()
         {
             return $"{nameof(FieldType)}: {FieldType}";
-        }
-
-        protected bool Equals(FieldDescriptor other)
-        {
-            return Equals(FieldType, other.FieldType);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-                return false;
-            if (ReferenceEquals(this, obj))
-                return true;
-            if (obj.GetType() != this.GetType())
-                return false;
-            return Equals((FieldDescriptor) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return (FieldType != null ? FieldType.GetHashCode() : 0);
         }
     }
 }

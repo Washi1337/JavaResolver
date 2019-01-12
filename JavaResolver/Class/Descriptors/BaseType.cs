@@ -30,7 +30,7 @@ namespace JavaResolver.Class.Descriptors
         /// <inheritdoc />
         public override string ToString()
         {
-            return Value.ToString();
+            return Value.ToString().ToLowerInvariant();
         }
 
         protected bool Equals(BaseType other)
