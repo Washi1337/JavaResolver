@@ -17,27 +17,32 @@ namespace JavaResolver.Class.Code
 
         public object ResolveField(int fieldIndex)
         {
-            return _classFile.ConstantPool.Constants[fieldIndex - 1] as FieldRefInfo;
+            return _classFile.ConstantPool.ResolveConstant(fieldIndex ) as FieldRefInfo;
         }
 
         public object ResolveMethod(int methodIndex)
         {
-            return _classFile.ConstantPool.Constants[methodIndex - 1] as MethodRefInfo;
+            return _classFile.ConstantPool.ResolveConstant(methodIndex) as MethodRefInfo;
         }
 
         public object ResolveConstant(int constantIndex)
         {
-            var constant = _classFile.ConstantPool.Constants[constantIndex - 1];
+            var constant = _classFile.ConstantPool.ResolveConstant(constantIndex);
             switch (constant)
             {
                 case StringInfo stringInfo:
-                    var raw = _classFile.ConstantPool.Constants[stringInfo.StringIndex - 1] as Utf8Info;
+                    var raw = _classFile.ConstantPool.ResolveConstant(stringInfo.StringIndex) as Utf8Info;
                     return raw?.Value;
                 case PrimitiveInfo primitiveInfo:
                     return primitiveInfo.Value;
             }
 
             return constant;
+        }
+
+        public object ResolveClass(int classIndex)
+        {
+            return _classFile.ConstantPool.ResolveConstant(classIndex) as ClassInfo;
         }
     }
 }

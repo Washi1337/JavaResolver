@@ -22,8 +22,15 @@ namespace JavaResolver.Class.Code
         /// <summary>
         /// Resolves an index to a constant in the constant pool.
         /// </summary>
-        /// <param name="constantIndex"></param>
-        /// <returns></returns>
+        /// <param name="constantIndex">The constant index to resolve.</param>
+        /// <returns>The resolved constant.</returns>
         object ResolveConstant(int constantIndex);
+
+        /// <summary>
+        /// Resolves an index to a class in the constant pool.
+        /// </summary>
+        /// <param name="classIndex">The class index to resolve.</param>
+        /// <returns>The resolved class.</returns>
+        object ResolveClass(int classIndex);
     }
 }

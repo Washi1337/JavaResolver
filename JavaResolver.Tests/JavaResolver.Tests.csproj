@@ -67,6 +67,7 @@
       <EmbeddedResource Include="Properties\Resources.resx" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Resources\Conditionals.class" />
       <Content Include="Resources\HelloWorld.class" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

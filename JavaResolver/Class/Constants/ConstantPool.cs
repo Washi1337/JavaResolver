@@ -36,6 +36,14 @@ namespace JavaResolver.Class.Constants
             get;
         } = new List<ConstantInfo>();
 
+        public ConstantInfo ResolveConstant(int index)
+        {
+            index--;
+            return index >= 0 && index < Constants.Count 
+                ? Constants[index] 
+                : null;
+        }
+
         public override void Write(WritingContext context)
         {
             var writer = context.Writer;

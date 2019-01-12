@@ -6,20 +6,30 @@ namespace JavaResolver.Class.Code
     public enum ByteCodeOperandType
     {
         None,
+        
         Byte,
         Short,
+        
         ConstantIndex,
         WideConstantIndex,
+        
         LocalIndex,
         LocalConst,
+        
         BranchOffset,
+        WideBranchOffset,
+        
         TableSwitch,
         LookupSwitch,
+        
         WideIndexCountZero,
-
         WideConstantIndexByte,
-        WideBranchOffset,
+        
+        PrimitiveType,
+        
         FieldIndex,
-        MethodIndex
+        MethodIndex,
+        ClassIndex,
+        
     }
 }

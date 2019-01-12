@@ -71,6 +71,7 @@ namespace JavaResolver.Class.Code
                 case ByteCodeOperandType.Byte:
                 case ByteCodeOperandType.ConstantIndex:
                 case ByteCodeOperandType.LocalIndex:
+                case ByteCodeOperandType.PrimitiveType:
                     return _reader.ReadByte();
                 case ByteCodeOperandType.Short:
                 case ByteCodeOperandType.WideConstantIndex:
@@ -78,6 +79,7 @@ namespace JavaResolver.Class.Code
                 case ByteCodeOperandType.LocalConst:
                 case ByteCodeOperandType.FieldIndex:
                 case ByteCodeOperandType.MethodIndex:
+                case ByteCodeOperandType.ClassIndex:
                     return _reader.ReadInt16();
                     
                 case ByteCodeOperandType.TableSwitch:
@@ -97,9 +99,12 @@ namespace JavaResolver.Class.Code
         }
 
         private object ResolveOperand(ByteCodeInstruction instruction)
-        {
+        {    
             switch (instruction.OpCode.OperandType)
             {
+                case ByteCodeOperandType.PrimitiveType:
+                    return (PrimitiveType) (byte) instruction.Operand;
+                
                 case ByteCodeOperandType.ConstantIndex:
                 case ByteCodeOperandType.WideConstantIndex:
                     return OperandResolver.ResolveConstant(Convert.ToInt32(instruction.Operand));
@@ -109,6 +114,9 @@ namespace JavaResolver.Class.Code
                 
                 case ByteCodeOperandType.MethodIndex:
                     return OperandResolver.ResolveMethod(Convert.ToInt32(instruction.Operand));
+                
+                case ByteCodeOperandType.ClassIndex:
+                    return OperandResolver.ResolveClass(Convert.ToInt32(instruction.Operand));
             }
 
             return instruction.Operand;

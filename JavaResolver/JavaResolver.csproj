@@ -74,6 +74,7 @@
         <Compile Include="Class\Metadata\MemberInfo.cs" />
         <Compile Include="Class\Metadata\MethodAccessFlags.cs" />
         <Compile Include="Class\Metadata\MethodInfo.cs" />
+        <Compile Include="Class\PrimitiveType.cs" />
         <Compile Include="IBigEndianReader.cs" />
         <Compile Include="FileSegment.cs" />
         <Compile Include="IBigEndianWriter.cs" />

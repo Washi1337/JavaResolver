@@ -30,21 +30,28 @@ namespace JavaResolver.Sample
             var classFile = JavaClassFile.FromReader(reader);
             
             // Obtain main method's code.
-            var info = classFile.Methods[1].Attributes.First(x =>
-                ((Utf8Info) classFile.ConstantPool.Constants[x.NameIndex - 1]).Value == "Code");
+            foreach (var method in classFile.Methods)
+            {
+                Console.WriteLine(classFile.ConstantPool.ResolveConstant(method.NameIndex));
+                Console.WriteLine(classFile.ConstantPool.ResolveConstant(method.DescriptorIndex));
 
-            // Parse code attribute.
-            reader = new MemoryBigEndianReader(info.Contents);
-            var code = CodeAttribute.FromReader(reader);
+                // Parse code attribute.
+                var codeInfo = method.Attributes.First(x =>
+                    ((Utf8Info) classFile.ConstantPool.Constants[x.NameIndex - 1]).Value == "Code");
+                reader = new MemoryBigEndianReader(codeInfo.Contents);
+                var code = CodeAttribute.FromReader(reader);
             
-            // Set up new disassembler.
-            reader = new MemoryBigEndianReader(code.Code);
-            var disassembler = new ByteCodeDisassembler(reader);
-            disassembler.OperandResolver = new DefaultOperandResolver(classFile);
+                // Set up new disassembler.
+                reader = new MemoryBigEndianReader(code.Code);
+                var disassembler = new ByteCodeDisassembler(reader);
+                disassembler.OperandResolver = new DefaultOperandResolver(classFile);
             
-            // Disassemble!
-            foreach (var instruction in disassembler.ReadInstructions())
-                Console.WriteLine(instruction);
+                // Disassemble!
+                foreach (var instruction in disassembler.ReadInstructions())
+                    Console.WriteLine(instruction);
+
+                Console.WriteLine();
+            }
         }
     }
 }
