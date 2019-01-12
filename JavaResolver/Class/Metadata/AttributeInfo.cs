@@ -16,7 +16,7 @@ namespace JavaResolver.Class.Metadata
             {
                 StartOffset = reader.Position,
                 NameIndex = reader.ReadUInt16(),
-                Info = reader.ReadBytes(reader.ReadInt32())
+                Contents = reader.ReadBytes(reader.ReadInt32())
             };
         }
 
@@ -30,7 +30,7 @@ namespace JavaResolver.Class.Metadata
         }
 
         // TODO: deserialize
-        public byte[] Info
+        public byte[] Contents
         {
             get;
             set;
@@ -40,8 +40,8 @@ namespace JavaResolver.Class.Metadata
         {
             var writer = context.Writer;
             writer.Write(NameIndex);
-            writer.Write(Info.Length);
-            writer.Write(Info);
+            writer.Write(Contents.Length);
+            writer.Write(Contents);
         }
 
         public override string ToString()

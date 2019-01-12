@@ -39,6 +39,16 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="BigEndianStreamWriter.cs" />
+        <Compile Include="Class\Code\ByteCode.cs" />
+        <Compile Include="Class\Code\ByteCodeDisassembler.cs" />
+        <Compile Include="Class\Code\ByteCodeInstruction.cs" />
+        <Compile Include="Class\Code\ByteCodeOperandType.cs" />
+        <Compile Include="Class\Code\ByteOpCode.cs" />
+        <Compile Include="Class\Code\ByteOpCodes.cs" />
+        <Compile Include="Class\Code\CodeAttribute.cs" />
+        <Compile Include="Class\Code\DefaultOperandResolver.cs" />
+        <Compile Include="Class\Code\IOperandResolver.cs" />
+        <Compile Include="Class\Code\RawExceptionHandler.cs" />
         <Compile Include="Class\ClassAccessFlags.cs" />
         <Compile Include="Class\Constants\ClassInfo.cs" />
         <Compile Include="Class\Constants\ConstantInfo.cs" />
@@ -56,6 +66,7 @@
         <Compile Include="Class\Constants\PrimitiveInfo.cs" />
         <Compile Include="Class\Constants\StringInfo.cs" />
         <Compile Include="Class\Constants\Utf8Info.cs" />
+        <Compile Include="Class\FieldType.cs" />
         <Compile Include="Class\JavaClassFile.cs" />
         <Compile Include="Class\Metadata\AttributeInfo.cs" />
         <Compile Include="Class\Metadata\FieldAccessFlags.cs" />

@@ -36,7 +36,6 @@ namespace JavaResolver.Class
                 AccessFlags = (ClassAccessFlags) reader.ReadUInt16(),
                 ThisClass = reader.ReadUInt16(),
                 SuperClass = reader.ReadUInt16(),
-                
             };
 
             ushort interfaceCount = reader.ReadUInt16();
