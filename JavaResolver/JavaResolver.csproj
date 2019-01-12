@@ -40,6 +40,7 @@
     <ItemGroup>
         <Compile Include="BigEndianStreamWriter.cs" />
         <Compile Include="Class\Code\ByteCode.cs" />
+        <Compile Include="Class\Code\ByteCodeAssembler.cs" />
         <Compile Include="Class\Code\ByteCodeDisassembler.cs" />
         <Compile Include="Class\Code\ByteCodeInstruction.cs" />
         <Compile Include="Class\Code\ByteCodeOperandType.cs" />
@@ -47,6 +48,7 @@
         <Compile Include="Class\Code\ByteOpCodes.cs" />
         <Compile Include="Class\Code\CodeAttribute.cs" />
         <Compile Include="Class\Code\DefaultOperandResolver.cs" />
+        <Compile Include="Class\Code\IOperandBuilder.cs" />
         <Compile Include="Class\Code\IOperandResolver.cs" />
         <Compile Include="Class\Code\LookupSwitch.cs" />
         <Compile Include="Class\Code\RawExceptionHandler.cs" />

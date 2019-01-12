@@ -5,13 +5,12 @@ namespace JavaResolver.Class.Code
     /// <summary>
     /// Represents an offset table switch used by the tableswitch bytecode instruction.
     /// </summary>
-    public class TableSwitch : FileSegment
+    public class TableSwitch
     {
         public static TableSwitch FromReader(IBigEndianReader reader)
         {
             var table = new TableSwitch
             {
-                StartOffset = reader.Position,
                 DefaultOffset = reader.ReadInt32(),
                 Low = reader.ReadInt32()
             };
@@ -55,9 +54,8 @@ namespace JavaResolver.Class.Code
             get;
         } = new List<int>();
 
-        public override void Write(WritingContext context)
+        public void Write(IBigEndianWriter writer)
         {
-            var writer = context.Writer;
             writer.Write(DefaultOffset);
             writer.Write(Low);
             writer.Write(High);

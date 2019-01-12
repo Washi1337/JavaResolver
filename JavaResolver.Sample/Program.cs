@@ -44,13 +44,30 @@ namespace JavaResolver.Sample
                 // Set up new disassembler.
                 reader = new MemoryBigEndianReader(code.Code);
                 var disassembler = new ByteCodeDisassembler(reader);
-                disassembler.OperandResolver = new DefaultOperandResolver(classFile);
             
                 // Disassemble!
-                foreach (var instruction in disassembler.ReadInstructions())
+                var instructions = disassembler.ReadInstructions();
+                foreach (var instruction in instructions)
                     Console.WriteLine(instruction);
 
+                // Reassemble!
+                using (var stream = new MemoryStream())
+                {
+                    var codeWriter = new BigEndianStreamWriter(stream);
+                    var assembler = new ByteCodeAssembler(codeWriter);
+                    foreach (var instruction in instructions)
+                        assembler.Write(instruction);
+
+                    code.Code = stream.ToArray();
+                }
+                
                 Console.WriteLine();
+            }
+
+            using (var fs = File.Create(Path.ChangeExtension(path, "patched.class")))
+            {
+                var writer = new BigEndianStreamWriter(fs);
+                classFile.Write(new WritingContext(writer));
             }
         }
     }
