@@ -87,12 +87,19 @@
         <Compile Include="Class\Metadata\MethodAccessFlags.cs" />
         <Compile Include="Class\Metadata\MethodInfo.cs" />
         <Compile Include="Class\PrimitiveType.cs" />
+        <Compile Include="Class\TypeSystem\ClassDefinition.cs" />
+        <Compile Include="Class\TypeSystem\ClassReference.cs" />
+        <Compile Include="Class\TypeSystem\FieldDefinition.cs" />
         <Compile Include="IBigEndianReader.cs" />
         <Compile Include="FileSegment.cs" />
         <Compile Include="IBigEndianWriter.cs" />
+        <Compile Include="LazyValue.cs" />
         <Compile Include="MemoryBigEndianReader.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="WritingContext.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Class\TypeSystem\Collections" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

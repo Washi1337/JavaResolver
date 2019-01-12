@@ -54,6 +54,8 @@
     <ItemGroup>
         <Compile Include="Class\Descriptors\FieldDescriptorTest.cs" />
         <Compile Include="Class\Descriptors\MethodDescriptorTest.cs" />
+        <Compile Include="Class\TypeSystem\ClassDefinitionTest.cs" />
+        <Compile Include="Class\TypeSystem\FieldDefinitionTest.cs" />
         <Compile Include="Properties\Resources.Designer.cs" />
         <Compile Include="ReaderWriterTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +73,7 @@
     <ItemGroup>
       <Content Include="Resources\Conditionals.class" />
       <Content Include="Resources\HelloWorld.class" />
+      <Content Include="Resources\SimpleModel.class" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

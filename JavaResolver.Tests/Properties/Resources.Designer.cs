@@ -63,9 +63,29 @@ namespace JavaResolver.Tests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] Conditionals {
+            get {
+                object obj = ResourceManager.GetObject("Conditionals", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] HelloWorld {
             get {
                 object obj = ResourceManager.GetObject("HelloWorld", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] SimpleModel {
+            get {
+                object obj = ResourceManager.GetObject("SimpleModel", resourceCulture);
                 return ((byte[])(obj));
             }
         }
