@@ -83,10 +83,12 @@ namespace JavaResolver.Class.Code
                     return _reader.ReadInt16();
                     
                 case ByteCodeOperandType.TableSwitch:
-                    throw new NotImplementedException();
+                    _reader.Position = FileSegment.Align((uint) _reader.Position, 4);
+                    return TableSwitch.FromReader(_reader);
                 
                 case ByteCodeOperandType.LookupSwitch:
-                    throw new NotImplementedException();
+                    _reader.Position = FileSegment.Align((uint) _reader.Position, 4);
+                    return LookupSwitch.FromReader(_reader);
                 
                 case ByteCodeOperandType.WideIndexCountZero:
                 case ByteCodeOperandType.WideConstantIndexByte:

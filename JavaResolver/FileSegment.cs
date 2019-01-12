@@ -19,5 +19,17 @@ namespace JavaResolver
         /// </summary>
         /// <param name="context">The writing context to use</param>
         public abstract void Write(WritingContext context);
+        
+        /// <summary>
+        /// Aligns a specific offset to a specific boundary.
+        /// </summary>
+        /// <param name="value">The value to align.</param>
+        /// <param name="align">The block length of the alignment to use.</param>
+        /// <returns>An aligned offset.</returns>
+        public static uint Align(uint value, uint align)
+        {
+            align--;
+            return (value + align) & ~align;
+        }
     }
 }

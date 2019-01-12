@@ -48,8 +48,10 @@
         <Compile Include="Class\Code\CodeAttribute.cs" />
         <Compile Include="Class\Code\DefaultOperandResolver.cs" />
         <Compile Include="Class\Code\IOperandResolver.cs" />
+        <Compile Include="Class\Code\LookupSwitch.cs" />
         <Compile Include="Class\Code\RawExceptionHandler.cs" />
         <Compile Include="Class\ClassAccessFlags.cs" />
+        <Compile Include="Class\Code\TableSwitch.cs" />
         <Compile Include="Class\Constants\ClassInfo.cs" />
         <Compile Include="Class\Constants\ConstantInfo.cs" />
         <Compile Include="Class\Constants\ConstantPool.cs" />
