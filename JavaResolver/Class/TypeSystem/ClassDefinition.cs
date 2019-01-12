@@ -25,9 +25,10 @@ namespace JavaResolver.Class.TypeSystem
             AccessFlags = classFile.AccessFlags;
 
             foreach (var field in classFile.Fields)
-            {
                 Fields.Add(new FieldDefinition(classFile, field));
-            }
+
+            foreach (var method in classFile.Methods)
+                Methods.Add(new MethodDefinition(classFile, method));
         }
 
         public ClassReference SuperClass
@@ -46,6 +47,10 @@ namespace JavaResolver.Class.TypeSystem
         {
             get;
         } = new List<FieldDefinition>();
-        
+
+        public IList<MethodDefinition> Methods
+        {
+            get;
+        } = new List<MethodDefinition>();
     }
 }

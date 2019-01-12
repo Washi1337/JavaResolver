@@ -90,6 +90,7 @@
         <Compile Include="Class\TypeSystem\ClassDefinition.cs" />
         <Compile Include="Class\TypeSystem\ClassReference.cs" />
         <Compile Include="Class\TypeSystem\FieldDefinition.cs" />
+        <Compile Include="Class\TypeSystem\MethodDefinition.cs" />
         <Compile Include="IBigEndianReader.cs" />
         <Compile Include="FileSegment.cs" />
         <Compile Include="IBigEndianWriter.cs" />

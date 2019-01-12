@@ -44,6 +44,14 @@ namespace JavaResolver.Class.Constants
                 : null;
         }
 
+        public string ResolveString(int index)
+        {
+            var constantInfo = ResolveConstant(index);
+            return constantInfo is Utf8Info utf8Info
+                ? utf8Info.Value
+                : null;
+        }
+
         public override void Write(WritingContext context)
         {
             var writer = context.Writer;

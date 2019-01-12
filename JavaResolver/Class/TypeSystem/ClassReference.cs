@@ -14,10 +14,7 @@ namespace JavaResolver.Class.TypeSystem
         internal ClassReference(JavaClassFile classFile, ClassInfo classInfo)
         {
             _name = new LazyValue<string>(() =>
-            {
-                var constantInfo = classFile.ConstantPool.ResolveConstant(classInfo.NameIndex);
-                return constantInfo is Utf8Info utf8Info ? utf8Info.Value : $"<<<INVALID({classInfo.NameIndex})>>>";
-            });
+                classFile.ConstantPool.ResolveString(classInfo.NameIndex) ?? $"<<<INVALID({classInfo.NameIndex})>>>");
         }
         
         public string Name

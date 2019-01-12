@@ -1,4 +1,3 @@
-using JavaResolver.Class.Constants;
 using JavaResolver.Class.Descriptors;
 using JavaResolver.Class.Metadata;
 
@@ -18,17 +17,14 @@ namespace JavaResolver.Class.TypeSystem
         internal FieldDefinition(JavaClassFile classFile, FieldInfo fieldInfo)
         {
             _name = new LazyValue<string>(() =>
-            {
-                var constantInfo = classFile.ConstantPool.ResolveConstant(fieldInfo.NameIndex);
-                return constantInfo is Utf8Info utf8Info ? utf8Info.Value : $"<<<INVALID({fieldInfo.NameIndex})>>>";
-            });
+                classFile.ConstantPool.ResolveString(fieldInfo.NameIndex) ?? $"<<<INVALID({fieldInfo.NameIndex})>>>");
 
             AccessFlags = fieldInfo.AccessFlags;
             
             _descriptor = new LazyValue<FieldDescriptor>(() =>
             {
-                var constantInfo = classFile.ConstantPool.ResolveConstant(fieldInfo.DescriptorIndex);
-                return constantInfo is Utf8Info utf8Info ? FieldDescriptor.FromString(utf8Info.Value) : null;
+                string rawDescriptor = classFile.ConstantPool.ResolveString(fieldInfo.DescriptorIndex);
+                return rawDescriptor != null ? FieldDescriptor.FromString(rawDescriptor) : null;
             });
         }
         

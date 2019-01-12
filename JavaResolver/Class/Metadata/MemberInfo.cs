@@ -32,7 +32,7 @@ namespace JavaResolver.Class.Metadata
         {
             get;
         } = new List<AttributeInfo>();
-        
+
         /// <summary>
         /// Reads the remaining common fields that all member structures share. This includes the name, the descriptor
         /// and the attributes.
