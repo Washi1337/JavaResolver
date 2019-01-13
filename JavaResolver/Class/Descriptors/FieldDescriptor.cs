@@ -36,7 +36,7 @@ namespace JavaResolver.Class.Descriptors
 
         public override string ToString()
         {
-            return $"{nameof(FieldType)}: {FieldType}";
+            return FieldType.ToString();
         }
     }
 }

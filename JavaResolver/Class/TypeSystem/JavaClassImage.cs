@@ -9,6 +9,7 @@ namespace JavaResolver.Class.TypeSystem
         private readonly IDictionary<int, ClassReference> _classReferences = new Dictionary<int, ClassReference>();
         private readonly IDictionary<int, FieldReference> _fieldReferences = new Dictionary<int, FieldReference>();
         private readonly IDictionary<int, FieldDescriptor> _fieldDescriptors = new Dictionary<int, FieldDescriptor>();
+        private readonly IDictionary<int, MethodReference> _methodReferences = new Dictionary<int, MethodReference>();
         private readonly IDictionary<int, MethodDescriptor> _methodDescriptors = new Dictionary<int, MethodDescriptor>();
         
         public JavaClassImage(JavaClassFile classFile)
@@ -70,6 +71,21 @@ namespace JavaResolver.Class.TypeSystem
             }
 
             return descriptor;
+        }
+        
+        public MethodReference ResolveMethod(int index)
+        {
+            if (!_methodReferences.TryGetValue(index, out var reference))
+            {
+                var constantInfo = ClassFile.ConstantPool.ResolveConstant(index);
+                if (constantInfo is MethodRefInfo methodRefInfo)
+                {
+                    reference = new MethodReference(this, methodRefInfo); 
+                    _methodReferences.Add(index, reference);
+                }
+            }
+
+            return reference;
         }
         
         public MethodDescriptor ResolveMethodDescriptor(int index)

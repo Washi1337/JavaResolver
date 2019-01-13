@@ -23,7 +23,7 @@ namespace JavaResolver.Class.Code
 
         public object ResolveMethod(int methodIndex)
         {
-            return null;
+            return _classImage.ResolveMethod(methodIndex);
         }
 
         public object ResolveConstant(int constantIndex)

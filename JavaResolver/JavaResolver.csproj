@@ -103,6 +103,7 @@
         <Compile Include="Class\TypeSystem\IMemberReference.cs" />
         <Compile Include="Class\TypeSystem\JavaClassImage.cs" />
         <Compile Include="Class\TypeSystem\MethodDefinition.cs" />
+        <Compile Include="Class\TypeSystem\MethodReference.cs" />
         <Compile Include="IBigEndianReader.cs" />
         <Compile Include="FileSegment.cs" />
         <Compile Include="IBigEndianWriter.cs" />
