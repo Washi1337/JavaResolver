@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using JavaResolver.Class.Descriptors;
 using JavaResolver.Class.Metadata;
 
@@ -6,7 +7,7 @@ namespace JavaResolver.Class.TypeSystem
     /// <summary>
     /// Provides a high-level representation of a field defined in a Java class.
     /// </summary>
-    public class FieldDefinition
+    public class FieldDefinition : IExtraAttributeProvider
     {
         private readonly LazyValue<string> _name;
         private readonly LazyValue<FieldDescriptor> _descriptor;
@@ -27,6 +28,9 @@ namespace JavaResolver.Class.TypeSystem
 
             _descriptor = new LazyValue<FieldDescriptor>(() =>
                 classImage.ResolveFieldDescriptor(fieldInfo.DescriptorIndex));
+
+            foreach (var attr in fieldInfo.Attributes)
+                ExtraAttributes.Add(classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex), attr.Clone());
         }
 
         /// <summary>
@@ -36,8 +40,8 @@ namespace JavaResolver.Class.TypeSystem
         {
             get => _name.Value;
             set => _name.Value = value;
-        }
-        
+        }  
+
         /// <summary>
         /// Gets or sets the accessibility flags associated to the field.
         /// </summary>
@@ -55,6 +59,10 @@ namespace JavaResolver.Class.TypeSystem
             get => _descriptor.Value;
             set => _descriptor.Value = value;
         }
-        
+
+        public IDictionary<string, AttributeInfo> ExtraAttributes
+        {
+            get;
+        } = new Dictionary<string, AttributeInfo>();
     }
 }

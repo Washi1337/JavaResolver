@@ -33,6 +33,11 @@ namespace JavaResolver.Class.Descriptors
         }
 
         FieldType IMemberDescriptor.MemberType => FieldType;
+        
+        public string Serialize()
+        {
+            return FieldType.Serialize();
+        }
 
         public override string ToString()
         {

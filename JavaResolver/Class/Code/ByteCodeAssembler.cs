@@ -1,5 +1,6 @@
 using System;
 using JavaResolver.Class.Constants;
+using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Code
 {
@@ -56,13 +57,19 @@ namespace JavaResolver.Class.Code
                     _writer.Write(Convert.ToInt16(instruction.Operand));
                     break;
                 case ByteCodeOperandType.FieldIndex:
+                    _writer.Write((ushort) OperandBuilder.GetFieldIndex((FieldReference) instruction.Operand));
+                    break;
                 case ByteCodeOperandType.MethodIndex:
+                    _writer.Write((ushort) OperandBuilder.GetMethodIndex((MethodReference) instruction.Operand));
+                    break;
                 case ByteCodeOperandType.ClassIndex:
+                    _writer.Write((ushort) OperandBuilder.GetClassIndex((ClassReference) instruction.Operand));
+                    break;
                 case ByteCodeOperandType.ConstantIndex:
-                    _writer.Write((ushort) GetIndex(instruction.Operand));
+                    _writer.Write((byte) OperandBuilder.GetLiteralIndex(instruction.Operand));
                     break;
                 case ByteCodeOperandType.WideConstantIndex:
-                    _writer.Write(GetIndex(instruction.Operand));
+                    _writer.Write((ushort) OperandBuilder.GetLiteralIndex(instruction.Operand));
                     break;
                 case ByteCodeOperandType.BranchOffset:
                 {
@@ -101,22 +108,6 @@ namespace JavaResolver.Class.Code
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        private int GetIndex(object operand)
-        {
-            if (OperandBuilder != null)
-            {
-                switch (operand)
-                {
-                    case string text:
-                        return OperandBuilder.GetStringIndex(text);
-                    case ConstantInfo constantInfo:
-                        return OperandBuilder.GetConstantIndex(constantInfo);
-                } 
-            }
-
-            return Convert.ToInt32(operand);
         }
     }
 }

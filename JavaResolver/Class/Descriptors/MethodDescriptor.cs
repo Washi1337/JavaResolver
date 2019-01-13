@@ -43,6 +43,11 @@ namespace JavaResolver.Class.Descriptors
         }
 
         FieldType IMemberDescriptor.MemberType => ReturnType;
+        
+        public string Serialize()
+        {
+            return "(" + string.Join("", ParameterTypes.Select(x => x.Serialize())) + ")" + ReturnType.Serialize();
+        }
 
         public override string ToString()
         {

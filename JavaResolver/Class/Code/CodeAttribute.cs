@@ -8,7 +8,7 @@ namespace JavaResolver.Class.Code
     /// This attribute contains the body of a method, including the raw instructions, as well as extra metadata
     /// such as exception handlers, and information about local variables.
     /// </summary>
-    public class CodeAttribute : FileSegment
+    public class CodeAttribute : FileSegment, IAttributeProvider
     {
         /// <summary>
         /// Reads a single code attribute at the current position of the provided reader.

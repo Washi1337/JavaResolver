@@ -6,5 +6,7 @@ namespace JavaResolver.Class.Descriptors
         {
             get;
         }
+
+        string Serialize();
     }
 }

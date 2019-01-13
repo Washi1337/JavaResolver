@@ -8,7 +8,7 @@ namespace JavaResolver.Class.TypeSystem
     /// <summary>
     /// Provides a high-level representation o fa single method that is defined in a Java class.
     /// </summary>
-    public class MethodDefinition
+    public class MethodDefinition : IExtraAttributeProvider
     {
         private readonly LazyValue<string> _name;
         private readonly LazyValue<MethodDescriptor> _descriptor;
@@ -44,7 +44,7 @@ namespace JavaResolver.Class.TypeSystem
                         break;
                     
                     default:
-                        ExtraAttributes.Add(name, attribute);
+                        ExtraAttributes.Add(name, attribute.Clone());
                         break;
                 }
             }

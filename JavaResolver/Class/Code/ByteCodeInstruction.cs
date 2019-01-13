@@ -70,12 +70,12 @@ namespace JavaResolver.Class.Code
                 case ByteCodeOperandType.TableSwitch:
                 {
                     int padding = (int) (FileSegment.Align((uint) Offset, 4) - Offset);
-                    return padding + (3 + ((IList) Operand).Count) * 4;
+                    return padding + (3 + ((TableSwitch) Operand).Offsets.Count) * 4;
                 }
                 case ByteCodeOperandType.LookupSwitch:
                 {
                     int padding = (int) (FileSegment.Align((uint) Offset, 4) - Offset);
-                    return padding + (2 + ((IList) Operand).Count * 2) * 4;
+                    return padding + (2 + ((LookupSwitch) Operand).Table.Count * 2) * 4;
                 }
                 default:
                     throw new ArgumentOutOfRangeException();

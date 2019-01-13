@@ -4,6 +4,7 @@ using System.Linq;
 using JavaResolver.Class;
 using JavaResolver.Class.Code;
 using JavaResolver.Class.Constants;
+using JavaResolver.Class.Emit;
 using JavaResolver.Class.Metadata;
 using JavaResolver.Class.TypeSystem;
 
@@ -30,48 +31,47 @@ namespace JavaResolver.Sample
             var reader = new MemoryBigEndianReader(File.ReadAllBytes(path));
             var classFile = JavaClassFile.FromReader(reader);
             var image = new JavaClassImage(classFile);
+
+            Disassemble(image, "main");
+            Console.WriteLine();
             
-            // Obtain main method's code.
-            foreach (var method in classFile.Methods)
-            {
-                Console.WriteLine(classFile.ConstantPool.ResolveConstant(method.NameIndex));
-                Console.WriteLine(classFile.ConstantPool.ResolveConstant(method.DescriptorIndex));
+            var builder = new JavaClassFileBuilder();
+            var newClassFile = builder.CreateClassFile(image);
 
-                // Parse code attribute.
-                var codeInfo = method.Attributes.First(x =>
-                    ((Utf8Info) classFile.ConstantPool.Constants[x.NameIndex - 1]).Value == "Code");
-                reader = new MemoryBigEndianReader(codeInfo.Contents);
-                var code = CodeAttribute.FromReader(reader);
-            
-                // Set up new disassembler.
-                reader = new MemoryBigEndianReader(code.Code);
-                var disassembler = new ByteCodeDisassembler(reader);
-                disassembler.OperandResolver = new DefaultOperandResolver(image);
-                
-                // Disassemble!
-                var instructions = disassembler.ReadInstructions();
-                foreach (var instruction in instructions)
-                    Console.WriteLine(instruction);
-
-//                // Reassemble!
-//                using (var stream = new MemoryStream())
-//                {
-//                    var codeWriter = new BigEndianStreamWriter(stream);
-//                    var assembler = new ByteCodeAssembler(codeWriter);
-//                    foreach (var instruction in instructions)
-//                        assembler.Write(instruction);
-//
-//                    code.Code = stream.ToArray();
-//                }
-                
-                Console.WriteLine();
-            }
-
-            using (var fs = File.Create(Path.ChangeExtension(path, "patched.class")))
+            string newPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), Path.GetFileName(path));
+            using (var fs = File.Create(newPath))
             {
                 var writer = new BigEndianStreamWriter(fs);
-                classFile.Write(new WritingContext(writer));
+                newClassFile.Write(new WritingContext(writer));
             }
+
+            Disassemble(newClassFile, "main");
+            Console.WriteLine();
+            
+            reader = new MemoryBigEndianReader(File.ReadAllBytes(newPath));
+            newClassFile = JavaClassFile.FromReader(reader);
+            var newImage = new JavaClassImage(newClassFile);
+            
+            Disassemble(newClassFile, "main");
+            Console.WriteLine();
+        }
+
+        private static void Disassemble(JavaClassImage image, string methodName)
+        {
+            var method = image.RootClass.Methods.First(x => x.Name == methodName);
+            foreach (var instr in method.Body.Instructions)
+                Console.WriteLine(instr);
+        }
+
+        private static void Disassemble(JavaClassFile file, string methodName)
+        {
+            var method = file.Methods.First(x => file.ConstantPool.ResolveString(x.NameIndex) == methodName);
+            var attr = method.Attributes.First(x => file.ConstantPool.ResolveString(x.NameIndex) == "Code");
+            var codeAttr = CodeAttribute.FromReader(new MemoryBigEndianReader(attr.Contents));
+            var disassembler = new ByteCodeDisassembler(new MemoryBigEndianReader(codeAttr.Code));
+
+            foreach (var instr in disassembler.ReadInstructions())
+                Console.WriteLine(instr);
         }
     }
 }

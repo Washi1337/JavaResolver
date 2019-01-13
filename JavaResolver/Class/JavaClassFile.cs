@@ -8,7 +8,7 @@ namespace JavaResolver.Class
     /// <summary>
     /// Represents a file containing a class targeting the Java runtime. 
     /// </summary>
-    public class JavaClassFile : FileSegment
+    public class JavaClassFile : FileSegment, IAttributeProvider
     {
         /// <summary>
         /// The signature every class file starts with.
@@ -82,7 +82,7 @@ namespace JavaResolver.Class
         public ConstantPool ConstantPool
         {
             get;
-            private set;
+            internal set;
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ namespace JavaResolver.Class.Metadata
     /// <summary>
     /// Provides a base for all raw metadata structures describing a member stored in a Java class file.
     /// </summary>
-    public abstract class MemberInfo : FileSegment
+    public abstract class MemberInfo : FileSegment, IAttributeProvider
     {
         /// <summary>
         /// Gets or sets an index into the constant pool that references the name of the member.

@@ -44,6 +44,10 @@ namespace JavaResolver.Class.Metadata
             writer.Write(Contents);
         }
 
+        public AttributeInfo Clone()
+        {
+            return new AttributeInfo {Contents = Contents, NameIndex = NameIndex};
+        }
         public override string ToString()
         {
             return $"Attribute (Name: {NameIndex})";

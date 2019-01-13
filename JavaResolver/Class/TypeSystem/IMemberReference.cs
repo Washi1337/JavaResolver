@@ -5,12 +5,12 @@ namespace JavaResolver.Class.TypeSystem
     /// <summary>
     /// Provides members for describing a reference to a member.
     /// </summary>
-    public interface IMemberReference
+    public interface IMemberReference : INameProvider
     {
         /// <summary>
         /// Gets or sets the name of the member.
         /// </summary>
-        string Name
+        new string Name
         {
             get;
             set;
@@ -20,14 +20,6 @@ namespace JavaResolver.Class.TypeSystem
         /// Gets the enclosing class that defines the member.
         /// </summary>
         ClassReference DeclaringClass
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets the fully qualified name of the member.
-        /// </summary>
-        string FullName
         {
             get;
         }

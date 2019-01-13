@@ -20,6 +20,15 @@ namespace JavaResolver.Class.Constants
             return info;
         }
 
+        public MethodRefInfo()
+        {
+        }
+
+        public MethodRefInfo(ushort classIndex, ushort nameAndTypeIndex) 
+            : base(classIndex, nameAndTypeIndex)
+        {
+        }
+
         /// <inheritdoc />
         public override ConstantPoolTag Tag => ConstantPoolTag.MethodRef;
     }

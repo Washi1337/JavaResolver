@@ -10,7 +10,7 @@ namespace JavaResolver.Class.Code
     /// <summary>
     /// Represents a mutable method body of a method definition stored in a Java class file.
     /// </summary>
-    public class MethodBody 
+    public class MethodBody : IExtraAttributeProvider
     {
         public MethodBody()
         {
@@ -19,6 +19,7 @@ namespace JavaResolver.Class.Code
         internal MethodBody(JavaClassImage classImage, CodeAttribute attribute)
         {
             var disassembler = new ByteCodeDisassembler(new MemoryBigEndianReader(attribute.Code));
+            disassembler.OperandResolver = new DefaultOperandResolver(classImage);
             foreach (var instruction in disassembler.ReadInstructions())
                 Instructions.Add(instruction);
 
@@ -26,7 +27,7 @@ namespace JavaResolver.Class.Code
                 ExceptionHandlers.Add(new ExceptionHandler(classImage, this, handler));
 
             foreach (var attr in attribute.Attributes)
-                ExtraAttributes.Add(attr);
+                ExtraAttributes.Add(classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex), attr.Clone());
         }
         
         /// <summary>
@@ -45,10 +46,10 @@ namespace JavaResolver.Class.Code
             get;
         } = new List<ExceptionHandler>();
 
-        public IList<AttributeInfo> ExtraAttributes
+        public IDictionary<string, AttributeInfo> ExtraAttributes
         {
             get;
-        } = new List<AttributeInfo>();
+        } = new Dictionary<string, AttributeInfo>();
         
         public CodeAttribute Serialize(BuildingContext context)
         {
@@ -59,8 +60,7 @@ namespace JavaResolver.Class.Code
             foreach (var info in GenerateExceptionHandlerInfos(context))
                 result.ExceptionHandlers.Add(info);
 
-            foreach (var attr in ExtraAttributes)
-                result.Attributes.Add(attr);
+            context.Builder.AddAttributes(context, result, this);
             
             return result;
         }

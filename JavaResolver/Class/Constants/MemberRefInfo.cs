@@ -14,6 +14,16 @@ namespace JavaResolver.Class.Constants
             ClassIndex = reader.ReadUInt16();
             NameAndTypeIndex = reader.ReadUInt16();
         }
+
+        protected MemberRefInfo()
+        {
+        }
+
+        protected MemberRefInfo(ushort classIndex, ushort nameAndTypeIndex)
+        {
+            ClassIndex = classIndex;
+            NameAndTypeIndex = nameAndTypeIndex;
+        }
         
         /// <summary>
         /// Gets or sets an index into the constant pool that references the class constant that declares the member.

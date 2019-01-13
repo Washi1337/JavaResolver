@@ -84,6 +84,7 @@
         <Compile Include="Class\Descriptors\IMemberDescriptor.cs" />
         <Compile Include="Class\Descriptors\MethodDescriptor.cs" />
         <Compile Include="Class\Descriptors\ObjectType.cs" />
+        <Compile Include="Class\Emit\AttributeBuilder.cs" />
         <Compile Include="Class\Emit\BuildingContext.cs" />
         <Compile Include="Class\Emit\ConstantInfoComparer.cs" />
         <Compile Include="Class\Emit\ConstantPoolBuffer.cs" />
@@ -92,6 +93,7 @@
         <Compile Include="Class\Metadata\AttributeInfo.cs" />
         <Compile Include="Class\Metadata\FieldAccessFlags.cs" />
         <Compile Include="Class\Metadata\FieldInfo.cs" />
+        <Compile Include="Class\Metadata\IAttributeProvider.cs" />
         <Compile Include="Class\Metadata\MemberInfo.cs" />
         <Compile Include="Class\Metadata\MethodAccessFlags.cs" />
         <Compile Include="Class\Metadata\MethodInfo.cs" />
@@ -100,7 +102,9 @@
         <Compile Include="Class\TypeSystem\ClassReference.cs" />
         <Compile Include="Class\TypeSystem\FieldDefinition.cs" />
         <Compile Include="Class\TypeSystem\FieldReference.cs" />
+        <Compile Include="Class\TypeSystem\IExtraAttributeProvider.cs" />
         <Compile Include="Class\TypeSystem\IMemberReference.cs" />
+        <Compile Include="Class\TypeSystem\INameProvider.cs" />
         <Compile Include="Class\TypeSystem\JavaClassImage.cs" />
         <Compile Include="Class\TypeSystem\MethodDefinition.cs" />
         <Compile Include="Class\TypeSystem\MethodReference.cs" />

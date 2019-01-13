@@ -1,5 +1,5 @@
-using JavaResolver.Class.Constants;
 using JavaResolver.Class.Emit;
+using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Code
 {
@@ -11,10 +11,25 @@ namespace JavaResolver.Class.Code
         {
             _buffer = buffer;
         }
-
-        public int GetConstantIndex(ConstantInfo constantInfo)
+        
+        public int GetFieldIndex(FieldReference reference)
         {
-            return 0;
+            return _buffer.GetMemberIndex(reference);
+        }
+
+        public int GetMethodIndex(MethodReference reference)
+        {
+            return _buffer.GetMemberIndex(reference);
+        }
+
+        public int GetClassIndex(ClassReference reference)
+        {
+            return _buffer.GetClassIndex(reference);
+        }
+
+        public int GetLiteralIndex(object constant)
+        {
+            return _buffer.GetLiteralIndex(constant);
         }
 
         public int GetStringIndex(string text)
