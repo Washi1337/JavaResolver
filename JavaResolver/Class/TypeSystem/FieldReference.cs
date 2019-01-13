@@ -3,6 +3,9 @@ using JavaResolver.Class.Descriptors;
 
 namespace JavaResolver.Class.TypeSystem
 {
+    /// <summary>
+    /// Provides a high-level representation of a reference to a (external) field.  
+    /// </summary>
     public class FieldReference : IMemberReference
     {
         private readonly LazyValue<string> _name;
@@ -39,18 +42,23 @@ namespace JavaResolver.Class.TypeSystem
                 classImage.ResolveClass(fieldRefInfo.ClassIndex));
         }
         
+        /// <inheritdoc />
         public string Name
         {
             get => _name.Value;
             set => _name.Value = value;
         }
 
+        /// <inheritdoc />
         public ClassReference DeclaringClass
         {
             get => _declaringClass.Value;
             set => _declaringClass.Value = value;
         }
 
+        /// <summary>
+        /// Gets or sets the field descriptor (which contains the field type) of the referenced field.
+        /// </summary>
         public FieldDescriptor Descriptor
         {
             get => _descriptor.Value;
@@ -59,7 +67,8 @@ namespace JavaResolver.Class.TypeSystem
 
         IMemberDescriptor IMemberReference.Descriptor => Descriptor;
 
-        public string FullName => DeclaringClass.Name + "::" + Name;
+        /// <inheritdoc />
+        public string FullName => $"{Descriptor.FieldType} {DeclaringClass.Name}::{Name}";
 
         public override string ToString()
         {

@@ -4,6 +4,10 @@ using JavaResolver.Class.Descriptors;
 
 namespace JavaResolver.Class.TypeSystem
 {
+    /// <summary>
+    /// Provides a high-level representation of a Java class file, exposing a hierarchical view on the metadata that
+    /// resembles the structure of reflection based APIs.
+    /// </summary>
     public class JavaClassImage
     {
         private readonly IDictionary<int, ClassReference> _classReferences = new Dictionary<int, ClassReference>();
@@ -18,11 +22,17 @@ namespace JavaResolver.Class.TypeSystem
             RootClass = new ClassDefinition(this);
         }
 
+        /// <summary>
+        /// Gets the class file the image was based on.
+        /// </summary>
         public JavaClassFile ClassFile
         {
             get;
         }
 
+        /// <summary>
+        /// Gets the first and top-most class definition that is defined in the java class file.  
+        /// </summary>
         public ClassDefinition RootClass
         {
             get;

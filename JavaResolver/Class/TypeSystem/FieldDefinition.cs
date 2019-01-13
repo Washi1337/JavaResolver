@@ -3,6 +3,9 @@ using JavaResolver.Class.Metadata;
 
 namespace JavaResolver.Class.TypeSystem
 {
+    /// <summary>
+    /// Provides a high-level representation of a field defined in a Java class.
+    /// </summary>
     public class FieldDefinition
     {
         private readonly LazyValue<string> _name;
@@ -26,18 +29,27 @@ namespace JavaResolver.Class.TypeSystem
                 classImage.ResolveFieldDescriptor(fieldInfo.DescriptorIndex));
         }
 
+        /// <summary>
+        /// Gets or sets the name of the field.
+        /// </summary>
         public string Name
         {
             get => _name.Value;
             set => _name.Value = value;
         }
         
+        /// <summary>
+        /// Gets or sets the accessibility flags associated to the field.
+        /// </summary>
         public FieldAccessFlags AccessFlags
         {
             get;
             set;
         }
         
+        /// <summary>
+        /// Gets or sets the field descriptor (which includes the field type) of the field.
+        /// </summary>
         public FieldDescriptor Descriptor
         {
             get => _descriptor.Value;

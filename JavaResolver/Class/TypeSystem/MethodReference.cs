@@ -3,6 +3,9 @@ using JavaResolver.Class.Descriptors;
 
 namespace JavaResolver.Class.TypeSystem
 {
+    /// <summary>
+    /// Provides a high-level representation of a reference to a (external) method.
+    /// </summary>
     public class MethodReference : IMemberReference
     {
         private readonly LazyValue<string> _name;
@@ -39,24 +42,31 @@ namespace JavaResolver.Class.TypeSystem
                 classImage.ResolveClass(methodRefInfo.ClassIndex));
         }
 
+        /// <inheritdoc />
         public string Name
         {
             get => _name.Value;
             set => _name.Value = value;
         }
 
+        /// <inheritdoc />
         public ClassReference DeclaringClass
         {
             get => _declaringClass.Value;
             set => _declaringClass.Value = value;
         }
 
+        /// <summary>
+        /// Gets or sets the method descriptor, which includes the return type as well as its parameter types of the
+        /// referenced method.
+        /// </summary>
         public MethodDescriptor Descriptor
         {
             get => _descriptor.Value;
             set => _descriptor.Value = value;
         }
 
+        /// <inheritdoc />
         public string FullName =>
             $"{Descriptor.ReturnType} {DeclaringClass}::{Name}({string.Join(", ", Descriptor.ParameterTypes)})";
 

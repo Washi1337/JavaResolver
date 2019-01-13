@@ -3,6 +3,9 @@ using JavaResolver.Class.Constants;
 
 namespace JavaResolver.Class.TypeSystem
 {
+    /// <summary>
+    /// Provides a high-level representation of a single class defined in a Java class file.
+    /// </summary>
     public class ClassDefinition : ClassReference
     {
         private readonly LazyValue<ClassReference> _superClass;
@@ -31,23 +34,35 @@ namespace JavaResolver.Class.TypeSystem
                 Methods.Add(new MethodDefinition(classImage, method));
         }
 
+        /// <summary>
+        /// Gest or sets the super class associated to this class.
+        /// </summary>
         public ClassReference SuperClass
         {
             get => _superClass.Value;
             set => _superClass.Value = value;
         }
 
+        /// <summary>
+        /// Gets or sets the accessibility flags associated to this class.
+        /// </summary>
         public ClassAccessFlags AccessFlags
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets a collection of fields that this class defines.
+        /// </summary>
         public IList<FieldDefinition> Fields
         {
             get;
         } = new List<FieldDefinition>();
 
+        /// <summary>
+        /// Gets a collection of methods that this class defines.
+        /// </summary>
         public IList<MethodDefinition> Methods
         {
             get;
