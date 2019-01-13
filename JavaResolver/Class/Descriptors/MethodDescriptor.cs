@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace JavaResolver.Class.Descriptors
 {
-    public class MethodDescriptor
+    public class MethodDescriptor : IMemberDescriptor
     {
         /// <summary>
         /// Deserializes a method descriptor from its raw representation.
@@ -41,6 +41,8 @@ namespace JavaResolver.Class.Descriptors
         {
             get;
         }
+
+        FieldType IMemberDescriptor.MemberType => ReturnType;
 
         public override string ToString()
         {

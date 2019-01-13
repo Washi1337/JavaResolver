@@ -6,13 +6,13 @@ namespace JavaResolver.Tests.Class.TypeSystem
 {
     public class ClassDefinitionTest
     {
-        private readonly JavaClassFile _classFile;
         private readonly ClassDefinition _classDef;
 
         public ClassDefinitionTest()
         {
-            _classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.SimpleModel));
-            _classDef = new ClassDefinition(_classFile);
+            var classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.SimpleModel));
+            var image = new JavaClassImage(classFile);
+            _classDef = image.RootClass;
         }
         
         [Fact]

@@ -81,6 +81,7 @@
         <Compile Include="Class\Descriptors\FieldDescriptor.cs" />
         <Compile Include="Class\Descriptors\BaseType.cs" />
         <Compile Include="Class\Descriptors\FieldType.cs" />
+        <Compile Include="Class\Descriptors\IMemberDescriptor.cs" />
         <Compile Include="Class\Descriptors\MethodDescriptor.cs" />
         <Compile Include="Class\Descriptors\ObjectType.cs" />
         <Compile Include="Class\Emit\BuildingContext.cs" />
@@ -98,6 +99,9 @@
         <Compile Include="Class\TypeSystem\ClassDefinition.cs" />
         <Compile Include="Class\TypeSystem\ClassReference.cs" />
         <Compile Include="Class\TypeSystem\FieldDefinition.cs" />
+        <Compile Include="Class\TypeSystem\FieldReference.cs" />
+        <Compile Include="Class\TypeSystem\IMemberReference.cs" />
+        <Compile Include="Class\TypeSystem\JavaClassImage.cs" />
         <Compile Include="Class\TypeSystem\MethodDefinition.cs" />
         <Compile Include="IBigEndianReader.cs" />
         <Compile Include="FileSegment.cs" />

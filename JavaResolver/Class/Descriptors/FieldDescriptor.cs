@@ -5,7 +5,7 @@ namespace JavaResolver.Class.Descriptors
     /// <summary>
     /// Represents a descriptor for a field that specifies the field type.
     /// </summary>
-    public class FieldDescriptor
+    public class FieldDescriptor : IMemberDescriptor
     {
         /// <summary>
         /// Deserializes a field descriptor from its raw representation.
@@ -31,6 +31,8 @@ namespace JavaResolver.Class.Descriptors
             get;
             set;
         }
+
+        FieldType IMemberDescriptor.MemberType => FieldType;
 
         public override string ToString()
         {

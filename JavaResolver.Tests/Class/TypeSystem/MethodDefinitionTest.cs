@@ -15,7 +15,8 @@ namespace JavaResolver.Tests.Class.TypeSystem
         public MethodDefinitionTest()
         {
             var classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.SimpleModel));
-            var classDef = new ClassDefinition(classFile);
+            var image = new JavaClassImage(classFile);
+            var classDef = image.RootClass;
             _constructor = classDef.Methods.FirstOrDefault(x => x.Name == "<init>");
         }
 

@@ -17,7 +17,8 @@ namespace JavaResolver.Tests.Class.TypeSystem
         public FieldDefinitionTest()
         {
             var classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.SimpleModel));
-            var classDef = new ClassDefinition(classFile);
+            var image = new JavaClassImage(classFile);
+            var classDef = image.RootClass;
             _myIntField = classDef.Fields.FirstOrDefault(x => x.Name == "myIntField");
             _myStringField = classDef.Fields.FirstOrDefault(x => x.Name == "myStringField");
             _myModelField = classDef.Fields.FirstOrDefault(x => x.Name == "myModelField");

@@ -5,6 +5,7 @@ using JavaResolver.Class;
 using JavaResolver.Class.Code;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Metadata;
+using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Sample
 {
@@ -28,6 +29,7 @@ namespace JavaResolver.Sample
             // Read class file.
             var reader = new MemoryBigEndianReader(File.ReadAllBytes(path));
             var classFile = JavaClassFile.FromReader(reader);
+            var image = new JavaClassImage(classFile);
             
             // Obtain main method's code.
             foreach (var method in classFile.Methods)
@@ -44,7 +46,8 @@ namespace JavaResolver.Sample
                 // Set up new disassembler.
                 reader = new MemoryBigEndianReader(code.Code);
                 var disassembler = new ByteCodeDisassembler(reader);
-            
+                disassembler.OperandResolver = new DefaultOperandResolver(image);
+                
                 // Disassemble!
                 var instructions = disassembler.ReadInstructions();
                 foreach (var instruction in instructions)

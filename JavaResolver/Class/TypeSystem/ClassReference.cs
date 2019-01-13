@@ -11,10 +11,10 @@ namespace JavaResolver.Class.TypeSystem
             _name = new LazyValue<string>(name);
         }
 
-        internal ClassReference(JavaClassFile classFile, ClassInfo classInfo)
+        internal ClassReference(JavaClassImage classImage, ClassInfo classInfo)
         {
             _name = new LazyValue<string>(() =>
-                classFile.ConstantPool.ResolveString(classInfo.NameIndex) ?? $"<<<INVALID({classInfo.NameIndex})>>>");
+                classImage.ClassFile.ConstantPool.ResolveString(classInfo.NameIndex) ?? $"<<<INVALID({classInfo.NameIndex})>>>");
         }
         
         public string Name

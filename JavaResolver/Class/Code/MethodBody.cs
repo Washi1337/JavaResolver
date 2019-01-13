@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.Remoting.Messaging;
 using JavaResolver.Class.Emit;
 using JavaResolver.Class.Metadata;
+using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Code
 {
@@ -15,14 +16,14 @@ namespace JavaResolver.Class.Code
         {
         }
 
-        internal MethodBody(JavaClassFile classFile, CodeAttribute attribute)
+        internal MethodBody(JavaClassImage classImage, CodeAttribute attribute)
         {
             var disassembler = new ByteCodeDisassembler(new MemoryBigEndianReader(attribute.Code));
             foreach (var instruction in disassembler.ReadInstructions())
                 Instructions.Add(instruction);
 
             foreach (var handler in attribute.ExceptionHandlers)
-                ExceptionHandlers.Add(new ExceptionHandler(classFile, this, handler));
+                ExceptionHandlers.Add(new ExceptionHandler(classImage, this, handler));
 
             foreach (var attr in attribute.Attributes)
                 ExtraAttributes.Add(attr);

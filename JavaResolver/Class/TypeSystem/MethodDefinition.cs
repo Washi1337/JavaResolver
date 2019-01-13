@@ -17,29 +17,26 @@ namespace JavaResolver.Class.TypeSystem
             _descriptor = new LazyValue<MethodDescriptor>(descriptor);
         }
 
-        internal MethodDefinition(JavaClassFile classFile, MethodInfo methodInfo)
+        internal MethodDefinition(JavaClassImage classImage, MethodInfo methodInfo)
         {
             _name = new LazyValue<string>(() =>
-                classFile.ConstantPool.ResolveString(methodInfo.NameIndex) ?? $"<<<INVALID({methodInfo.NameIndex})>>>");
+                classImage.ClassFile.ConstantPool.ResolveString(methodInfo.NameIndex) ?? $"<<<INVALID({methodInfo.NameIndex})>>>");
             
             AccessFlags = methodInfo.AccessFlags;
             
             _descriptor = new LazyValue<MethodDescriptor>(() =>
-            {
-                string rawDescriptor = classFile.ConstantPool.ResolveString(methodInfo.DescriptorIndex);
-                return rawDescriptor != null ? MethodDescriptor.FromString(rawDescriptor) : null;
-            });
+                classImage.ResolveMethodDescriptor(methodInfo.DescriptorIndex));
 
             foreach (var attribute in methodInfo.Attributes)
             {
-                string name = classFile.ConstantPool.ResolveString(attribute.NameIndex);
+                string name = classImage.ClassFile.ConstantPool.ResolveString(attribute.NameIndex);
                 switch (name)
                 {
                     case "Code":
                         _body = new LazyValue<MethodBody>(() =>
                         {
                             var reader = new MemoryBigEndianReader(attribute.Contents);
-                            return new MethodBody(classFile, CodeAttribute.FromReader(reader));
+                            return new MethodBody(classImage, CodeAttribute.FromReader(reader));
                         });
                         break;
                     

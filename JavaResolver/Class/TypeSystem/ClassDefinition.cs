@@ -13,22 +13,22 @@ namespace JavaResolver.Class.TypeSystem
             _superClass = new LazyValue<ClassReference>();
         }
 
-        public ClassDefinition(JavaClassFile classFile)
-            : base(classFile, (ClassInfo) classFile.ConstantPool.ResolveConstant(classFile.ThisClass))
+        internal ClassDefinition(JavaClassImage classImage)
+            : base(classImage, (ClassInfo) classImage.ClassFile.ConstantPool.ResolveConstant(classImage.ClassFile.ThisClass))
         {
             _superClass = new LazyValue<ClassReference>(() =>
-                classFile.SuperClass != 0
-                    ? new ClassReference(classFile,
-                        (ClassInfo) classFile.ConstantPool.ResolveConstant(classFile.SuperClass))
+                classImage.ClassFile.SuperClass != 0
+                    ? new ClassReference(classImage,
+                        (ClassInfo) classImage.ClassFile.ConstantPool.ResolveConstant(classImage.ClassFile.SuperClass))
                     : null);
 
-            AccessFlags = classFile.AccessFlags;
+            AccessFlags = classImage.ClassFile.AccessFlags;
 
-            foreach (var field in classFile.Fields)
-                Fields.Add(new FieldDefinition(classFile, field));
+            foreach (var field in classImage.ClassFile.Fields)
+                Fields.Add(new FieldDefinition(classImage, field));
 
-            foreach (var method in classFile.Methods)
-                Methods.Add(new MethodDefinition(classFile, method));
+            foreach (var method in classImage.ClassFile.Methods)
+                Methods.Add(new MethodDefinition(classImage, method));
         }
 
         public ClassReference SuperClass

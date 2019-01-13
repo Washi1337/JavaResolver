@@ -14,26 +14,24 @@ namespace JavaResolver.Class.TypeSystem
             _descriptor = new LazyValue<FieldDescriptor>(descriptor);
         }
 
-        internal FieldDefinition(JavaClassFile classFile, FieldInfo fieldInfo)
+        internal FieldDefinition(JavaClassImage classImage, FieldInfo fieldInfo)
         {
             _name = new LazyValue<string>(() =>
-                classFile.ConstantPool.ResolveString(fieldInfo.NameIndex) ?? $"<<<INVALID({fieldInfo.NameIndex})>>>");
+                classImage.ClassFile.ConstantPool.ResolveString(fieldInfo.NameIndex)
+                ?? $"<<<INVALID({fieldInfo.NameIndex})>>>");
 
             AccessFlags = fieldInfo.AccessFlags;
-            
+
             _descriptor = new LazyValue<FieldDescriptor>(() =>
-            {
-                string rawDescriptor = classFile.ConstantPool.ResolveString(fieldInfo.DescriptorIndex);
-                return rawDescriptor != null ? FieldDescriptor.FromString(rawDescriptor) : null;
-            });
+                classImage.ResolveFieldDescriptor(fieldInfo.DescriptorIndex));
         }
-        
+
         public string Name
         {
             get => _name.Value;
             set => _name.Value = value;
         }
-
+        
         public FieldAccessFlags AccessFlags
         {
             get;

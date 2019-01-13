@@ -12,15 +12,12 @@ namespace JavaResolver.Class.Code
         {
         }
         
-        internal ExceptionHandler(JavaClassFile classFile, MethodBody methodBody, ExceptionHandlerInfo info)
+        internal ExceptionHandler(JavaClassImage classImage, MethodBody methodBody, ExceptionHandlerInfo info)
         {
             Start = methodBody.Instructions.GetByOffset(info.StartOffset);
             End = methodBody.Instructions.GetByOffset(info.EndOffset);
             HandlerStart = methodBody.Instructions.GetByOffset(info.HandlerOffset);
-
-            var constantInfo = classFile.ConstantPool.ResolveConstant(info.CatchType);
-            if (constantInfo is ClassInfo classInfo)
-                CatchType = new ClassReference(classFile, classInfo);
+            CatchType = classImage.ResolveClass(info.CatchType);
         }
         
         /// <summary>

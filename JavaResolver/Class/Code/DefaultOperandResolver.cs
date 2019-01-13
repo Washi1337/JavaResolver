@@ -1,5 +1,6 @@
 using System;
 using JavaResolver.Class.Constants;
+using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Code
 {
@@ -8,30 +9,30 @@ namespace JavaResolver.Class.Code
     /// </summary>
     public class DefaultOperandResolver : IOperandResolver
     {
-        private readonly JavaClassFile _classFile;
+        private readonly JavaClassImage _classImage;
 
-        public DefaultOperandResolver(JavaClassFile classFile)
+        public DefaultOperandResolver(JavaClassImage classImage)
         {
-            _classFile = classFile ?? throw new ArgumentNullException(nameof(classFile));
+            _classImage = classImage ?? throw new ArgumentNullException(nameof(classImage));
         }
 
         public object ResolveField(int fieldIndex)
         {
-            return _classFile.ConstantPool.ResolveConstant(fieldIndex ) as FieldRefInfo;
+            return _classImage.ResolveField(fieldIndex);
         }
 
         public object ResolveMethod(int methodIndex)
         {
-            return _classFile.ConstantPool.ResolveConstant(methodIndex) as MethodRefInfo;
+            return null;
         }
 
         public object ResolveConstant(int constantIndex)
         {
-            var constant = _classFile.ConstantPool.ResolveConstant(constantIndex);
+            var constant = _classImage.ClassFile.ConstantPool.ResolveConstant(constantIndex);
             switch (constant)
             {
                 case StringInfo stringInfo:
-                    var raw = _classFile.ConstantPool.ResolveConstant(stringInfo.StringIndex) as Utf8Info;
+                    var raw = _classImage.ClassFile.ConstantPool.ResolveConstant(stringInfo.StringIndex) as Utf8Info;
                     return raw?.Value;
                 case PrimitiveInfo primitiveInfo:
                     return primitiveInfo.Value;
@@ -42,7 +43,7 @@ namespace JavaResolver.Class.Code
 
         public object ResolveClass(int classIndex)
         {
-            return _classFile.ConstantPool.ResolveConstant(classIndex) as ClassInfo;
+            return _classImage.ResolveClass(classIndex);
         }
     }
 }
