@@ -34,16 +34,13 @@ namespace JavaResolver.Class.Code
         /// <returns>The list of disassembled instructions.</returns>
         public IList<ByteCodeInstruction> ReadInstructions()
         {
-            var result = new List<ByteCodeInstruction>();
+            var result = new ByteCodeInstructionCollection();
 
             while (_reader.Position < _reader.StartPosition + _reader.Length)
                 result.Add(ReadNextInstruction());
 
-            if (OperandResolver != null)
-            {
-                foreach (var instruction in result)
-                    instruction.Operand = ResolveOperand(instruction);
-            }
+            foreach (var instruction in result)
+                instruction.Operand = ResolveOperand(result, instruction);
             
             return result;
         }
@@ -100,7 +97,7 @@ namespace JavaResolver.Class.Code
             }
         }
 
-        private object ResolveOperand(ByteCodeInstruction instruction)
+        private object ResolveOperand(ByteCodeInstructionCollection allInstructions, ByteCodeInstruction instruction)
         {    
             switch (instruction.OpCode.OperandType)
             {
@@ -109,16 +106,21 @@ namespace JavaResolver.Class.Code
                 
                 case ByteCodeOperandType.ConstantIndex:
                 case ByteCodeOperandType.WideConstantIndex:
-                    return OperandResolver.ResolveConstant(Convert.ToInt32(instruction.Operand));
+                    return OperandResolver?.ResolveConstant(Convert.ToInt32(instruction.Operand)) ?? instruction.Operand;
                 
                 case ByteCodeOperandType.FieldIndex:
-                    return OperandResolver.ResolveField(Convert.ToInt32(instruction.Operand));
+                    return OperandResolver?.ResolveField(Convert.ToInt32(instruction.Operand)) ?? instruction.Operand;
                 
                 case ByteCodeOperandType.MethodIndex:
-                    return OperandResolver.ResolveMethod(Convert.ToInt32(instruction.Operand));
+                    return OperandResolver?.ResolveMethod(Convert.ToInt32(instruction.Operand)) ?? instruction.Operand;
                 
                 case ByteCodeOperandType.ClassIndex:
-                    return OperandResolver.ResolveClass(Convert.ToInt32(instruction.Operand));
+                    return OperandResolver?.ResolveClass(Convert.ToInt32(instruction.Operand)) ?? instruction.Operand;
+                
+                case ByteCodeOperandType.BranchOffset:
+                case ByteCodeOperandType.WideBranchOffset:
+                    int offset = Convert.ToInt32(instruction.Operand);
+                    return allInstructions.GetByOffset(instruction.Offset + offset) ?? instruction.Operand;
             }
 
             return instruction.Operand;

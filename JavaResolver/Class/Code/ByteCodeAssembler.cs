@@ -28,7 +28,11 @@ namespace JavaResolver.Class.Code
         /// <summary>
         /// Writes a single instruction to the output stream.
         /// </summary>
-        /// <param name="instruction">The instructoin to write.</param>
+        /// <param name="instruction">The instruction to write.</param>
+        /// <remarks>
+        /// Some instructions have different byte layouts depending on the offsets they are located at.
+        /// Make sure the offsets have been calculated before passing on the instructions to the assembler. 
+        /// </remarks>
         public void Write(ByteCodeInstruction instruction)
         {
             _writer.Write((byte) instruction.OpCode.Code);
@@ -61,11 +65,27 @@ namespace JavaResolver.Class.Code
                     _writer.Write(GetIndex(instruction.Operand));
                     break;
                 case ByteCodeOperandType.BranchOffset:
-                    _writer.Write(Convert.ToInt16(instruction.Operand));
+                {
+                    short relativeOffset;
+                    if (instruction.Operand is ByteCodeInstruction target)
+                        relativeOffset = (short) (target.Offset - instruction.Offset);
+                    else
+                        relativeOffset = Convert.ToInt16(instruction.Operand);
+
+                    _writer.Write(relativeOffset);
                     break;
+                }
                 case ByteCodeOperandType.WideBranchOffset:
-                    _writer.Write(Convert.ToInt32(instruction.Operand));
+                {
+                    int relativeOffset;
+                    if (instruction.Operand is ByteCodeInstruction target)
+                        relativeOffset = (target.Offset - instruction.Offset);
+                    else
+                        relativeOffset = Convert.ToInt32(instruction.Operand);
+
+                    _writer.Write(relativeOffset);
                     break;
+                }
                 case ByteCodeOperandType.TableSwitch:
                     _writer.Position = FileSegment.Align((uint) _writer.Position, 4);
                     ((TableSwitch) instruction.Operand).Write(_writer);

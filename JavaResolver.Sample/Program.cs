@@ -50,16 +50,16 @@ namespace JavaResolver.Sample
                 foreach (var instruction in instructions)
                     Console.WriteLine(instruction);
 
-                // Reassemble!
-                using (var stream = new MemoryStream())
-                {
-                    var codeWriter = new BigEndianStreamWriter(stream);
-                    var assembler = new ByteCodeAssembler(codeWriter);
-                    foreach (var instruction in instructions)
-                        assembler.Write(instruction);
-
-                    code.Code = stream.ToArray();
-                }
+//                // Reassemble!
+//                using (var stream = new MemoryStream())
+//                {
+//                    var codeWriter = new BigEndianStreamWriter(stream);
+//                    var assembler = new ByteCodeAssembler(codeWriter);
+//                    foreach (var instruction in instructions)
+//                        assembler.Write(instruction);
+//
+//                    code.Code = stream.ToArray();
+//                }
                 
                 Console.WriteLine();
             }

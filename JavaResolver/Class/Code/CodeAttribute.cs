@@ -26,7 +26,7 @@ namespace JavaResolver.Class.Code
 
             ushort handlerCount = reader.ReadUInt16();
             for (int i = 0; i < handlerCount; i++)
-                contents.ExceptionHandlers.Add(RawExceptionHandler.FromReader(reader));
+                contents.ExceptionHandlers.Add(ExceptionHandlerInfo.FromReader(reader));
 
             ushort attributeCount = reader.ReadUInt16();
             for (int i = 0; i < attributeCount; i++)
@@ -65,10 +65,10 @@ namespace JavaResolver.Class.Code
         /// <summary>
         /// Gets a collection of exception handlers used in this method.
         /// </summary>
-        public IList<RawExceptionHandler> ExceptionHandlers
+        public IList<ExceptionHandlerInfo> ExceptionHandlers
         {
             get;
-        } = new List<RawExceptionHandler>();
+        } = new List<ExceptionHandlerInfo>();
 
         /// <summary>
         /// Gets a collection of additional attributes associated to this method.

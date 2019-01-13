@@ -4,11 +4,11 @@ namespace JavaResolver.Class.Code
     /// Represents a single raw exception handler structure providing information about a range of protected code
     /// in a method body.
     /// </summary>
-    public class RawExceptionHandler : FileSegment
+    public class ExceptionHandlerInfo : FileSegment
     {
-        public static RawExceptionHandler FromReader(IBigEndianReader reader)
+        public static ExceptionHandlerInfo FromReader(IBigEndianReader reader)
         {
-            return new RawExceptionHandler
+            return new ExceptionHandlerInfo
             {
                 StartOffset = reader.ReadUInt16(),
                 EndOffset = reader.ReadUInt16(),

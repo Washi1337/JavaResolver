@@ -45,5 +45,6 @@ namespace JavaResolver.Class.TypeSystem
             get => _descriptor.Value;
             set => _descriptor.Value = value;
         }
+        
     }
 }
