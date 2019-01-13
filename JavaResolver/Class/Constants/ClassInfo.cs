@@ -22,9 +22,18 @@ namespace JavaResolver.Class.Constants
             };
         }
 
+        public ClassInfo()
+        {
+        }
+
+        public ClassInfo(ushort nameIndex)
+        {
+            NameIndex = nameIndex;
+        }
+
         /// <inheritdoc />
         public override ConstantPoolTag Tag => ConstantPoolTag.Class;
-        
+
         /// <summary>
         /// Gets or sets the index into the constant pool that references the name of the class.
         /// </summary>

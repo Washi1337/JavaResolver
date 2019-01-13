@@ -48,6 +48,7 @@
         <Compile Include="Class\Code\ByteOpCode.cs" />
         <Compile Include="Class\Code\ByteOpCodes.cs" />
         <Compile Include="Class\Code\CodeAttribute.cs" />
+        <Compile Include="Class\Code\DefaultOperandBuilder.cs" />
         <Compile Include="Class\Code\DefaultOperandResolver.cs" />
         <Compile Include="Class\Code\ExceptionHandler.cs" />
         <Compile Include="Class\Code\IOperandBuilder.cs" />
@@ -82,6 +83,10 @@
         <Compile Include="Class\Descriptors\FieldType.cs" />
         <Compile Include="Class\Descriptors\MethodDescriptor.cs" />
         <Compile Include="Class\Descriptors\ObjectType.cs" />
+        <Compile Include="Class\Emit\BuildingContext.cs" />
+        <Compile Include="Class\Emit\ConstantInfoComparer.cs" />
+        <Compile Include="Class\Emit\ConstantPoolBuffer.cs" />
+        <Compile Include="Class\Emit\JavaClassFileBuilder.cs" />
         <Compile Include="Class\JavaClassFile.cs" />
         <Compile Include="Class\Metadata\AttributeInfo.cs" />
         <Compile Include="Class\Metadata\FieldAccessFlags.cs" />

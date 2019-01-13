@@ -22,6 +22,15 @@ namespace JavaResolver.Class.Constants
             };
         }
 
+        public Utf8Info()
+        {
+        }
+
+        public Utf8Info(string value)
+        {
+            Value = value;
+        }
+
         /// <inheritdoc />
         public override ConstantPoolTag Tag => ConstantPoolTag.Utf8;
 

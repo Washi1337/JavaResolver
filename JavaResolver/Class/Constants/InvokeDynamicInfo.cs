@@ -16,7 +16,7 @@ namespace JavaResolver.Class.Constants
             {
                 StartOffset = reader.Position - 1,
                 BootstrapMethodAttrIndex = reader.ReadUInt16(),
-                NameAndTypeIndex = reader.ReadInt16(),
+                NameAndTypeIndex = reader.ReadUInt16(),
             };
         }
 
@@ -35,7 +35,7 @@ namespace JavaResolver.Class.Constants
         /// <summary>
         /// Gets or sets the index into the constant pool that references the name and type constant associated to the dynamic invoke.
         /// </summary>
-        public short NameAndTypeIndex
+        public ushort NameAndTypeIndex
         {
             get;
             set;
