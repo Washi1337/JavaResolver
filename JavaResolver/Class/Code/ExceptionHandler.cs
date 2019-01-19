@@ -13,11 +13,11 @@ namespace JavaResolver.Class.Code
         {
         }
         
-        internal ExceptionHandler(JavaClassImage classImage, MethodBody methodBody, ExceptionHandlerInfo info)
+        internal ExceptionHandler(JavaClassImage classImage, ByteCodeMethodBody byteCodeMethodBody, ExceptionHandlerInfo info)
         {
-            Start = methodBody.Instructions.GetByOffset(info.StartOffset);
-            End = methodBody.Instructions.GetByOffset(info.EndOffset);
-            HandlerStart = methodBody.Instructions.GetByOffset(info.HandlerOffset);
+            Start = byteCodeMethodBody.Instructions.GetByOffset(info.StartOffset);
+            End = byteCodeMethodBody.Instructions.GetByOffset(info.EndOffset);
+            HandlerStart = byteCodeMethodBody.Instructions.GetByOffset(info.HandlerOffset);
             CatchType = classImage.ResolveClass(info.CatchType);
         }
         

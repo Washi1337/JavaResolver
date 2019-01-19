@@ -56,8 +56,9 @@
         <Compile Include="Class\Code\IOperandResolver.cs" />
         <Compile Include="Class\Code\LocalVariable.cs" />
         <Compile Include="Class\Code\LookupSwitch.cs" />
-        <Compile Include="Class\Code\MethodBody.cs" />
+        <Compile Include="Class\Code\ByteCodeMethodBody.cs" />
         <Compile Include="Class\ClassAccessFlags.cs" />
+        <Compile Include="Class\Code\StackInbalanceException.cs" />
         <Compile Include="Class\Code\TableSwitch.cs" />
         <Compile Include="Class\Constants\ClassInfo.cs" />
         <Compile Include="Class\Constants\ConstantInfo.cs" />

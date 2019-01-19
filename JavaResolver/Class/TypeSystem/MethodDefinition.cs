@@ -13,7 +13,7 @@ namespace JavaResolver.Class.TypeSystem
     {
         private readonly LazyValue<string> _name;
         private readonly LazyValue<MethodDescriptor> _descriptor;
-        private readonly LazyValue<MethodBody> _body = new LazyValue<MethodBody>();
+        private readonly LazyValue<ByteCodeMethodBody> _body = new LazyValue<ByteCodeMethodBody>();
 
         public MethodDefinition(string name, MethodDescriptor descriptor)
         {
@@ -37,10 +37,10 @@ namespace JavaResolver.Class.TypeSystem
                 switch (name)
                 {
                     case CodeAttribute.AttributeName:
-                        _body = new LazyValue<MethodBody>(() =>
+                        _body = new LazyValue<ByteCodeMethodBody>(() =>
                         {
                             var reader = new MemoryBigEndianReader(attribute.Contents);
-                            return new MethodBody(classImage, CodeAttribute.FromReader(reader));
+                            return new ByteCodeMethodBody(classImage, CodeAttribute.FromReader(reader));
                         });
                         break;
                     
@@ -81,7 +81,7 @@ namespace JavaResolver.Class.TypeSystem
         /// <summary>
         /// Gets or sets the body of the method, which includes the code as well as local variables and exception handlers. 
         /// </summary>
-        public MethodBody Body
+        public ByteCodeMethodBody Body
         {
             get => _body.Value;
             set => _body.Value = value;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Code
 {
@@ -84,6 +85,71 @@ namespace JavaResolver.Class.Code
         public override string ToString()
         {
             return $"{Offset}: {OpCode} {Operand}";
+        }
+
+        public int GetStackPopCount()
+        {
+            switch (OpCode.StackBehaviourPop)
+            {
+                case ByteCodeStackBehaviour.None:
+                    return 0;
+                case ByteCodeStackBehaviour.PopRef:
+                case ByteCodeStackBehaviour.PopValue1:
+                    return 1;
+                case ByteCodeStackBehaviour.PopRefPopValue:
+                case ByteCodeStackBehaviour.PopValue2:
+                    return 2;
+                case ByteCodeStackBehaviour.PopRefPopValuePopValue:
+                case ByteCodeStackBehaviour.PopValue3:
+                    return 3;
+                case ByteCodeStackBehaviour.PopValue4:
+                    return 4;
+                case ByteCodeStackBehaviour.VarPop:
+                    var reference = (MethodReference) Operand;
+                    int values = reference.Descriptor.ParameterTypes.Count;
+                    switch (OpCode.Code)
+                    {
+                        case ByteCode.InvokeVirtual:
+                        case ByteCode.InvokeInterface:
+                        case ByteCode.InvokeSpecial:
+                            values++;
+                            break;
+                    }
+
+                    return values;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public int GetStackPushCount()
+        {
+            switch (OpCode.StackBehaviourPush)
+            {
+                case ByteCodeStackBehaviour.None:
+                    return 0;
+                case ByteCodeStackBehaviour.PushValue1:
+                case ByteCodeStackBehaviour.PushRef:
+                case ByteCodeStackBehaviour.PushEmpty:
+                case ByteCodeStackBehaviour.PushAddress:
+                    return 1;
+                case ByteCodeStackBehaviour.PushValue2:
+                case ByteCodeStackBehaviour.PushEmptyPushRef:
+                    return 2;
+                case ByteCodeStackBehaviour.PushValue3:
+                    return 3;
+                case ByteCodeStackBehaviour.PushValue4:
+                    return 4;
+                case ByteCodeStackBehaviour.PushValue5:
+                    return 5;
+                case ByteCodeStackBehaviour.PushValue6:
+                    return 6;
+                case ByteCodeStackBehaviour.VarPush:
+                    var reference = (MethodReference) Operand;
+                    return reference.Descriptor.ReturnType.Prefix == 'V' ? 0 : 1;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace JavaResolver.Class.Code
             _descriptor = new LazyValue<FieldDescriptor>(descriptor);
         }
 
-        internal LocalVariable(JavaClassImage classImage, MethodBody body, LocalVariableInfo variableInfo)
+        internal LocalVariable(JavaClassImage classImage, ByteCodeMethodBody body, LocalVariableInfo variableInfo)
         {
             _name = new LazyValue<string>(() => 
                 classImage.ClassFile.ConstantPool.ResolveString(variableInfo.NameIndex));
