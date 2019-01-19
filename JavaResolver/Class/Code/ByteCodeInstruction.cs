@@ -9,6 +9,27 @@ namespace JavaResolver.Class.Code
     /// </summary>
     public class ByteCodeInstruction
     {
+        public ByteCodeInstruction()
+        {
+        }
+
+        public ByteCodeInstruction(ByteOpCode opCode)
+            : this(0, opCode, null)
+        {
+        }
+
+        public ByteCodeInstruction(ByteOpCode opCode, object operand)
+            : this(0, opCode, operand)
+        {
+        }
+
+        public ByteCodeInstruction(int offset, ByteOpCode opCode, object operand)
+        {
+            Offset = offset;
+            OpCode = opCode;
+            Operand = operand;
+        }
+        
         /// <summary>
         /// Gets or sets the offset of the instruction relative to the start of the method body.
         /// </summary>

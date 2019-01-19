@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Descriptors;
@@ -15,11 +16,30 @@ namespace JavaResolver.Class.TypeSystem
         private readonly IDictionary<int, FieldDescriptor> _fieldDescriptors = new Dictionary<int, FieldDescriptor>();
         private readonly IDictionary<int, MethodReference> _methodReferences = new Dictionary<int, MethodReference>();
         private readonly IDictionary<int, MethodDescriptor> _methodDescriptors = new Dictionary<int, MethodDescriptor>();
+
+        public JavaClassImage(ClassDefinition rootClass)
+        {
+            RootClass = rootClass ?? throw new ArgumentNullException(nameof(rootClass));
+        }
         
         public JavaClassImage(JavaClassFile classFile)
         {
             ClassFile = classFile;
             RootClass = new ClassDefinition(this);
+            MajorVersion = classFile.MajorVersion;
+            MinorVersion = classFile.MinorVersion;
+        }
+
+        public ushort MajorVersion
+        {
+            get;
+            set;
+        } = 0x34;
+
+        public ushort MinorVersion
+        {
+            get;
+            set;
         }
         
         /// <summary>

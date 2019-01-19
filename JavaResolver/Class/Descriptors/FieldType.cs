@@ -18,5 +18,10 @@ namespace JavaResolver.Class.Descriptors
         /// </summary>
         /// <returns>The serialized version of the field type.</returns>
         public abstract string Serialize();
+
+        public ArrayType CreateArrayType()
+        {
+            return new ArrayType(this);
+        }
     }
 }

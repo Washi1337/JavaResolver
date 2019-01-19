@@ -7,6 +7,9 @@ namespace JavaResolver.Class.Descriptors
     /// </summary>
     public class ObjectType : FieldType
     {
+        public static readonly ObjectType Object = new ObjectType("java/lang/Object");
+        public static readonly ObjectType String = new ObjectType("java/lang/String");
+        
         public ObjectType(string className)
         {
             ClassName = className ?? throw new ArgumentNullException(nameof(className));

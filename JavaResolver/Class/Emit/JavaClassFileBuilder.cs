@@ -18,8 +18,8 @@ namespace JavaResolver.Class.Emit
             // Basic structure.
             var file = new JavaClassFile
             {
-                MajorVersion = image.ClassFile.MajorVersion,
-                MinorVersion = image.ClassFile.MinorVersion,
+                MajorVersion = image.MajorVersion,
+                MinorVersion = image.MinorVersion,
             };
 
             var thisReference = new ClassReference(image.RootClass.Name);

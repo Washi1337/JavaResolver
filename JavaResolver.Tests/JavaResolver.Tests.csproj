@@ -56,11 +56,13 @@
         <Compile Include="Class\Descriptors\MethodDescriptorTest.cs" />
         <Compile Include="Class\TypeSystem\ClassDefinitionTest.cs" />
         <Compile Include="Class\TypeSystem\FieldDefinitionTest.cs" />
+        <Compile Include="Class\TypeSystem\JavaClassBuilderTest.cs" />
         <Compile Include="Class\TypeSystem\MethodDefinitionTest.cs" />
         <Compile Include="Properties\Resources.Designer.cs" />
         <Compile Include="ReaderWriterTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="ClassReadWriteTest.cs" />
+        <Compile Include="TemporaryDirectoryFixture.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\JavaResolver\JavaResolver.csproj">
