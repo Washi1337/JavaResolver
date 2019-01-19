@@ -63,7 +63,7 @@ namespace JavaResolver.Sample
         {
             var method = image.RootClass.Methods.First(x => x.Name == methodName);
             foreach (var instr in method.Body.Instructions)
-                Console.WriteLine(instr);
+                PrintInstruction(instr);
         }
 
         private static void Disassemble(JavaClassFile file, string methodName)
@@ -75,7 +75,14 @@ namespace JavaResolver.Sample
             var disassembler = new ByteCodeDisassembler(new MemoryBigEndianReader(codeAttr.Code));
 
             foreach (var instr in disassembler.ReadInstructions())
-                Console.WriteLine(instr);
+                PrintInstruction(instr);
+        }
+
+        private static void PrintInstruction(ByteCodeInstruction instruction)
+        {
+            Console.Write(instruction);
+            Console.WriteLine(" (" + instruction.OpCode.StackBehaviourPop + ", " + instruction.OpCode.StackBehaviourPush
+                              + ", " + instruction.OpCode.FlowControl + ")");
         }
     }
 }

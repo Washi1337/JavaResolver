@@ -42,9 +42,11 @@
         <Compile Include="Class\Code\ByteCode.cs" />
         <Compile Include="Class\Code\ByteCodeAssembler.cs" />
         <Compile Include="Class\Code\ByteCodeDisassembler.cs" />
+        <Compile Include="Class\Code\ByteCodeFlowControl.cs" />
         <Compile Include="Class\Code\ByteCodeInstruction.cs" />
         <Compile Include="Class\Code\ByteCodeInstructionCollection.cs" />
         <Compile Include="Class\Code\ByteCodeOperandType.cs" />
+        <Compile Include="Class\Code\ByteCodeStackBehaviour.cs" />
         <Compile Include="Class\Code\ByteOpCode.cs" />
         <Compile Include="Class\Code\ByteOpCodes.cs" />
         <Compile Include="Class\Code\DefaultOperandBuilder.cs" />

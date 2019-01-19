@@ -10,13 +10,16 @@ namespace JavaResolver.Class.Code
     /// </remarks>
     public struct ByteOpCode
     {
-        internal ByteOpCode(ByteCode code, ByteCodeOperandType operandType)
+        internal ByteOpCode(ByteCode code, int attributes)
         {
             Code = code;
-            OperandType = operandType;
+            OperandType = (ByteCodeOperandType) (attributes & 0xFF);
+            StackBehaviourPush = (ByteCodeStackBehaviour) ((attributes >> 8) & 0xFF);
+            StackBehaviourPop = (ByteCodeStackBehaviour) ((attributes >> 16) & 0xFF);
+            FlowControl = (ByteCodeFlowControl) ((attributes >> 24) & 0xFF);
             ByteOpCodes.All[(int) code] = this;
         }
-            
+
         /// <summary>
         /// Gets the raw opcode value. 
         /// </summary>
@@ -34,6 +37,24 @@ namespace JavaResolver.Class.Code
         public ByteCodeOperandType OperandType
         {
             get;
+        }
+
+        public ByteCodeStackBehaviour StackBehaviourPush
+        {
+            get;
+            set;
+        }
+
+        public ByteCodeStackBehaviour StackBehaviourPop
+        {
+            get;
+            set;
+        }
+
+        public ByteCodeFlowControl FlowControl
+        {
+            get;
+            set;
         }
 
         public override string ToString()
