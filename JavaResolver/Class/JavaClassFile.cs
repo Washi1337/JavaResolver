@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Metadata;
 
@@ -14,6 +15,12 @@ namespace JavaResolver.Class
         /// The signature every class file starts with.
         /// </summary>
         public const uint Magic = 0xCAFEBABE;
+
+        public static JavaClassFile FromFile(string path)
+        {
+            var reader = new MemoryBigEndianReader(File.ReadAllBytes(path));
+            return FromReader(reader);    
+        }
         
         /// <summary>
         /// Parses a class file from a binary reader.
