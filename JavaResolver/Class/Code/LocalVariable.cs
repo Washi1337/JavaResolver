@@ -23,11 +23,18 @@ namespace JavaResolver.Class.Code
             _descriptor = new LazyValue<FieldDescriptor>(() =>
                 classImage.ResolveFieldDescriptor(variableInfo.DescriptorIndex));
 
+            Index = variableInfo.LocalIndex;
             Start = body.Instructions.GetByOffset(variableInfo.StartOffset);
             End = body.Instructions.GetByOffset(variableInfo.StartOffset + variableInfo.Length);
         }
         
         public string Name
+        {
+            get => _name.Value;
+            set => _name.Value = value;
+        }
+
+        public int Index
         {
             get;
             set;
@@ -35,8 +42,8 @@ namespace JavaResolver.Class.Code
 
         public FieldDescriptor Descriptor
         {
-            get;
-            set;
+            get => _descriptor.Value;
+            set => _descriptor.Value = value;
         }
         
         public ByteCodeInstruction Start

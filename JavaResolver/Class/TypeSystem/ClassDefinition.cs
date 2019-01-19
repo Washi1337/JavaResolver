@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Metadata;
+using JavaResolver.Class.Metadata.Attributes;
 
 namespace JavaResolver.Class.TypeSystem
 {
@@ -10,6 +11,7 @@ namespace JavaResolver.Class.TypeSystem
     public class ClassDefinition : ClassReference, IExtraAttributeProvider
     {
         private readonly LazyValue<ClassReference> _superClass;
+        private readonly LazyValue<string> _sourceFile = new LazyValue<string>();
         
         public ClassDefinition(string name)
             : base(name)
@@ -35,11 +37,37 @@ namespace JavaResolver.Class.TypeSystem
                 Methods.Add(new MethodDefinition(classImage, method));
 
             foreach (var attr in classImage.ClassFile.Attributes)
-                ExtraAttributes.Add(classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex), attr.Clone());
+            {
+                string name = classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex);
+                switch (name)
+                {
+                    case SingleIndexAttribute.SourceFileAttribute:
+                        _sourceFile = new LazyValue<string>(() =>
+                        {
+                            var sourceFile = SingleIndexAttribute.FromReader(name, new MemoryBigEndianReader(attr.Contents));
+                            return classImage.ClassFile.ConstantPool.ResolveString(sourceFile.ConstantPoolIndex);
+                        });
+                        break;
+                    
+                    default:
+                        ExtraAttributes.Add(name, attr.Clone());
+                        break;
+                }
+                
+            }
+        }
+        
+        /// <summary>
+        /// Gets or sets the path to the source file the class was originally defined in (if available). 
+        /// </summary>
+        public string SourceFile
+        {
+            get => _sourceFile.Value;
+            set => _sourceFile.Value = value;
         }
 
         /// <summary>
-        /// Gest or sets the super class associated to this class.
+        /// Gets or sets the super class associated to this class.
         /// </summary>
         public ClassReference SuperClass
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JavaResolver.Class;
@@ -31,6 +32,7 @@ namespace JavaResolver.Sample
             // Read class file.
             var reader = new MemoryBigEndianReader(File.ReadAllBytes(path));
             var classFile = JavaClassFile.FromReader(reader);
+            
             var image = new JavaClassImage(classFile);
 
             Disassemble(image, "main");
@@ -51,12 +53,12 @@ namespace JavaResolver.Sample
             
             reader = new MemoryBigEndianReader(File.ReadAllBytes(newPath));
             newClassFile = JavaClassFile.FromReader(reader);
-            var newImage = new JavaClassImage(newClassFile);
             
-            Disassemble(newClassFile, "main");
+            var newImage = new JavaClassImage(newClassFile);
+            Disassemble(newImage, "main");
             Console.WriteLine();
         }
-
+        
         private static void Disassemble(JavaClassImage image, string methodName)
         {
             var method = image.RootClass.Methods.First(x => x.Name == methodName);
@@ -67,6 +69,7 @@ namespace JavaResolver.Sample
         private static void Disassemble(JavaClassFile file, string methodName)
         {
             var method = file.Methods.First(x => file.ConstantPool.ResolveString(x.NameIndex) == methodName);
+            
             var attr = method.Attributes.First(x => file.ConstantPool.ResolveString(x.NameIndex) == "Code");
             var codeAttr = CodeAttribute.FromReader(new MemoryBigEndianReader(attr.Contents));
             var disassembler = new ByteCodeDisassembler(new MemoryBigEndianReader(codeAttr.Code));

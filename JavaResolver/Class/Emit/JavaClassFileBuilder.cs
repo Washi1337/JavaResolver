@@ -38,6 +38,14 @@ namespace JavaResolver.Class.Emit
             foreach (var method in image.RootClass.Methods)
                 file.Methods.Add(CreateMethodInfo(context, method));
             
+            // Source file
+            if (image.RootClass.SourceFile != null)
+            {
+                file.Attributes.Add(CreateAttribute(context, new SingleIndexAttribute(
+                    SingleIndexAttribute.SourceFileAttribute,
+                    (ushort) ConstantPoolBuffer.GetUtf8Index(image.RootClass.SourceFile))));
+            }
+            
             AddAttributes(context, file, image.RootClass);
 
             file.ConstantPool = ConstantPoolBuffer.CreateConstantPool();
@@ -57,8 +65,9 @@ namespace JavaResolver.Class.Emit
             // Constant
             if (definition.Constant != null)
             {
-                info.Attributes.Add(CreateAttribute(context,
-                    new ConstantValueAttribute((ushort) ConstantPoolBuffer.GetLiteralIndex(definition.Constant))));
+                info.Attributes.Add(CreateAttribute(context, new SingleIndexAttribute(
+                    SingleIndexAttribute.ConstantValueAttribute,
+                    (ushort) ConstantPoolBuffer.GetLiteralIndex(definition.Constant))));
             }
 
             AddAttributes(context, info, definition);
@@ -93,12 +102,12 @@ namespace JavaResolver.Class.Emit
             }
         }
 
-        private AttributeInfo CreateAttribute(BuildingContext context, IAttributeContents contents)
+        public AttributeInfo CreateAttribute(BuildingContext context, IAttributeContents contents)
         {
             return CreateAttribute(contents.Name, contents.Serialize(context));
         }
         
-        private AttributeInfo CreateAttribute(string name, byte[] contents)
+        public AttributeInfo CreateAttribute(string name, byte[] contents)
         {
             return new AttributeInfo
             {

@@ -21,7 +21,7 @@ namespace JavaResolver.Class.TypeSystem
             ClassFile = classFile;
             RootClass = new ClassDefinition(this);
         }
-
+        
         /// <summary>
         /// Gets the class file the image was based on.
         /// </summary>

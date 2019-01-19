@@ -42,12 +42,12 @@ namespace JavaResolver.Class.TypeSystem
                 string name = classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex);
                 switch (name)
                 {
-                    case ConstantValueAttribute.AttributeName:
+                    case SingleIndexAttribute.ConstantValueAttribute:
                         // Constant
                         _constant = new LazyValue<object>(() =>
                         {
-                            var contents = ConstantValueAttribute.FromReader(new MemoryBigEndianReader(attr.Contents));
-                            var constantInfo = classImage.ClassFile.ConstantPool.ResolveConstant(contents.ConstantValueIndex);
+                            var contents = SingleIndexAttribute.FromReader(name, new MemoryBigEndianReader(attr.Contents));
+                            var constantInfo = classImage.ClassFile.ConstantPool.ResolveConstant(contents.ConstantPoolIndex);
                             switch (constantInfo)
                             {
                                 case PrimitiveInfo primitiveInfo:

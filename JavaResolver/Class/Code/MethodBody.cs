@@ -75,11 +75,29 @@ namespace JavaResolver.Class.Code
         public CodeAttribute Serialize(BuildingContext context)
         {
             var result = new CodeAttribute();
-
             result.Code = GenerateRawCode(context);
-
+            
             foreach (var info in GenerateExceptionHandlerInfos(context))
                 result.ExceptionHandlers.Add(info);
+
+            result.MaxLocals = (ushort) Variables.Count;
+            if (Variables.Count > 0)
+            {
+                var localsAttribute = new LocalVariableTableAttribute();
+                foreach (var variable in Variables)
+                {
+                    localsAttribute.LocalVariables.Add(new LocalVariableInfo
+                    {
+                        StartOffset = (ushort) variable.Start.Offset,
+                        Length = (ushort) ((variable.End?.Offset ?? result.Code.Length) - variable.Start.Offset),
+                        NameIndex = (ushort) context.Builder.ConstantPoolBuffer.GetUtf8Index(variable.Name),
+                        DescriptorIndex = (ushort) context.Builder.ConstantPoolBuffer.GetDescriptorIndex(variable.Descriptor),
+                        LocalIndex = (ushort) variable.Index,
+                    });
+                }
+
+                result.Attributes.Add(context.Builder.CreateAttribute(context, localsAttribute));
+            }
 
             context.Builder.AddAttributes(context, result, this);
             

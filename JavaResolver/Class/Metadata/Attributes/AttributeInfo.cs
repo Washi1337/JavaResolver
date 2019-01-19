@@ -20,6 +20,16 @@ namespace JavaResolver.Class.Metadata
             };
         }
 
+        public AttributeInfo()
+        {
+        }
+        
+        public AttributeInfo(ushort nameIndex, byte[] contents)
+        {
+            NameIndex = nameIndex;
+            Contents = contents;
+        }
+        
         /// <summary>
         /// Gets or sets an index into the constant pool that references the name of the attribute.
         /// </summary>
