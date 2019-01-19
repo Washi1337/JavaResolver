@@ -4,6 +4,10 @@ using JavaResolver.Class.Emit;
 
 namespace JavaResolver.Class.Metadata.Attributes
 {
+    /// <summary>
+    /// Represents the line numbers attribute that is associated to a <see cref="CodeAttribute"/>.
+    /// This attribute contains a collection of offsets that are mapped to line numbers of the original file. 
+    /// </summary>
     public class LineNumberTableAttribute : IAttributeContents
     {
         public const string AttributeName = "LineNumberTable";
@@ -22,14 +26,19 @@ namespace JavaResolver.Class.Metadata.Attributes
 
             return result;
         }
-        
+
+        /// <inheritdoc />
         public string Name => AttributeName;
 
+        /// <summary>
+        /// Gets a sorted mapping from offsets to line numbers.
+        /// </summary>
         public IDictionary<ushort, ushort> Entries
         {
             get;
         } = new SortedDictionary<ushort, ushort>();
         
+        /// <inheritdoc />
         public byte[] Serialize(BuildingContext context)
         {
             using (var stream = new MemoryStream())
