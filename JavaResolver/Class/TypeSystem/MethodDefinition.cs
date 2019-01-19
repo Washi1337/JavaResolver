@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using JavaResolver.Class.Code;
 using JavaResolver.Class.Descriptors;
 using JavaResolver.Class.Metadata;
+using JavaResolver.Class.Metadata.Attributes;
 
 namespace JavaResolver.Class.TypeSystem
 {
@@ -35,7 +36,7 @@ namespace JavaResolver.Class.TypeSystem
                 string name = classImage.ClassFile.ConstantPool.ResolveString(attribute.NameIndex);
                 switch (name)
                 {
-                    case "Code":
+                    case CodeAttribute.AttributeName:
                         _body = new LazyValue<MethodBody>(() =>
                         {
                             var reader = new MemoryBigEndianReader(attribute.Contents);

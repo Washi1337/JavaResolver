@@ -1,4 +1,5 @@
 using JavaResolver.Class.Constants;
+using JavaResolver.Class.Metadata.Attributes;
 using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Code

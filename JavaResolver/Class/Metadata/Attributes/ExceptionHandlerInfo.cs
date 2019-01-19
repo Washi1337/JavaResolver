@@ -1,10 +1,10 @@
-namespace JavaResolver.Class.Code
+namespace JavaResolver.Class.Metadata.Attributes
 {
     /// <summary>
     /// Represents a single raw exception handler structure providing information about a range of protected code
     /// in a method body.
     /// </summary>
-    public class ExceptionHandlerInfo : FileSegment
+    public class ExceptionHandlerInfo
     {
         public static ExceptionHandlerInfo FromReader(IBigEndianReader reader)
         {
@@ -53,9 +53,8 @@ namespace JavaResolver.Class.Code
             set;
         }
 
-        public override void Write(WritingContext context)
+        public void Write(IBigEndianWriter writer)
         {
-            var writer = context.Writer;
             writer.Write(StartOffset);
             writer.Write(EndOffset);
             writer.Write(HandlerOffset);

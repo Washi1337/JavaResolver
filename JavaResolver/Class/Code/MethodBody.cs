@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.Remoting.Messaging;
 using JavaResolver.Class.Emit;
 using JavaResolver.Class.Metadata;
+using JavaResolver.Class.Metadata.Attributes;
 using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Code
@@ -27,7 +28,22 @@ namespace JavaResolver.Class.Code
                 ExceptionHandlers.Add(new ExceptionHandler(classImage, this, handler));
 
             foreach (var attr in attribute.Attributes)
-                ExtraAttributes.Add(classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex), attr.Clone());
+            {
+                string name = classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex);
+                switch (name)
+                {
+                    case LocalVariableTableAttribute.AttributeName :
+                        var localsTable = LocalVariableTableAttribute.FromReader(new MemoryBigEndianReader(attr.Contents));
+                        foreach (var info in localsTable.LocalVariables)
+                            Variables.Add(new LocalVariable(classImage, this, info));
+                        break;
+                      
+                        
+                    default:
+                        ExtraAttributes.Add(name, attr.Clone());
+                        break;
+                }
+            }
         }
         
         /// <summary>
@@ -46,6 +62,11 @@ namespace JavaResolver.Class.Code
             get;
         } = new List<ExceptionHandler>();
 
+        public IList<LocalVariable> Variables
+        {
+            get;
+        } = new List<LocalVariable>();
+        
         public IDictionary<string, AttributeInfo> ExtraAttributes
         {
             get;

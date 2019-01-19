@@ -1,4 +1,5 @@
 using JavaResolver.Class.Metadata;
+using JavaResolver.Class.Metadata.Attributes;
 using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Emit
@@ -9,17 +10,12 @@ namespace JavaResolver.Class.Emit
         {
             get;
         } = new ConstantPoolBuffer();
-
-        public AttributeBuilder AttributeBuilder
-        {
-            get;
-            set;
-        } = new AttributeBuilder();
         
         public JavaClassFile CreateClassFile(JavaClassImage image)
         {
             var context = new BuildingContext(this);
             
+            // Basic structure.
             var file = new JavaClassFile
             {
                 MajorVersion = image.ClassFile.MajorVersion,
@@ -34,9 +30,11 @@ namespace JavaResolver.Class.Emit
 
             file.AccessFlags = image.RootClass.AccessFlags;
 
+            // Fields
             foreach (var field in image.RootClass.Fields)
                 file.Fields.Add(CreateFieldInfo(context, field));
             
+            // Methods
             foreach (var method in image.RootClass.Methods)
                 file.Methods.Add(CreateMethodInfo(context, method));
             
@@ -48,12 +46,20 @@ namespace JavaResolver.Class.Emit
 
         private FieldInfo CreateFieldInfo(BuildingContext context,FieldDefinition definition)
         {
+            // Basic structure.
             var info = new FieldInfo
             {
                 AccessFlags = definition.AccessFlags,
                 NameIndex = (ushort) ConstantPoolBuffer.GetUtf8Index(definition.Name),
                 DescriptorIndex = (ushort) ConstantPoolBuffer.GetDescriptorIndex(definition.Descriptor),
             };
+
+            // Constant
+            if (definition.Constant != null)
+            {
+                info.Attributes.Add(CreateAttribute(context,
+                    new ConstantValueAttribute((ushort) ConstantPoolBuffer.GetLiteralIndex(definition.Constant))));
+            }
 
             AddAttributes(context, info, definition);
 
@@ -62,6 +68,7 @@ namespace JavaResolver.Class.Emit
         
         private MethodInfo CreateMethodInfo(BuildingContext context, MethodDefinition definition)
         {
+            // Basic structure.
             var info = new MethodInfo
             {
                 AccessFlags = definition.AccessFlags,
@@ -69,8 +76,9 @@ namespace JavaResolver.Class.Emit
                 DescriptorIndex = (ushort) ConstantPoolBuffer.GetDescriptorIndex(definition.Descriptor),
             };
 
+            // Body.
             if (definition.Body != null)
-                info.Attributes.Add(AttributeBuilder.CreateCodeAttribute(context, definition.Body));
+                info.Attributes.Add(CreateAttribute(context, definition.Body.Serialize(context)));
 
             AddAttributes(context, info, definition);
             return info;
@@ -83,6 +91,20 @@ namespace JavaResolver.Class.Emit
                 attribute.Value.NameIndex = (ushort) ConstantPoolBuffer.GetUtf8Index(attribute.Key);
                 destination.Attributes.Add(attribute.Value);
             }
+        }
+
+        private AttributeInfo CreateAttribute(BuildingContext context, IAttributeContents contents)
+        {
+            return CreateAttribute(contents.Name, contents.Serialize(context));
+        }
+        
+        private AttributeInfo CreateAttribute(string name, byte[] contents)
+        {
+            return new AttributeInfo
+            {
+                NameIndex = (ushort) ConstantPoolBuffer.GetUtf8Index(name),
+                Contents = contents
+            };
         }
     }
 }

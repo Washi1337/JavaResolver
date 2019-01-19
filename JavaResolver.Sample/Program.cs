@@ -6,6 +6,7 @@ using JavaResolver.Class.Code;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Emit;
 using JavaResolver.Class.Metadata;
+using JavaResolver.Class.Metadata.Attributes;
 using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Sample
