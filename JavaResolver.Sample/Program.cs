@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using JavaResolver.Class;
-using JavaResolver.Class.Code;
-using JavaResolver.Class.Constants;
-using JavaResolver.Class.Emit;
-using JavaResolver.Class.Metadata;
-using JavaResolver.Class.Metadata.Attributes;
 using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Sample
@@ -16,73 +8,52 @@ namespace JavaResolver.Sample
     {
         public static void Main(string[] args)
         {
-            if (args.Length == 0)
-            {
-                Console.WriteLine("Please provide a file path.");
-                return;
-            }
-
             string path = args[0].Replace("\"", "");
-            if (!File.Exists(path))
-            {
-                Console.WriteLine("File not found!");
-                return;
-            }
-
-            // Read class file.
-            var reader = new MemoryBigEndianReader(File.ReadAllBytes(path));
-            var classFile = JavaClassFile.FromReader(reader);
-            
+            var classFile = JavaClassFile.FromFile(path);
             var image = new JavaClassImage(classFile);
+            var rootClass = image.RootClass;
 
-            Disassemble(image, "main");
-            Console.WriteLine();
+            Console.WriteLine("Basic information:");
+            DumpStructure(rootClass);
+
+            Console.WriteLine("Disassembly of each method:");
+            DumpByteCode(rootClass);
+        }
+
+        private static void DumpStructure(ClassDefinition rootClass)
+        {
+            // Dump class info:
+            Console.WriteLine("Class: " + rootClass.Name);
+            Console.WriteLine("\t- Extends: " + rootClass.SuperClass.Name);
+
+            // Dump fields:
+            Console.WriteLine("\t- Fields:");
+            foreach (var field in rootClass.Fields)
+                Console.WriteLine($"\t\t- {field.Name} : {field.Descriptor.FieldType}");
+
+            // Dump methods:
+            Console.WriteLine("\t- Methods:");
+            foreach (var method in rootClass.Methods)
+                Console.WriteLine(
+                    $"\t\t- {method.Name}({string.Join(", ", method.Descriptor.ParameterTypes)}) : {method.Descriptor.ReturnType}");
             
-            var builder = new JavaClassFileBuilder();
-            var newClassFile = builder.CreateClassFile(image);
+            Console.WriteLine();
+        }
 
-            string newPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), Path.GetFileName(path));
-            using (var fs = File.Create(newPath))
+        private static void DumpByteCode(ClassDefinition rootClass)
+        {
+            foreach (var method in rootClass.Methods)
             {
-                var writer = new BigEndianStreamWriter(fs);
-                newClassFile.Write(new WritingContext(writer));
+                // Print full name:
+                Console.WriteLine(
+                    $"{method.Name}({string.Join(", ", method.Descriptor.ParameterTypes)}) : {method.Descriptor.ReturnType}");
+                
+                // Print each instruction:
+                foreach (var instruction in method.Body.Instructions)
+                    Console.WriteLine(instruction);
+                
+                Console.WriteLine();
             }
-
-            Disassemble(newClassFile, "main");
-            Console.WriteLine();
-            
-            reader = new MemoryBigEndianReader(File.ReadAllBytes(newPath));
-            newClassFile = JavaClassFile.FromReader(reader);
-            
-            var newImage = new JavaClassImage(newClassFile);
-            Disassemble(newImage, "main");
-            Console.WriteLine();
-        }
-        
-        private static void Disassemble(JavaClassImage image, string methodName)
-        {
-            var method = image.RootClass.Methods.First(x => x.Name == methodName);
-            foreach (var instr in method.Body.Instructions)
-                PrintInstruction(instr);
-        }
-
-        private static void Disassemble(JavaClassFile file, string methodName)
-        {
-            var method = file.Methods.First(x => file.ConstantPool.ResolveString(x.NameIndex) == methodName);
-            
-            var attr = method.Attributes.First(x => file.ConstantPool.ResolveString(x.NameIndex) == "Code");
-            var codeAttr = CodeAttribute.FromReader(new MemoryBigEndianReader(attr.Contents));
-            var disassembler = new ByteCodeDisassembler(new MemoryBigEndianReader(codeAttr.Code));
-
-            foreach (var instr in disassembler.ReadInstructions())
-                PrintInstruction(instr);
-        }
-
-        private static void PrintInstruction(ByteCodeInstruction instruction)
-        {
-            Console.Write(instruction);
-            Console.WriteLine(" (" + instruction.OpCode.StackBehaviourPop + ", " + instruction.OpCode.StackBehaviourPush
-                              + ", " + instruction.OpCode.FlowControl + ")");
         }
     }
 }
