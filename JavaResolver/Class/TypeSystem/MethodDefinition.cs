@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using JavaResolver.Class.Code;
 using JavaResolver.Class.Descriptors;
 using JavaResolver.Class.Metadata;
@@ -14,7 +15,8 @@ namespace JavaResolver.Class.TypeSystem
         private readonly LazyValue<string> _name;
         private readonly LazyValue<MethodDescriptor> _descriptor;
         private readonly LazyValue<ByteCodeMethodBody> _body = new LazyValue<ByteCodeMethodBody>();
-
+        private readonly LazyValue<IList<ClassReference>> _exceptions = new LazyValue<IList<ClassReference>>(new List<ClassReference>());
+        
         public MethodDefinition(string name, MethodDescriptor descriptor)
         {
             _name = new LazyValue<string>(name);
@@ -36,11 +38,24 @@ namespace JavaResolver.Class.TypeSystem
                 string name = classImage.ClassFile.ConstantPool.ResolveString(attribute.NameIndex);
                 switch (name)
                 {
+                    // Code
                     case CodeAttribute.AttributeName:
                         _body = new LazyValue<ByteCodeMethodBody>(() =>
                         {
                             var reader = new MemoryBigEndianReader(attribute.Contents);
                             return new ByteCodeMethodBody(classImage, CodeAttribute.FromReader(reader));
+                        });
+                        break;
+                    
+                    // Exceptions
+                    case ExceptionsAttribute.AttributeName:
+                        _exceptions = new LazyValue<IList<ClassReference>>(() =>
+                        {
+                            var reader = new MemoryBigEndianReader(attribute.Contents);
+                            var attr = ExceptionsAttribute.FromReader(reader);
+                            return attr.Exceptions
+                                .Select(index => classImage.ResolveClass(index))
+                                .ToList();
                         });
                         break;
                     
@@ -86,7 +101,12 @@ namespace JavaResolver.Class.TypeSystem
             get => _body.Value;
             set => _body.Value = value;
         }
-        
+
+        /// <summary>
+        /// Gets a collection of exceptions that might be thrown during the execution of the method's code.
+        /// </summary>
+        public IList<ClassReference> Exceptions => _exceptions.Value;
+
         /// <summary>
         /// Gets a collection of additional attributes that were not interpreted by JavaResolver itself.
         /// </summary>

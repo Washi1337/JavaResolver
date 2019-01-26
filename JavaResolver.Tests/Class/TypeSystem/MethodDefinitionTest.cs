@@ -41,5 +41,17 @@ namespace JavaResolver.Tests.Class.TypeSystem
                     new BaseType(BaseTypeValue.Int), new ObjectType("SimpleModel")),
                 _constructor.Descriptor, Comparer);
         }
+
+        [Fact]
+        public void ThrowsTest()
+        {
+            var classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.Exceptions));
+            var image = new JavaClassImage(classFile);
+            var classDef = image.RootClass;
+            var throwsMethod = classDef.Methods.First(x => x.Name == "Throws");
+
+            Assert.Single(throwsMethod.Exceptions);
+            Assert.Equal("CustomException", throwsMethod.Exceptions[0].Name);
+        }
     }
 }
