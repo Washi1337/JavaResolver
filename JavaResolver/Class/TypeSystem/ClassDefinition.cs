@@ -74,6 +74,9 @@ namespace JavaResolver.Class.TypeSystem
             }
         }
 
+        /// <summary>
+        /// Gets the image of the file the class is defined in.
+        /// </summary>
         public JavaClassImage Image
         {
             get;
@@ -81,7 +84,7 @@ namespace JavaResolver.Class.TypeSystem
         }
         
         /// <summary>
-        /// Gets or sets the path to the source file the class was originally defined in (if available). 
+        /// Gets or sets the path to the Java source file the class was originally declared in (if available). 
         /// </summary>
         public string SourceFile
         {
@@ -123,9 +126,16 @@ namespace JavaResolver.Class.TypeSystem
             get;
         }
 
+        /// <inheritdoc />
         public IDictionary<string, AttributeInfo> ExtraAttributes
         {
             get;
         }= new Dictionary<string, AttributeInfo>();
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

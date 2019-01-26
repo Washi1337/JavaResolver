@@ -119,9 +119,16 @@ namespace JavaResolver.Class.TypeSystem
             set => _constant.Value = value;
         }
 
+        /// <inheritdoc />
         public IDictionary<string, AttributeInfo> ExtraAttributes
         {
             get;
         } = new Dictionary<string, AttributeInfo>();
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return FullName;
+        }
     }
 }

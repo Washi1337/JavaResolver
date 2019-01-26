@@ -25,14 +25,18 @@ namespace JavaResolver.Class.TypeSystem
 
         internal MethodDefinition(JavaClassImage classImage, MethodInfo methodInfo)
         {
+            // Name
             _name = new LazyValue<string>(() =>
                 classImage.ClassFile.ConstantPool.ResolveString(methodInfo.NameIndex) ?? $"<<<INVALID({methodInfo.NameIndex})>>>");
             
+            // Flags
             AccessFlags = methodInfo.AccessFlags;
             
+            //Descriptor
             _descriptor = new LazyValue<MethodDescriptor>(() =>
                 classImage.ResolveMethodDescriptor(methodInfo.DescriptorIndex));
 
+            // Attributes
             foreach (var attribute in methodInfo.Attributes)
             {
                 string name = classImage.ClassFile.ConstantPool.ResolveString(attribute.NameIndex);
@@ -125,12 +129,17 @@ namespace JavaResolver.Class.TypeSystem
         /// </summary>
         public IList<ClassReference> Exceptions => _exceptions.Value;
 
-        /// <summary>
-        /// Gets a collection of additional attributes that were not interpreted by JavaResolver itself.
-        /// </summary>
+        /// <inheritdoc />
         public IDictionary<string, AttributeInfo> ExtraAttributes
         {
             get;
         } = new Dictionary<string, AttributeInfo>();
+        
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return FullName;
+        }
+
     }
 }
