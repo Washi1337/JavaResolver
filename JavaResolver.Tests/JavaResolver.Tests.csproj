@@ -58,6 +58,7 @@
         <Compile Include="Class\TypeSystem\FieldDefinitionTest.cs" />
         <Compile Include="Class\TypeSystem\JavaClassBuilderTest.cs" />
         <Compile Include="Class\TypeSystem\MethodDefinitionTest.cs" />
+        <Compile Include="Class\Utils.cs" />
         <Compile Include="Properties\Resources.Designer.cs" />
         <Compile Include="ReaderWriterTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

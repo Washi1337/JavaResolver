@@ -23,6 +23,9 @@ namespace JavaResolver.Class.Descriptors
         /// <inheritdoc />
         public override char Prefix => (char) Value;
 
+        /// <inheritdoc />
+        public override string FullName => Value.ToString().ToLowerInvariant();
+
         /// <summary>
         /// Gets the primitive type that is referenced.
         /// </summary>
@@ -35,12 +38,6 @@ namespace JavaResolver.Class.Descriptors
         public override string Serialize()
         {
             return Prefix.ToString();
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Value.ToString().ToLowerInvariant();
         }
 
         protected bool Equals(BaseType other)
@@ -64,5 +61,6 @@ namespace JavaResolver.Class.Descriptors
         {
             return (int) Value;
         }
+        
     }
 }

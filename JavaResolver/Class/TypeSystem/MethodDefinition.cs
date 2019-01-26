@@ -10,7 +10,7 @@ namespace JavaResolver.Class.TypeSystem
     /// <summary>
     /// Provides a high-level representation o fa single method that is defined in a Java class.
     /// </summary>
-    public class MethodDefinition : IExtraAttributeProvider
+    public class MethodDefinition : IMethod, IExtraAttributeProvider
     {
         private readonly LazyValue<string> _name;
         private readonly LazyValue<MethodDescriptor> _descriptor;
@@ -75,6 +75,11 @@ namespace JavaResolver.Class.TypeSystem
             set => _name.Value = value;
         }
 
+        public string FullName
+        {
+            get;
+        }
+
         /// <summary>
         /// Gets or sets the accessibility flags associated to the method.
         /// </summary>
@@ -85,6 +90,17 @@ namespace JavaResolver.Class.TypeSystem
         }
 
         /// <summary>
+        /// Gets the class that defines the method.
+        /// </summary>
+        public ClassDefinition DeclaringClass
+        {
+            get;
+            internal set;
+        }
+
+        ClassReference IMemberReference.DeclaringClass => DeclaringClass;
+
+        /// <summary>
         /// Gets or sets the method descriptor, which includes the return type as well as the parameter types.
         /// </summary>
         public MethodDescriptor Descriptor
@@ -92,6 +108,8 @@ namespace JavaResolver.Class.TypeSystem
             get => _descriptor.Value;
             set => _descriptor.Value = value;
         }
+
+        IMemberDescriptor IMemberReference.Descriptor => Descriptor;
 
         /// <summary>
         /// Gets or sets the body of the method, which includes the code as well as local variables and exception handlers. 

@@ -16,6 +16,7 @@ namespace JavaResolver.Class.TypeSystem
         private readonly IDictionary<int, FieldDescriptor> _fieldDescriptors = new Dictionary<int, FieldDescriptor>();
         private readonly IDictionary<int, MethodReference> _methodReferences = new Dictionary<int, MethodReference>();
         private readonly IDictionary<int, MethodDescriptor> _methodDescriptors = new Dictionary<int, MethodDescriptor>();
+        private ClassDefinition _rootClass;
 
         public JavaClassImage(ClassDefinition rootClass)
         {
@@ -55,7 +56,15 @@ namespace JavaResolver.Class.TypeSystem
         /// </summary>
         public ClassDefinition RootClass
         {
-            get;
+            get => _rootClass;
+            internal set
+            {
+                if (_rootClass != null)
+                    _rootClass.Image = null;
+                _rootClass = value;
+                if (_rootClass != null)
+                    _rootClass.Image = this;
+            }
         }
 
         public ClassReference ResolveClass(int index)

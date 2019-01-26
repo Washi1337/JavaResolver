@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Metadata;
 using JavaResolver.Class.Metadata.Attributes;
+using JavaResolver.Class.TypeSystem.Collections;
 
 namespace JavaResolver.Class.TypeSystem
 {
@@ -14,33 +15,50 @@ namespace JavaResolver.Class.TypeSystem
         private readonly LazyValue<string> _sourceFile = new LazyValue<string>();
         
         public ClassDefinition(string name)
+            : this(name, null)
+        {
+        }
+
+        public ClassDefinition(string name, ClassReference superClass)
             : base(name)
         {
-            _superClass = new LazyValue<ClassReference>();
+            _superClass = new LazyValue<ClassReference>(superClass);
+            Fields = new FieldCollection(this);
+            Methods = new MethodCollection(this);
         }
 
         internal ClassDefinition(JavaClassImage classImage)
             : base(classImage, (ClassInfo) classImage.ClassFile.ConstantPool.ResolveConstant(classImage.ClassFile.ThisClass))
         {
+            Image = classImage;
+            
+            // Super class
             _superClass = new LazyValue<ClassReference>(() =>
                 classImage.ClassFile.SuperClass != 0
                     ? new ClassReference(classImage,
                         (ClassInfo) classImage.ClassFile.ConstantPool.ResolveConstant(classImage.ClassFile.SuperClass))
                     : null);
 
+            // Flags
             AccessFlags = classImage.ClassFile.AccessFlags;
 
+            // Fields
+            Fields = new FieldCollection(this);
             foreach (var field in classImage.ClassFile.Fields)
                 Fields.Add(new FieldDefinition(classImage, field));
 
+            // Methods
+            Methods = new MethodCollection(this);
             foreach (var method in classImage.ClassFile.Methods)
                 Methods.Add(new MethodDefinition(classImage, method));
 
+            // Attributes
             foreach (var attr in classImage.ClassFile.Attributes)
             {
                 string name = classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex);
                 switch (name)
                 {
+                    // Source file
                     case SingleIndexAttribute.SourceFileAttribute:
                         _sourceFile = new LazyValue<string>(() =>
                         {
@@ -52,9 +70,14 @@ namespace JavaResolver.Class.TypeSystem
                     default:
                         ExtraAttributes.Add(name, attr.Clone());
                         break;
-                }
-                
+                }    
             }
+        }
+
+        public JavaClassImage Image
+        {
+            get;
+            internal set;
         }
         
         /// <summary>
@@ -90,7 +113,7 @@ namespace JavaResolver.Class.TypeSystem
         public IList<FieldDefinition> Fields
         {
             get;
-        } = new List<FieldDefinition>();
+        }
 
         /// <summary>
         /// Gets a collection of methods that this class defines.
@@ -98,7 +121,7 @@ namespace JavaResolver.Class.TypeSystem
         public IList<MethodDefinition> Methods
         {
             get;
-        } = new List<MethodDefinition>();
+        }
 
         public IDictionary<string, AttributeInfo> ExtraAttributes
         {

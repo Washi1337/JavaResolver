@@ -6,37 +6,88 @@ namespace JavaResolver.Tests.Class.TypeSystem
 {
     public class ClassDefinitionTest
     {
-        private readonly ClassDefinition _classDef;
-
-        public ClassDefinitionTest()
+        private static JavaClassImage CreateDummyImage()
         {
-            var classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.SimpleModel));
-            var image = new JavaClassImage(classFile);
-            _classDef = image.RootClass;
+            return new JavaClassImage(new ClassDefinition("DummyClass")
+            {
+                SuperClass = new ClassReference("java/lang/Object")
+            });
         }
         
         [Fact]
         public void NameTest()
         {
-            Assert.Equal("SimpleModel", _classDef.Name);
+            var classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.SimpleModel));
+            var image = new JavaClassImage(classFile);
+            Assert.Equal("SimpleModel", image.RootClass.Name);
         }
 
         [Fact]
         public void SuperClassTest()
         {
-            Assert.Equal("java/lang/Object", _classDef.SuperClass.Name);
+            var classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.SimpleModel));
+            var image = new JavaClassImage(classFile);
+            Assert.Equal("java/lang/Object", image.RootClass.SuperClass.Name);
         }
 
         [Fact]
         public void AccessFlagsTest()
         {
-            Assert.Equal(ClassAccessFlags.Public | ClassAccessFlags.Super, _classDef.AccessFlags);
+            var classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.SimpleModel));
+            var image = new JavaClassImage(classFile);
+            Assert.Equal(ClassAccessFlags.Public | ClassAccessFlags.Super, image.RootClass.AccessFlags);
         }
 
         [Fact]
         public void FieldsTest()
         {
-            Assert.Equal(3, _classDef.Fields.Count);
+            var classFile = JavaClassFile.FromReader(new MemoryBigEndianReader(Properties.Resources.SimpleModel));
+            var image = new JavaClassImage(classFile);
+            Assert.Equal(3, image.RootClass.Fields.Count);
+        }
+
+        [Fact]
+        public void PersistentName()
+        {
+            var dummyImage = CreateDummyImage();
+            var newImage = Utils.RebuildClassImage(dummyImage);
+            Assert.Equal(dummyImage.RootClass.Name, newImage.RootClass.Name);
+        }
+
+        [Fact]
+        public void PersistentSuperClass()
+        {
+            const string superClassName = "java/lang/Exception";
+            
+            var dummyImage = CreateDummyImage();
+            dummyImage.RootClass.SuperClass = new ClassReference(superClassName);
+            
+            var newImage = Utils.RebuildClassImage(dummyImage);
+            Assert.Equal(superClassName, newImage.RootClass.SuperClass.Name);
+        }
+
+        [Fact]
+        public void PersistentAccessFlags()
+        {
+            const ClassAccessFlags flags = ClassAccessFlags.Public | ClassAccessFlags.Enum;
+            
+            var dummyImage = CreateDummyImage();
+            dummyImage.RootClass.AccessFlags = flags;
+            
+            var newImage = Utils.RebuildClassImage(dummyImage);
+            Assert.Equal(flags, newImage.RootClass.AccessFlags);
+        }
+
+        [Fact]
+        public void PersistentSourceFile()
+        {
+            const string filePath = @"C:\\Path\\To\\File.java";
+            
+            var dummyImage = CreateDummyImage();
+            dummyImage.RootClass.SourceFile = filePath;
+            
+            var newImage = Utils.RebuildClassImage(dummyImage);
+            Assert.Equal(filePath, newImage.RootClass.SourceFile);
         }
     }
 }
