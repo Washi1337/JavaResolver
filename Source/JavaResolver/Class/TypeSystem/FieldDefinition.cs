@@ -9,11 +9,11 @@ namespace JavaResolver.Class.TypeSystem
     /// <summary>
     /// Provides a high-level representation of a field defined in a Java class.
     /// </summary>
-    public class FieldDefinition : IExtraAttributeProvider
+    public class FieldDefinition : IField, IExtraAttributeProvider
     {
         private readonly LazyValue<string> _name;
         private readonly LazyValue<FieldDescriptor> _descriptor;
-        private readonly LazyValue<object> _constant = new LazyValue<object>(default(object));
+        private readonly LazyValue<object> _constant = new LazyValue<object>();
 
         public FieldDefinition(string name, FieldDescriptor descriptor)
         {
@@ -71,14 +71,15 @@ namespace JavaResolver.Class.TypeSystem
             }
         }
 
-        /// <summary>
-        /// Gets or sets the name of the field.
-        /// </summary>
+        /// <inheritdoc cref="IMemberReference.Name" />
         public string Name
         {
             get => _name.Value;
             set => _name.Value = value;
         }
+        
+        /// <inheritdoc />
+        public string FullName => this.GetFieldFullName();
 
         /// <summary>
         /// Gets or sets the accessibility flags associated to the field.
@@ -88,6 +89,18 @@ namespace JavaResolver.Class.TypeSystem
             get;
             set;
         }
+        
+        /// <summary>
+        /// Gets the class that defines the field.
+        /// </summary>
+        public ClassDefinition DeclaringClass
+        {
+            get;
+            internal set;
+        }
+
+        /// <inheritdoc />
+        ClassReference IMemberReference.DeclaringClass => DeclaringClass;
 
         /// <summary>
         /// Gets or sets the field descriptor (which includes the field type) of the field.
@@ -98,6 +111,8 @@ namespace JavaResolver.Class.TypeSystem
             set => _descriptor.Value = value;
         }
 
+        IMemberDescriptor IMemberReference.Descriptor => Descriptor;
+
         /// <summary>
         /// Gets or sets the constant value associated to the field (if available).
         /// </summary>
@@ -107,9 +122,16 @@ namespace JavaResolver.Class.TypeSystem
             set => _constant.Value = value;
         }
 
+        /// <inheritdoc />
         public IDictionary<string, AttributeInfo> ExtraAttributes
         {
             get;
         } = new Dictionary<string, AttributeInfo>();
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return FullName;
+        }
     }
 }

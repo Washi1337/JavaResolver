@@ -27,14 +27,12 @@ namespace JavaResolver.Class.Descriptors
         }
 
         /// <inheritdoc />
+        public override string FullName => ClassName;
+
+        /// <inheritdoc />
         public override string Serialize()
         {
             return Prefix + ClassName + ";";
-        }
-
-        public override string ToString()
-        {
-            return ClassName;
         }
 
         protected bool Equals(ObjectType other)

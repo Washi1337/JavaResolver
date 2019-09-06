@@ -72,6 +72,7 @@
         <Compile Include="Class\TypeSystem\ClassDefinitionTest.cs" />
         <Compile Include="Class\TypeSystem\FieldDefinitionTest.cs" />
         <Compile Include="Class\TypeSystem\MethodDefinitionTest.cs" />
+        <Compile Include="Class\Utils.cs" />
         <Compile Include="Properties\Resources.Designer.cs" />
         <Compile Include="ReaderWriterTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +84,8 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="Resources\Conditionals.class" />
+      <Content Include="Resources\CustomException.class" />
+      <Content Include="Resources\Exceptions.class" />
       <Content Include="Resources\HelloWorld.class" />
       <Content Include="Resources\SimpleModel.class" />
     </ItemGroup>

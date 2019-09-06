@@ -94,6 +94,7 @@
         <Compile Include="Class\Metadata\Attributes\AttributeInfo.cs" />
         <Compile Include="Class\Metadata\Attributes\CodeAttribute.cs" />
         <Compile Include="Class\Metadata\Attributes\ExceptionHandlerInfo.cs" />
+        <Compile Include="Class\Metadata\Attributes\ExceptionsAttribute.cs" />
         <Compile Include="Class\Metadata\Attributes\IAttributeContents.cs" />
         <Compile Include="Class\Metadata\Attributes\LineNumberTableAttribute.cs" />
         <Compile Include="Class\Metadata\Attributes\LocalVariableInfo.cs" />
@@ -108,12 +109,16 @@
         <Compile Include="Class\PrimitiveType.cs" />
         <Compile Include="Class\TypeSystem\ClassDefinition.cs" />
         <Compile Include="Class\TypeSystem\ClassReference.cs" />
+        <Compile Include="Class\TypeSystem\Collections\FieldCollection.cs" />
+        <Compile Include="Class\TypeSystem\Collections\MemberCollection.cs" />
+        <Compile Include="Class\TypeSystem\Collections\MethodCollection.cs" />
         <Compile Include="Class\TypeSystem\FieldDefinition.cs" />
         <Compile Include="Class\TypeSystem\FieldReference.cs" />
         <Compile Include="Class\TypeSystem\IExtraAttributeProvider.cs" />
         <Compile Include="Class\TypeSystem\IMemberReference.cs" />
         <Compile Include="Class\TypeSystem\INameProvider.cs" />
         <Compile Include="Class\TypeSystem\JavaClassImage.cs" />
+        <Compile Include="Class\TypeSystem\MemberExtensions.cs" />
         <Compile Include="Class\TypeSystem\MethodDefinition.cs" />
         <Compile Include="Class\TypeSystem\MethodReference.cs" />
         <Compile Include="IBigEndianReader.cs" />

@@ -6,7 +6,7 @@ namespace JavaResolver.Class.TypeSystem
     /// <summary>
     /// Provides a high-level representation of a reference to a (external) field.  
     /// </summary>
-    public class FieldReference : IMemberReference
+    public class FieldReference : IField
     {
         private readonly LazyValue<string> _name;
         private readonly LazyValue<FieldDescriptor> _descriptor;

@@ -6,7 +6,7 @@ namespace JavaResolver.Class.TypeSystem
     /// <summary>
     /// Provides a high-level representation of a reference to a (external) method.
     /// </summary>
-    public class MethodReference : IMemberReference
+    public class MethodReference : IMethod
     {
         private readonly LazyValue<string> _name;
         private readonly LazyValue<MethodDescriptor> _descriptor;

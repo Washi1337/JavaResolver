@@ -14,6 +14,14 @@ namespace JavaResolver.Class.Descriptors
         }
 
         /// <summary>
+        /// Gets the fully qualified name of the type, including the package and the specifications. 
+        /// </summary>
+        public abstract string FullName
+        {
+            get;
+        }
+
+        /// <summary>
         /// Serializes the field type to a string so that it can be stored in the constant pool.
         /// </summary>
         /// <returns>The serialized version of the field type.</returns>
@@ -22,6 +30,12 @@ namespace JavaResolver.Class.Descriptors
         public ArrayType CreateArrayType()
         {
             return new ArrayType(this);
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return FullName;
         }
     }
 }

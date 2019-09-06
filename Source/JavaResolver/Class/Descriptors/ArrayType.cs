@@ -13,6 +13,9 @@ namespace JavaResolver.Class.Descriptors
         /// <inheritdoc />
         public override char Prefix => '[';
 
+        /// <inheritdoc />
+        public override string FullName => ComponentType + "[]";
+
         /// <summary>
         /// Gets the type of all elements in the referenced array. 
         /// </summary>
@@ -26,10 +29,6 @@ namespace JavaResolver.Class.Descriptors
         {
             return Prefix + ComponentType.Serialize();
         }
-
-        public override string ToString()
-        {
-            return ComponentType + "[]";
-        }
+        
     }
 }

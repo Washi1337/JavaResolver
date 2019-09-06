@@ -49,10 +49,10 @@ namespace JavaResolver.Class.Emit
             MemberRefInfo memberRefInfo;
             switch (reference)
             {
-                case FieldReference _:
+                case IField _:
                     memberRefInfo = new FieldRefInfo((ushort) classIndex, (ushort) nameAndTypeIndex);
                     break;
-                case MethodReference _:
+                case IMethod _:
                     memberRefInfo = new MethodRefInfo((ushort) classIndex, (ushort) nameAndTypeIndex);
                     break;
                 default:

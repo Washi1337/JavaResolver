@@ -89,6 +89,15 @@ namespace JavaResolver.Class.Emit
             if (definition.Body != null)
                 info.Attributes.Add(CreateAttribute(context, definition.Body.Serialize(context)));
 
+            // Exceptions
+            if (definition.Exceptions.Count > 0)
+            {
+                var attribute = new ExceptionsAttribute();
+                foreach (var exception in definition.Exceptions)
+                    attribute.Exceptions.Add((ushort) context.Builder.ConstantPoolBuffer.GetClassIndex(exception));
+                info.Attributes.Add(CreateAttribute(context, attribute));
+            }
+            
             AddAttributes(context, info, definition);
             return info;
         }

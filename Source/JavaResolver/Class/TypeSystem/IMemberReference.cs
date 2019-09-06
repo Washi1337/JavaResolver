@@ -32,4 +32,20 @@ namespace JavaResolver.Class.TypeSystem
             get;
         }
     }
+
+    public interface IField : IMemberReference
+    {
+        new FieldDescriptor Descriptor
+        {
+            get;
+        }
+    }
+
+    public interface IMethod : IMemberReference
+    {
+        new MethodDescriptor Descriptor
+        {
+            get;
+        }
+    }
 }
