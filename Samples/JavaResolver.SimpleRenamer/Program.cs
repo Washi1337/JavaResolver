@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using JavaResolver.Class.Metadata;
+using JavaResolver.Class.Metadata.Attributes;
 using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.SimpleRenamer

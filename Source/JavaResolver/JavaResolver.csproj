@@ -96,6 +96,8 @@
         <Compile Include="Class\Metadata\Attributes\ExceptionHandlerInfo.cs" />
         <Compile Include="Class\Metadata\Attributes\ExceptionsAttribute.cs" />
         <Compile Include="Class\Metadata\Attributes\IAttributeContents.cs" />
+        <Compile Include="Class\Metadata\Attributes\InnerClassesAttribute.cs" />
+        <Compile Include="Class\Metadata\Attributes\InnerClassInfo.cs" />
         <Compile Include="Class\Metadata\Attributes\LineNumberTableAttribute.cs" />
         <Compile Include="Class\Metadata\Attributes\LocalVariableInfo.cs" />
         <Compile Include="Class\Metadata\Attributes\LocalVariableTableAttribute.cs" />
