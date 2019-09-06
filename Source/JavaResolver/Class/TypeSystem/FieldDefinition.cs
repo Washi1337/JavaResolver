@@ -13,13 +13,12 @@ namespace JavaResolver.Class.TypeSystem
     {
         private readonly LazyValue<string> _name;
         private readonly LazyValue<FieldDescriptor> _descriptor;
-        private readonly LazyValue<object> _constant;
+        private readonly LazyValue<object> _constant = new LazyValue<object>(default(object));
 
         public FieldDefinition(string name, FieldDescriptor descriptor)
         {
             _name = new LazyValue<string>(name);
             _descriptor = new LazyValue<FieldDescriptor>(descriptor);
-            _constant = new LazyValue<object>(null);
         }
 
         internal FieldDefinition(JavaClassImage classImage, FieldInfo fieldInfo)
@@ -46,8 +45,10 @@ namespace JavaResolver.Class.TypeSystem
                         // Constant
                         _constant = new LazyValue<object>(() =>
                         {
-                            var contents = SingleIndexAttribute.FromReader(name, new MemoryBigEndianReader(attr.Contents));
-                            var constantInfo = classImage.ClassFile.ConstantPool.ResolveConstant(contents.ConstantPoolIndex);
+                            var contents =
+                                SingleIndexAttribute.FromReader(name, new MemoryBigEndianReader(attr.Contents));
+                            var constantInfo =
+                                classImage.ClassFile.ConstantPool.ResolveConstant(contents.ConstantPoolIndex);
                             switch (constantInfo)
                             {
                                 case PrimitiveInfo primitiveInfo:
@@ -59,13 +60,14 @@ namespace JavaResolver.Class.TypeSystem
                             }
                         });
                         break;
-                    
+
                     default:
                         // Fall back method:
-                        ExtraAttributes.Add(classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex), attr.Clone());
+                        ExtraAttributes.Add(classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex),
+                            attr.Clone());
                         break;
                 }
-                
+
             }
         }
 
@@ -76,7 +78,7 @@ namespace JavaResolver.Class.TypeSystem
         {
             get => _name.Value;
             set => _name.Value = value;
-        }  
+        }
 
         /// <summary>
         /// Gets or sets the accessibility flags associated to the field.
@@ -86,7 +88,7 @@ namespace JavaResolver.Class.TypeSystem
             get;
             set;
         }
-        
+
         /// <summary>
         /// Gets or sets the field descriptor (which includes the field type) of the field.
         /// </summary>
@@ -95,7 +97,7 @@ namespace JavaResolver.Class.TypeSystem
             get => _descriptor.Value;
             set => _descriptor.Value = value;
         }
-        
+
         /// <summary>
         /// Gets or sets the constant value associated to the field (if available).
         /// </summary>

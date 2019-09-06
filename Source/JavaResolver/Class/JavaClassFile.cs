@@ -19,7 +19,7 @@ namespace JavaResolver.Class
         public static JavaClassFile FromFile(string path)
         {
             var reader = new MemoryBigEndianReader(File.ReadAllBytes(path));
-            return FromReader(reader);    
+            return FromReader(reader);
         }
         
         /// <summary>
@@ -210,7 +210,7 @@ namespace JavaResolver.Class
             writer.Write((ushort) Attributes.Count);
             foreach (var attribute in Attributes)
                 attribute.Write(context);
-
         }
+        
     }
 }

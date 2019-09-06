@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Descriptors;
+using JavaResolver.Class.Emit;
 
 namespace JavaResolver.Class.TypeSystem
 {
@@ -11,6 +13,30 @@ namespace JavaResolver.Class.TypeSystem
     /// </summary>
     public class JavaClassImage
     {
+        /// <summary>
+        /// Parses a class file located on tbhe disk, and opens a high-level representation of the class file.
+        /// </summary>
+        /// <param name="file">The path to the file to parse.</param>
+        /// <returns>The high-level Java class image.</returns>
+        /// <exception cref="BadImageFormatException">Occurs when the file does not provide a valid signature of
+        /// a class file.</exception>
+        public static JavaClassImage FromFile(string file)
+        {
+            return new JavaClassImage(JavaClassFile.FromFile(file));
+        }
+        
+        /// <summary>
+        /// Parses a class file from a binary reader and opens a high-level representation of the class file.
+        /// </summary>
+        /// <param name="reader">The reader to read from.</param>
+        /// <returns>The high-level Java class image.</returns>
+        /// <exception cref="BadImageFormatException">Occurs when the file does not provide a valid signature of
+        /// a class file.</exception>
+        public static JavaClassImage FromReader(IBigEndianReader reader)
+        {
+            return new JavaClassImage(JavaClassFile.FromReader(reader));
+        }
+        
         private readonly IDictionary<int, ClassReference> _classReferences = new Dictionary<int, ClassReference>();
         private readonly IDictionary<int, FieldReference> _fieldReferences = new Dictionary<int, FieldReference>();
         private readonly IDictionary<int, FieldDescriptor> _fieldDescriptors = new Dictionary<int, FieldDescriptor>();
@@ -132,5 +158,12 @@ namespace JavaResolver.Class.TypeSystem
 
             return descriptor;
         }
+
+        public JavaClassFile CreateClassFile()
+        {
+            return new JavaClassFileBuilder().CreateClassFile(this);
+        }
+        
+        
     }
 }
