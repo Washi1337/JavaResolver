@@ -54,9 +54,9 @@
     <ItemGroup>
         <Compile Include="Class\Descriptors\FieldDescriptorTest.cs" />
         <Compile Include="Class\Descriptors\MethodDescriptorTest.cs" />
+        <Compile Include="Class\Emit\JavaClassBuilderTest.cs" />
         <Compile Include="Class\TypeSystem\ClassDefinitionTest.cs" />
         <Compile Include="Class\TypeSystem\FieldDefinitionTest.cs" />
-        <Compile Include="Class\TypeSystem\JavaClassBuilderTest.cs" />
         <Compile Include="Class\TypeSystem\MethodDefinitionTest.cs" />
         <Compile Include="Properties\Resources.Designer.cs" />
         <Compile Include="ReaderWriterTest.cs" />

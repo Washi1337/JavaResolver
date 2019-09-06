@@ -5,7 +5,7 @@ using JavaResolver.Class.Metadata;
 using JavaResolver.Class.TypeSystem;
 using Xunit;
 
-namespace JavaResolver.Tests.Class.TypeSystem
+namespace JavaResolver.Tests.Class.Emit
 {
     public class JavaClassBuilderTest : IClassFixture<TemporaryDirectoryFixture>
     {

@@ -154,6 +154,36 @@ namespace JavaResolver.Class
             get;
         } = new List<AttributeInfo>();
 
+        /// <summary>
+        /// Saves the Java class file to the disk. 
+        /// </summary>
+        /// <param name="path">The path of the new file to create.</param>
+        public void Write(string path)
+        {
+            using (var fs = File.Create(path))
+            {
+                Write(fs);
+            }    
+        }
+
+        /// <summary>
+        /// Saves the Java class file to an output stream. 
+        /// </summary>
+        /// <param name="outputStream">The stream to write to.</param>
+        public void Write(Stream outputStream)
+        {
+            Write(new BigEndianStreamWriter(outputStream));
+        }
+
+        /// <summary>
+        /// Writes the Java class file to a specified binary writer. 
+        /// </summary>
+        /// <param name="writer">The writer to use.</param>
+        public void Write(IBigEndianWriter writer)
+        {
+            Write(new WritingContext(writer));
+        }
+        
         public override void Write(WritingContext context)
         {
             var writer = context.Writer;
