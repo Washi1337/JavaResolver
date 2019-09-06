@@ -33,7 +33,7 @@ namespace JavaResolver.SimpleRenamer
 
         public static string GenerateRandomName(int length)
         {
-            const string alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            const string alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
             var name = new char[length];
             for (int i = 0; i < length; i++)
                 name[i] = alphabet[Random.Next(alphabet.Length)];
@@ -59,6 +59,12 @@ namespace JavaResolver.SimpleRenamer
                     && !method.AccessFlags.HasFlag(FieldAccessFlags.Protected))
                 {
                     method.Name = GenerateRandomName(10);
+                }
+
+                if (method.Body != null)
+                {
+                    foreach (var variable in method.Body.Variables)
+                        variable.Name = GenerateRandomName(10);
                 }
             }    
         }

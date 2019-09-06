@@ -400,83 +400,83 @@ namespace JavaResolver.Class.Code
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode IAdd = new ByteOpCode(ByteCode.IAdd, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode LAdd = new ByteOpCode(ByteCode.LAdd, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode FAdd = new ByteOpCode(ByteCode.FAdd, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode DAdd = new ByteOpCode(ByteCode.DAdd, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode ISub = new ByteOpCode(ByteCode.ISub, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode LSub = new ByteOpCode(ByteCode.LSub, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode FSub = new ByteOpCode(ByteCode.FSub, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode DSub = new ByteOpCode(ByteCode.DSub, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode IMul = new ByteOpCode(ByteCode.IMul, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode LMul = new ByteOpCode(ByteCode.LMul, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode FMul = new ByteOpCode(ByteCode.FMul, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode DMul = new ByteOpCode(ByteCode.DMul, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode IDiv = new ByteOpCode(ByteCode.IDiv, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode LDiv = new ByteOpCode(ByteCode.LDiv, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode FDiv = new ByteOpCode(ByteCode.FDiv, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode DDiv = new ByteOpCode(ByteCode.DDiv, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode IRem = new ByteOpCode(ByteCode.IRem, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode LRem = new ByteOpCode(ByteCode.LRem, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode FRem = new ByteOpCode(ByteCode.FRem, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode DRem = new ByteOpCode(ByteCode.DRem, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue2 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode INeg = new ByteOpCode(ByteCode.INeg, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                | ((byte) ByteCodeStackBehaviour.PopValue1 << 16)
