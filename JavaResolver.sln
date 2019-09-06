@@ -1,10 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver", "JavaResolver\JavaResolver.csproj", "{08D550A9-6173-478B-99EB-281EA5806D4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver", "Source\JavaResolver\JavaResolver.csproj", "{08D550A9-6173-478B-99EB-281EA5806D4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver.Sample", "JavaResolver.Sample\JavaResolver.Sample.csproj", "{C6E25E4D-E872-45FA-BE6B-FABFF6A8B43C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver.Sample", "Samples\JavaResolver.Sample\JavaResolver.Sample.csproj", "{C6E25E4D-E872-45FA-BE6B-FABFF6A8B43C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver.Tests", "JavaResolver.Tests\JavaResolver.Tests.csproj", "{55EC704D-6BD3-46EE-A15D-653D76CE943E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver.Tests", "Tests\JavaResolver.Tests\JavaResolver.Tests.csproj", "{55EC704D-6BD3-46EE-A15D-653D76CE943E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9A290CC5-B882-4A43-9347-A8524E07B290}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B1043EC3-C6E9-47A2-A2B0-C0FB95A2B186}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{28DE3EF8-52AD-451D-BD02-AFC2C7DB8592}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +30,10 @@ Global
 		{55EC704D-6BD3-46EE-A15D-653D76CE943E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55EC704D-6BD3-46EE-A15D-653D76CE943E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55EC704D-6BD3-46EE-A15D-653D76CE943E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C6E25E4D-E872-45FA-BE6B-FABFF6A8B43C} = {9A290CC5-B882-4A43-9347-A8524E07B290}
+		{08D550A9-6173-478B-99EB-281EA5806D4B} = {28DE3EF8-52AD-451D-BD02-AFC2C7DB8592}
+		{55EC704D-6BD3-46EE-A15D-653D76CE943E} = {B1043EC3-C6E9-47A2-A2B0-C0FB95A2B186}
 	EndGlobalSection
 EndGlobal
