@@ -50,6 +50,9 @@ namespace JavaResolver.Class.TypeSystem
         }
 
         /// <inheritdoc />
+        public string FullName => this.GetMethodFullName();
+        
+        /// <inheritdoc />
         public ClassReference DeclaringClass
         {
             get => _declaringClass.Value;
@@ -66,12 +69,9 @@ namespace JavaResolver.Class.TypeSystem
             set => _descriptor.Value = value;
         }
 
-        /// <inheritdoc />
-        public string FullName =>
-            $"{Descriptor.ReturnType} {DeclaringClass}::{Name}({string.Join(", ", Descriptor.ParameterTypes)})";
-
         IMemberDescriptor IMemberReference.Descriptor => Descriptor;
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return FullName;

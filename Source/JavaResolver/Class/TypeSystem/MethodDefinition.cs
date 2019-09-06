@@ -79,10 +79,8 @@ namespace JavaResolver.Class.TypeSystem
             set => _name.Value = value;
         }
 
-        public string FullName
-        {
-            get;
-        }
+        /// <inheritdoc />
+        public string FullName => this.GetMethodFullName();
 
         /// <summary>
         /// Gets or sets the accessibility flags associated to the method.
@@ -140,6 +138,5 @@ namespace JavaResolver.Class.TypeSystem
         {
             return FullName;
         }
-
     }
 }
