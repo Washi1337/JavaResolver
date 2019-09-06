@@ -113,7 +113,7 @@ namespace JavaResolver.Tests
             string output = process.StandardOutput.ReadToEnd();
 
             if (regex)
-                Assert.True(Regex.IsMatch(expectedOutput, output));
+                Assert.Matches(output, expectedOutput);
             else
                 Assert.Equal(expectedOutput, output);
         }

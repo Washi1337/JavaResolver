@@ -16,12 +16,12 @@ namespace JavaResolver.Class.Code
             _classImage = classImage ?? throw new ArgumentNullException(nameof(classImage));
         }
 
-        public object ResolveField(int fieldIndex)
+        public FieldReference ResolveField(int fieldIndex)
         {
             return _classImage.ResolveField(fieldIndex);
         }
 
-        public object ResolveMethod(int methodIndex)
+        public MethodReference ResolveMethod(int methodIndex)
         {
             return _classImage.ResolveMethod(methodIndex);
         }
@@ -41,7 +41,7 @@ namespace JavaResolver.Class.Code
             return constant;
         }
 
-        public object ResolveClass(int classIndex)
+        public ClassReference ResolveClass(int classIndex)
         {
             return _classImage.ResolveClass(classIndex);
         }

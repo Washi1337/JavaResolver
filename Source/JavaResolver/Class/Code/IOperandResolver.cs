@@ -1,3 +1,5 @@
+using JavaResolver.Class.TypeSystem;
+
 namespace JavaResolver.Class.Code
 {
     /// <summary>
@@ -10,14 +12,14 @@ namespace JavaResolver.Class.Code
         /// </summary>
         /// <param name="fieldIndex">The field index to resolve.</param>
         /// <returns>The resolved field.</returns>
-        object ResolveField(int fieldIndex);
-        
+        FieldReference ResolveField(int fieldIndex);
+
         /// <summary>
         /// Resolves an index to a method in the constant pool.
         /// </summary>
         /// <param name="methodIndex">The method index to resolve.</param>
         /// <returns>The resolved method.</returns>
-        object ResolveMethod(int methodIndex);
+        MethodReference ResolveMethod(int methodIndex);
 
         /// <summary>
         /// Resolves an index to a constant in the constant pool.
@@ -31,6 +33,6 @@ namespace JavaResolver.Class.Code
         /// </summary>
         /// <param name="classIndex">The class index to resolve.</param>
         /// <returns>The resolved class.</returns>
-        object ResolveClass(int classIndex);
+        ClassReference ResolveClass(int classIndex);
     }
 }

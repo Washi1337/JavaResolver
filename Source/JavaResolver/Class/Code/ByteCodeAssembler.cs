@@ -57,13 +57,19 @@ namespace JavaResolver.Class.Code
                     _writer.Write(Convert.ToInt16(instruction.Operand));
                     break;
                 case ByteCodeOperandType.FieldIndex:
-                    _writer.Write((ushort) OperandBuilder.GetFieldIndex((FieldReference) instruction.Operand));
+                    _writer.Write(instruction.Operand is FieldReference fieldRef
+                        ? (ushort) OperandBuilder.GetFieldIndex(fieldRef)
+                        : Convert.ToUInt16(instruction.Operand));
                     break;
                 case ByteCodeOperandType.MethodIndex:
-                    _writer.Write((ushort) OperandBuilder.GetMethodIndex((MethodReference) instruction.Operand));
+                    _writer.Write(instruction.Operand is MethodReference methodRef
+                        ? (ushort) OperandBuilder.GetMethodIndex(methodRef)
+                        : Convert.ToUInt16(instruction.Operand));
                     break;
                 case ByteCodeOperandType.ClassIndex:
-                    _writer.Write((ushort) OperandBuilder.GetClassIndex((ClassReference) instruction.Operand));
+                    _writer.Write(instruction.Operand is ClassReference classRef
+                        ? (ushort) OperandBuilder.GetClassIndex(classRef)
+                        : Convert.ToUInt16(instruction.Operand));
                     break;
                 case ByteCodeOperandType.ConstantIndex:
                     _writer.Write((byte) OperandBuilder.GetLiteralIndex(instruction.Operand));
