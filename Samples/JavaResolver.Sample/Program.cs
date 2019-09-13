@@ -12,6 +12,19 @@ namespace JavaResolver.Sample
         {
             string path = args[0].Replace("\"", "");
             var classFile = JavaClassFile.FromFile(path);
+            var image = DumpImage(classFile);
+
+            var newClassFile = image.CreateClassFile();
+            string outputPath = Path.Combine(Path.GetDirectoryName(path), "output", Path.GetFileName(path));
+            newClassFile.Write(outputPath);
+            
+            newClassFile = JavaClassFile.FromFile(outputPath);
+            DumpImage(newClassFile);
+
+        }
+
+        private static JavaClassImage DumpImage(JavaClassFile classFile)
+        {
             var image = new JavaClassImage(classFile);
             var rootClass = image.RootClass;
 
@@ -20,9 +33,7 @@ namespace JavaResolver.Sample
 
             Console.WriteLine("Disassembly of each method:");
             DumpByteCode(rootClass);
-
-            var newClassFile = image.CreateClassFile();
-            newClassFile.Write(Path.Combine(Path.GetDirectoryName(path), "output", Path.GetFileName(path)));
+            return image;
         }
 
         private static void DumpStructure(ClassDefinition rootClass)

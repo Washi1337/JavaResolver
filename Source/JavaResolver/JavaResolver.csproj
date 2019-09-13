@@ -54,6 +54,7 @@
         <Compile Include="Class\Code\ExceptionHandler.cs" />
         <Compile Include="Class\Code\IOperandBuilder.cs" />
         <Compile Include="Class\Code\IOperandResolver.cs" />
+        <Compile Include="Class\Code\ISwitchOperand.cs" />
         <Compile Include="Class\Code\LocalVariable.cs" />
         <Compile Include="Class\Code\LookupSwitch.cs" />
         <Compile Include="Class\Code\ByteCodeMethodBody.cs" />

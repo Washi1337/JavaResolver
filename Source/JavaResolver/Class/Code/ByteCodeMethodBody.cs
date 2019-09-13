@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -246,8 +247,11 @@ namespace JavaResolver.Class.Code
                                     break;
                                 case ByteCodeOperandType.TableSwitch:
                                 case ByteCodeOperandType.LookupSwitch:
-                                    // TODO:
-                                    throw new NotImplementedException();
+                                    foreach (int offset in ((ISwitchOperand) instruction.Operand).GetOffsets())
+                                        agenda.Push(new StackState(
+                                            Instructions.GetIndexByOffset(offset),
+                                            nextStackSize));
+                                    break;
                             }
                             agenda.Push(new StackState(
                                 currentState.InstructionIndex + 1,

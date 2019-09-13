@@ -100,12 +100,9 @@ namespace JavaResolver.Class.Code
                     break;
                 }
                 case ByteCodeOperandType.TableSwitch:
-                    _writer.Position = FileSegment.Align((uint) _writer.Position, 4);
-                    ((TableSwitch) instruction.Operand).Write(_writer);
-                    break;
                 case ByteCodeOperandType.LookupSwitch:
                     _writer.Position = FileSegment.Align((uint) _writer.Position, 4);
-                    ((LookupSwitch) instruction.Operand).Write(_writer);
+                    ((ISwitchOperand) instruction.Operand).Write(_writer, instruction.Offset);
                     break;
                 case ByteCodeOperandType.WideIndexCountZero:
                 case ByteCodeOperandType.WideIndexByte:

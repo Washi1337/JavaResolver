@@ -76,9 +76,9 @@ namespace JavaResolver.Class.Code
                 case ByteCodeOperandType.Byte:
                 case ByteCodeOperandType.LocalIndex:
                 case ByteCodeOperandType.PrimitiveType:
+                case ByteCodeOperandType.ConstantIndex:
                     return 1;
                 case ByteCodeOperandType.Short:
-                case ByteCodeOperandType.ConstantIndex:
                 case ByteCodeOperandType.LocalConst:
                 case ByteCodeOperandType.BranchOffset:
                 case ByteCodeOperandType.FieldIndex:
@@ -93,12 +93,12 @@ namespace JavaResolver.Class.Code
                     return 4;
                 case ByteCodeOperandType.TableSwitch:
                 {
-                    int padding = (int) (FileSegment.Align((uint) Offset, 4) - Offset);
+                    int padding = (int) (FileSegment.Align((uint) Offset, 4) - Offset) - 1;
                     return padding + (3 + ((TableSwitch) Operand).Offsets.Count) * 4;
                 }
                 case ByteCodeOperandType.LookupSwitch:
                 {
-                    int padding = (int) (FileSegment.Align((uint) Offset, 4) - Offset);
+                    int padding = (int) (FileSegment.Align((uint) Offset, 4) - Offset) - 1;
                     return padding + (2 + ((LookupSwitch) Operand).Table.Count * 2) * 4;
                 }
                 default:

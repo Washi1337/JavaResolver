@@ -5,7 +5,7 @@ namespace JavaResolver.Class.Code
     /// <summary>
     /// Represents an offset table switch used by the tableswitch bytecode instruction.
     /// </summary>
-    public class TableSwitch
+    public class TableSwitch : ISwitchOperand
     {
         public static TableSwitch FromReader(IBigEndianReader reader)
         {
@@ -54,18 +54,23 @@ namespace JavaResolver.Class.Code
             get;
         } = new List<int>();
 
-        public void Write(IBigEndianWriter writer)
+        public void Write(IBigEndianWriter writer, int baseOffset)
         {
-            writer.Write(DefaultOffset);
+            writer.Write(DefaultOffset - baseOffset);
             writer.Write(Low);
             writer.Write(High);
             foreach (var offset in Offsets)
-                writer.Write(offset);
+                writer.Write(offset - baseOffset);
         }
 
         public override string ToString()
         {
             return " " + Low + " " + High + " " + string.Join(" ", Offsets) + " default: " + DefaultOffset;
+        }
+
+        public IEnumerable<int> GetOffsets()
+        {
+            return new HashSet<int>(Offsets) {DefaultOffset};
         }
     }
 }

@@ -7,7 +7,7 @@ namespace JavaResolver.Class.Code
     /// Represents a lookup table used by the lookupswitch bytecode instruction.
     /// This table is essentially a key-value collection containing all cases and their corresponding values.
     /// </summary>
-    public class LookupSwitch
+    public class LookupSwitch : ISwitchOperand
     {
         /// <summary>
         /// Reads a single lookup switch at the current position of the provided reader.
@@ -50,20 +50,25 @@ namespace JavaResolver.Class.Code
             get;
         } = new SortedDictionary<int, int>();
         
-        public void Write(IBigEndianWriter writer)
+        public void Write(IBigEndianWriter writer, int baseOffset)
         {
-            writer.Write(DefaultOffset);
+            writer.Write(DefaultOffset - baseOffset);
             writer.Write(Table.Count);
             foreach (var entry in Table)
             {
                 writer.Write(entry.Key);
-                writer.Write(entry.Value);
+                writer.Write(entry.Value - baseOffset);
             }
         }
 
         public override string ToString()
         {
             return string.Join(" ", Table.Select(x => $"{x.Key}: {x.Value}")) + " default: " + DefaultOffset;
+        }
+
+        public IEnumerable<int> GetOffsets()
+        {
+            return new HashSet<int>(Table.Values) {DefaultOffset};
         }
     }
 }

@@ -126,6 +126,19 @@ namespace JavaResolver.Class.Code
                     int offset = Convert.ToInt32(instruction.Operand);
                     return allInstructions.GetByOffset(instruction.Offset + offset) ?? instruction.Operand;
 
+                case ByteCodeOperandType.TableSwitch:
+                    var table = (TableSwitch) instruction.Operand;
+                    table.DefaultOffset += instruction.Offset;
+                    for (int i = 0; i < table.Offsets.Count; i++)
+                        table.Offsets[i] += instruction.Offset;
+                    return table;
+
+                case ByteCodeOperandType.LookupSwitch:
+                    var lookup = (LookupSwitch) instruction.Operand;
+                    lookup.DefaultOffset += instruction.Offset;
+                    foreach (int key in lookup.Table.Keys)
+                        lookup.Table[key] += instruction.Offset;
+                    return lookup;
             }
 
             return instruction.Operand;
