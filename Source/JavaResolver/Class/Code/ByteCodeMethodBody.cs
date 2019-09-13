@@ -284,7 +284,7 @@ namespace JavaResolver.Class.Code
                 var writer = new BigEndianStreamWriter(stream);
                 var assembler = new ByteCodeAssembler(writer)
                 {
-                    OperandBuilder = new DefaultOperandBuilder(context.Builder.ConstantPoolBuffer)
+                    OperandBuilder = new DefaultOperandBuilder(context.Builder)
                 };
                 
                 Instructions.CalculateOffsets();

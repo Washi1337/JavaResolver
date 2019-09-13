@@ -218,7 +218,8 @@ namespace JavaResolver.Class.TypeSystem
         {
             var bootstrapMethod = default(BootstrapMethod);
             
-            if (index >= 0
+            if (_bootstrapMethodsAttribute != null 
+                && index >= 0
                 && index < _bootstrapMethodsAttribute.BootstrapMethods.Count
                 && !_bootstrapMethods.TryGetValue(index, out bootstrapMethod))
             {

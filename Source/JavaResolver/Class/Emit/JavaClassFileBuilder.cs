@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using JavaResolver.Class.Metadata;
 using JavaResolver.Class.Metadata.Attributes;
 using JavaResolver.Class.TypeSystem;
@@ -6,10 +7,18 @@ namespace JavaResolver.Class.Emit
 {
     public class JavaClassFileBuilder
     {
+        private readonly IDictionary<BootstrapMethodInfo, int> _bootstrapInfos = new Dictionary<BootstrapMethodInfo, int>();
+        
         public ConstantPoolBuffer ConstantPoolBuffer
         {
             get;
         } = new ConstantPoolBuffer();
+        
+
+        public BootstrapMethodsAttribute BootstrapMethodsAttribute
+        {
+            get;
+        } = new BootstrapMethodsAttribute();
         
         public JavaClassFile CreateClassFile(JavaClassImage image)
         {
@@ -45,6 +54,9 @@ namespace JavaResolver.Class.Emit
                     SingleIndexAttribute.SourceFileAttribute,
                     (ushort) ConstantPoolBuffer.GetUtf8Index(image.SourceFile))));
             }
+
+            if (BootstrapMethodsAttribute.BootstrapMethods.Count > 0)
+                file.Attributes.Add(CreateAttribute(context, BootstrapMethodsAttribute));
             
             AddAttributes(context, file, image);
 
@@ -124,5 +136,27 @@ namespace JavaResolver.Class.Emit
                 Contents = contents
             };
         }
+
+        public int GetBootstrapMethodIndex(BootstrapMethod bootstrapMethod)
+        {
+            var info = new BootstrapMethodInfo
+            {
+                MethodRefIndex = (ushort) ConstantPoolBuffer.GetMethodHandleIndex(bootstrapMethod.Handle),
+            };
+
+            foreach (var arg in bootstrapMethod.Arguments) 
+                info.Arguments.Add((ushort) ConstantPoolBuffer.GetStaticConstantIndex(arg));
+
+            if (!_bootstrapInfos.TryGetValue(info, out int index))
+            {
+                var methods = BootstrapMethodsAttribute.BootstrapMethods;
+                index = methods.Count;
+                methods.Add(info);
+                _bootstrapInfos.Add(info, index);
+            }
+
+            return index;
+        }
+
     }
 }

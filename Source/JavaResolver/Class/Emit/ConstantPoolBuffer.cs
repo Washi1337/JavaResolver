@@ -18,18 +18,14 @@ namespace JavaResolver.Class.Emit
         private readonly IDictionary<StringInfo, int> _stringInfos = new Dictionary<StringInfo, int>();
         private readonly IDictionary<PrimitiveInfo, int> _primitiveInfos = new Dictionary<PrimitiveInfo, int>();
         private readonly IDictionary<InvokeDynamicInfo, int> _dynamicInfos = new Dictionary<InvokeDynamicInfo, int>();
-        private readonly IDictionary<BootstrapMethodInfo, int> _bootstrapInfos = new Dictionary<BootstrapMethodInfo, int>();
         private readonly IDictionary<MethodHandleInfo, int> _methodHandleInfos = new Dictionary<MethodHandleInfo, int>();
 
-        private readonly BootstrapMethodsAttribute _bootstrapMethodsAttribute = new BootstrapMethodsAttribute();
-        
         public ConstantPoolBuffer()
         {
             var comparer = new ConstantInfoComparer();
             _classInfos = new Dictionary<ClassInfo, int>(comparer);
             _utf8Infos = new Dictionary<Utf8Info, int>(comparer);
         }
-
         private int AddConstant(ConstantInfo info)
         {
             _constants.Add(info);
@@ -157,11 +153,11 @@ namespace JavaResolver.Class.Emit
             return index;
         }
 
-        public int GetDynamicInvocationIndex(DynamicInvocation invocation)
+        public int GetDynamicInvocationIndex(DynamicInvocation invocation, int bootstrapIndex)
         {
             var info = new InvokeDynamicInfo
             {
-                BootstrapMethodIndex = (ushort) GetBootstrapMethodIndex(invocation.BootstrapMethod),
+                BootstrapMethodIndex = (ushort) bootstrapIndex,
                 NameAndTypeIndex = (ushort) GetNameAndTypeIndex(invocation.MethodName, invocation.MethodDescriptor)
             };
             
@@ -169,27 +165,6 @@ namespace JavaResolver.Class.Emit
             {
                 index = AddConstant(info);
                 _dynamicInfos.Add(info, index);
-            }
-
-            return index;
-        }
-
-        public int GetBootstrapMethodIndex(BootstrapMethod bootstrapMethod)
-        {
-            var info = new BootstrapMethodInfo
-            {
-                MethodRefIndex = (ushort) GetMethodHandleIndex(bootstrapMethod.Handle),
-            };
-
-            foreach (var arg in bootstrapMethod.Arguments) 
-                info.Arguments.Add((ushort) GetStaticConstantIndex(arg));
-
-            if (_bootstrapInfos.TryGetValue(info, out int index))
-            {
-                var methods = _bootstrapMethodsAttribute.BootstrapMethods;
-                index = methods.Count;
-                methods.Add(info);
-                _bootstrapInfos.Add(info, index);
             }
 
             return index;
@@ -203,7 +178,7 @@ namespace JavaResolver.Class.Emit
                 ReferenceIndex = (ushort) GetMemberIndex(methodHandle.Member)
             };
 
-            if (_methodHandleInfos.TryGetValue(info, out int index))
+            if (!_methodHandleInfos.TryGetValue(info, out int index))
             {
                 index = AddConstant(info);
                 _methodHandleInfos.Add(info, index);

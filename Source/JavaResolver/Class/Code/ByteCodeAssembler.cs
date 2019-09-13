@@ -110,8 +110,8 @@ namespace JavaResolver.Class.Code
                     break;
                 case ByteCodeOperandType.DynamicIndex:
                     _writer.Write(instruction.Operand is DynamicInvocation invocation
-                        ? (ushort) OperandBuilder.GetDynamicIndex(invocation)
-                        : Convert.ToUInt32(instruction.Operand));
+                        ? OperandBuilder.GetDynamicIndex(invocation) << 16
+                        : Convert.ToInt32(instruction.Operand));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
