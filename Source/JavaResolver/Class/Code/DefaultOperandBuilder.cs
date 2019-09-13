@@ -27,9 +27,9 @@ namespace JavaResolver.Class.Code
             return _buffer.GetClassIndex(reference);
         }
 
-        public int GetDynamicIndex(object instructionOperand)
+        public int GetDynamicIndex(DynamicInvocation invocation)
         {
-            throw new System.NotImplementedException();
+            return _buffer.GetDynamicInvocationIndex(invocation);
         }
 
         public int GetLiteralIndex(object constant)

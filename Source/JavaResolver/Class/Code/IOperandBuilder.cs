@@ -10,8 +10,8 @@ namespace JavaResolver.Class.Code
         int GetMethodIndex(MethodReference reference);
 
         int GetClassIndex(ClassReference reference);
-        
-        int GetDynamicIndex(object instructionOperand);
+
+        int GetDynamicIndex(DynamicInvocation invocation);
 
         int GetLiteralIndex(object constant);
 
