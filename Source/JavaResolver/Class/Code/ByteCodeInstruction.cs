@@ -87,7 +87,7 @@ namespace JavaResolver.Class.Code
                 case ByteCodeOperandType.WideConstantIndex:
                 case ByteCodeOperandType.WideBranchOffset:
                 case ByteCodeOperandType.WideIndexCountZero:
-                case ByteCodeOperandType.WideConstantIndexByte:
+                case ByteCodeOperandType.WideIndexByte:
                     return 4;
                 case ByteCodeOperandType.TableSwitch:
                 {

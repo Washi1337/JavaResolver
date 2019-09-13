@@ -761,7 +761,7 @@ namespace JavaResolver.Class.Code
         public static readonly ByteOpCode InvokeDynamic = new ByteOpCode(ByteCode.InvokeDynamic, ((byte) ByteCodeFlowControl.Call << 24)
                                                                                                  | ((byte) ByteCodeStackBehaviour.VarPop << 16)
                                                                                                  | ((byte) ByteCodeStackBehaviour.VarPush << 8)
-                                                                                                 | (byte) ByteCodeOperandType.WideIndexCountZero);
+                                                                                                 | (byte) ByteCodeOperandType.DynamicIndex);
         public static readonly ByteOpCode New = new ByteOpCode(ByteCode.New, ((byte) ByteCodeFlowControl.Next << 24)
                                                                              | ((byte) ByteCodeStackBehaviour.None << 16)
                                                                              | ((byte) ByteCodeStackBehaviour.PushRef << 8)
@@ -805,7 +805,7 @@ namespace JavaResolver.Class.Code
         public static readonly ByteOpCode MultiANewArray = new ByteOpCode(ByteCode.MultiANewArray, ((byte) ByteCodeFlowControl.Next << 24)
                                                                                                    | ((byte) ByteCodeStackBehaviour.VarPop << 16)
                                                                                                    | ((byte) ByteCodeStackBehaviour.PushRef << 8)
-                                                                                                   | (byte) ByteCodeOperandType.WideConstantIndexByte);
+                                                                                                   | (byte) ByteCodeOperandType.WideIndexByte);
         public static readonly ByteOpCode IfNull = new ByteOpCode(ByteCode.IfNull, ((byte) ByteCodeFlowControl.ConditionalBranch << 24)
                                                                                    | ((byte) ByteCodeStackBehaviour.PopValue1 << 16)
                                                                                    | ((byte) ByteCodeStackBehaviour.None << 8)

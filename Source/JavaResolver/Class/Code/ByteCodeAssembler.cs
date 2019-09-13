@@ -108,7 +108,7 @@ namespace JavaResolver.Class.Code
                     ((LookupSwitch) instruction.Operand).Write(_writer);
                     break;
                 case ByteCodeOperandType.WideIndexCountZero:
-                case ByteCodeOperandType.WideConstantIndexByte:
+                case ByteCodeOperandType.WideIndexByte:
                     _writer.Write(Convert.ToInt32(instruction.Operand));
                     break;
                 default:

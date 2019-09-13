@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using JavaResolver.Class;
+using JavaResolver.Class.Emit;
 using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Sample
@@ -18,6 +20,9 @@ namespace JavaResolver.Sample
 
             Console.WriteLine("Disassembly of each method:");
             DumpByteCode(rootClass);
+
+            var newClassFile = image.CreateClassFile();
+            newClassFile.Write(Path.Combine(Path.GetDirectoryName(path), "output", Path.GetFileName(path)));
         }
 
         private static void DumpStructure(ClassDefinition rootClass)

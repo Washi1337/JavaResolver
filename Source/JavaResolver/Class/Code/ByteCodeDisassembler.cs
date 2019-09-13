@@ -88,8 +88,9 @@ namespace JavaResolver.Class.Code
                     return LookupSwitch.FromReader(_reader);
                 
                 case ByteCodeOperandType.WideIndexCountZero:
-                case ByteCodeOperandType.WideConstantIndexByte:
+                case ByteCodeOperandType.WideIndexByte:
                 case ByteCodeOperandType.WideBranchOffset:
+                case ByteCodeOperandType.DynamicIndex:
                     return _reader.ReadInt32();
                 
                 default:
@@ -121,6 +122,7 @@ namespace JavaResolver.Class.Code
                 case ByteCodeOperandType.WideBranchOffset:
                     int offset = Convert.ToInt32(instruction.Operand);
                     return allInstructions.GetByOffset(instruction.Offset + offset) ?? instruction.Operand;
+
             }
 
             return instruction.Operand;

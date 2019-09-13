@@ -23,13 +23,14 @@ namespace JavaResolver.Class.Code
         LookupSwitch,
         
         WideIndexCountZero,
-        WideConstantIndexByte,
+        WideIndexByte,
         
         PrimitiveType,
         
         FieldIndex,
         MethodIndex,
         ClassIndex,
-        
+
+        DynamicIndex
     }
 }
