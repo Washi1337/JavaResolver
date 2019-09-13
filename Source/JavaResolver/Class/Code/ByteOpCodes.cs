@@ -543,8 +543,8 @@ namespace JavaResolver.Class.Code
                                                                                | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
                                                                                | (byte) ByteCodeOperandType.None);
         public static readonly ByteOpCode IInc = new ByteOpCode(ByteCode.IInc, ((byte) ByteCodeFlowControl.Next << 24)
-                                                                               | ((byte) ByteCodeStackBehaviour.PopValue2 << 16)
-                                                                               | ((byte) ByteCodeStackBehaviour.PushValue1 << 8)
+                                                                               | ((byte) ByteCodeStackBehaviour.None << 16)
+                                                                               | ((byte) ByteCodeStackBehaviour.None << 8)
                                                                                | (byte) ByteCodeOperandType.LocalConst);
         public static readonly ByteOpCode I2l = new ByteOpCode(ByteCode.I2l, ((byte) ByteCodeFlowControl.Next << 24)
                                                                              | ((byte) ByteCodeStackBehaviour.PopValue1 << 16)
