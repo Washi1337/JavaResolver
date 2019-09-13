@@ -4,6 +4,8 @@ using System.IO;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Descriptors;
 using JavaResolver.Class.Emit;
+using JavaResolver.Class.Metadata;
+using JavaResolver.Class.Metadata.Attributes;
 
 namespace JavaResolver.Class.TypeSystem
 {
@@ -11,7 +13,7 @@ namespace JavaResolver.Class.TypeSystem
     /// Provides a high-level representation of a Java class file, exposing a hierarchical view on the metadata that
     /// resembles the structure of reflection based APIs.
     /// </summary>
-    public class JavaClassImage
+    public class JavaClassImage : IExtraAttributeProvider
     {
         /// <summary>
         /// Parses a class file located on tbhe disk, and opens a high-level representation of the class file.
@@ -43,6 +45,8 @@ namespace JavaResolver.Class.TypeSystem
         private readonly IDictionary<int, MethodReference> _methodReferences = new Dictionary<int, MethodReference>();
         private readonly IDictionary<int, MethodDescriptor> _methodDescriptors = new Dictionary<int, MethodDescriptor>();
         private ClassDefinition _rootClass;
+        private readonly LazyValue<string> _sourceFile = new LazyValue<string>();
+        private BootstrapMethodsAttribute _bootstrapMethods;
 
         public JavaClassImage(ClassDefinition rootClass)
         {
@@ -55,6 +59,27 @@ namespace JavaResolver.Class.TypeSystem
             RootClass = new ClassDefinition(this);
             MajorVersion = classFile.MajorVersion;
             MinorVersion = classFile.MinorVersion;
+
+            // Attributes
+            foreach (var attr in classFile.Attributes)
+            {
+                string name = classFile.ConstantPool.ResolveString(attr.NameIndex);
+                switch (name)
+                {
+                    // Source file
+                    case SingleIndexAttribute.SourceFileAttribute:
+                        _sourceFile = new LazyValue<string>(() =>
+                        {
+                            var sourceFile = SingleIndexAttribute.FromReader(name, new MemoryBigEndianReader(attr.Contents));
+                            return classFile.ConstantPool.ResolveString(sourceFile.ConstantPoolIndex);
+                        });
+                        break;
+                    
+                    default:
+                        ExtraAttributes.Add(name, attr.Clone());
+                        break;
+                }    
+            }
         }
 
         public ushort MajorVersion
@@ -92,7 +117,22 @@ namespace JavaResolver.Class.TypeSystem
                     _rootClass.Image = this;
             }
         }
-
+        
+        /// <summary>
+        /// Gets or sets the path to the Java source file the class file was originally declared in (if available). 
+        /// </summary>
+        public string SourceFile
+        {
+            get => _sourceFile.Value;
+            set => _sourceFile.Value = value;
+        }
+        
+        /// <inheritdoc />
+        public IDictionary<string, AttributeInfo> ExtraAttributes
+        {
+            get;
+        }= new Dictionary<string, AttributeInfo>();
+        
         public ClassReference ResolveClass(int index)
         {
             if (!_classReferences.TryGetValue(index, out var classReference))
@@ -172,7 +212,7 @@ namespace JavaResolver.Class.TypeSystem
         {
             return new JavaClassFileBuilder().CreateClassFile(this);
         }
-        
-        
+
+
     }
 }

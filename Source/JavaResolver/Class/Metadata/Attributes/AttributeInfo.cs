@@ -58,6 +58,7 @@ namespace JavaResolver.Class.Metadata
         {
             return new AttributeInfo {Contents = Contents, NameIndex = NameIndex};
         }
+        
         public override string ToString()
         {
             return $"Attribute (Name: {NameIndex})";

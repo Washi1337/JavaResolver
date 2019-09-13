@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Metadata;
-using JavaResolver.Class.Metadata.Attributes;
 using JavaResolver.Class.TypeSystem.Collections;
 
 namespace JavaResolver.Class.TypeSystem
@@ -9,10 +8,9 @@ namespace JavaResolver.Class.TypeSystem
     /// <summary>
     /// Provides a high-level representation of a single class defined in a Java class file.
     /// </summary>
-    public class ClassDefinition : ClassReference, IExtraAttributeProvider
+    public class ClassDefinition : ClassReference
     {
         private readonly LazyValue<ClassReference> _superClass;
-        private readonly LazyValue<string> _sourceFile = new LazyValue<string>();
         
         public ClassDefinition(string name)
             : this(name, null)
@@ -51,27 +49,6 @@ namespace JavaResolver.Class.TypeSystem
             Methods = new MethodCollection(this);
             foreach (var method in classImage.ClassFile.Methods)
                 Methods.Add(new MethodDefinition(classImage, method));
-
-            // Attributes
-            foreach (var attr in classImage.ClassFile.Attributes)
-            {
-                string name = classImage.ClassFile.ConstantPool.ResolveString(attr.NameIndex);
-                switch (name)
-                {
-                    // Source file
-                    case SingleIndexAttribute.SourceFileAttribute:
-                        _sourceFile = new LazyValue<string>(() =>
-                        {
-                            var sourceFile = SingleIndexAttribute.FromReader(name, new MemoryBigEndianReader(attr.Contents));
-                            return classImage.ClassFile.ConstantPool.ResolveString(sourceFile.ConstantPoolIndex);
-                        });
-                        break;
-                    
-                    default:
-                        ExtraAttributes.Add(name, attr.Clone());
-                        break;
-                }    
-            }
         }
 
         /// <summary>
@@ -81,15 +58,6 @@ namespace JavaResolver.Class.TypeSystem
         {
             get;
             internal set;
-        }
-        
-        /// <summary>
-        /// Gets or sets the path to the Java source file the class was originally declared in (if available). 
-        /// </summary>
-        public string SourceFile
-        {
-            get => _sourceFile.Value;
-            set => _sourceFile.Value = value;
         }
 
         /// <summary>
@@ -125,12 +93,6 @@ namespace JavaResolver.Class.TypeSystem
         {
             get;
         }
-
-        /// <inheritdoc />
-        public IDictionary<string, AttributeInfo> ExtraAttributes
-        {
-            get;
-        }= new Dictionary<string, AttributeInfo>();
 
         /// <inheritdoc />
         public override string ToString()

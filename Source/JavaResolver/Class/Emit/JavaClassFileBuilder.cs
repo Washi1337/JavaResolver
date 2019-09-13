@@ -39,14 +39,14 @@ namespace JavaResolver.Class.Emit
                 file.Methods.Add(CreateMethodInfo(context, method));
             
             // Source file
-            if (image.RootClass.SourceFile != null)
+            if (image.SourceFile != null)
             {
                 file.Attributes.Add(CreateAttribute(context, new SingleIndexAttribute(
                     SingleIndexAttribute.SourceFileAttribute,
-                    (ushort) ConstantPoolBuffer.GetUtf8Index(image.RootClass.SourceFile))));
+                    (ushort) ConstantPoolBuffer.GetUtf8Index(image.SourceFile))));
             }
             
-            AddAttributes(context, file, image.RootClass);
+            AddAttributes(context, file, image);
 
             file.ConstantPool = ConstantPoolBuffer.CreateConstantPool();
             return file;

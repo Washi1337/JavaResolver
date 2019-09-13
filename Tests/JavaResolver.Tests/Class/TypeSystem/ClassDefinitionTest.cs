@@ -77,17 +77,5 @@ namespace JavaResolver.Tests.Class.TypeSystem
             var newImage = Utils.RebuildClassImage(dummyImage);
             Assert.Equal(flags, newImage.RootClass.AccessFlags);
         }
-
-        [Fact]
-        public void PersistentSourceFile()
-        {
-            const string filePath = @"C:\\Path\\To\\File.java";
-            
-            var dummyImage = CreateDummyImage();
-            dummyImage.RootClass.SourceFile = filePath;
-            
-            var newImage = Utils.RebuildClassImage(dummyImage);
-            Assert.Equal(filePath, newImage.RootClass.SourceFile);
-        }
     }
 }
