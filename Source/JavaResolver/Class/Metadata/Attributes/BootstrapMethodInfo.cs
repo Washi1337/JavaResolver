@@ -5,16 +5,16 @@ namespace JavaResolver.Class.Metadata.Attributes
     /// <summary>
     /// Represents a single entry in the bootstrap methods attribute.
     /// </summary>
-    public class BootstrapMethod
+    public class BootstrapMethodInfo
     {
         /// <summary>
         /// Reads a single bootstrap methods attribute at the current position of the provided reader.
         /// </summary>
         /// <param name="reader">The reader to use.</param>
         /// <returns>The bootstrap methods attribute that was read.</returns>
-        public static BootstrapMethod FromReader(IBigEndianReader reader)
+        public static BootstrapMethodInfo FromReader(IBigEndianReader reader)
         {
-            var result = new BootstrapMethod
+            var result = new BootstrapMethodInfo
             {
                 MethodRefIndex = reader.ReadUInt16(),
             };

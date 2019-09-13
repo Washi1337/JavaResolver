@@ -44,9 +44,11 @@ namespace JavaResolver.Class.TypeSystem
         private readonly IDictionary<int, FieldDescriptor> _fieldDescriptors = new Dictionary<int, FieldDescriptor>();
         private readonly IDictionary<int, MethodReference> _methodReferences = new Dictionary<int, MethodReference>();
         private readonly IDictionary<int, MethodDescriptor> _methodDescriptors = new Dictionary<int, MethodDescriptor>();
+        private readonly IDictionary<int, BootstrapMethod> _bootstrapMethods = new Dictionary<int, BootstrapMethod>();
+        private readonly IDictionary<int, DynamicInvocation> _dynamicInvokes = new Dictionary<int, DynamicInvocation>();
         private ClassDefinition _rootClass;
         private readonly LazyValue<string> _sourceFile = new LazyValue<string>();
-        private BootstrapMethodsAttribute _bootstrapMethods;
+        private BootstrapMethodsAttribute _bootstrapMethodsAttribute;
 
         public JavaClassImage(ClassDefinition rootClass)
         {
@@ -73,6 +75,10 @@ namespace JavaResolver.Class.TypeSystem
                             var sourceFile = SingleIndexAttribute.FromReader(name, new MemoryBigEndianReader(attr.Contents));
                             return classFile.ConstantPool.ResolveString(sourceFile.ConstantPoolIndex);
                         });
+                        break;
+                    
+                    case BootstrapMethodsAttribute.AttributeName:
+                        _bootstrapMethodsAttribute = BootstrapMethodsAttribute.FromReader(new MemoryBigEndianReader(attr.Contents));
                         break;
                     
                     default:
@@ -206,6 +212,36 @@ namespace JavaResolver.Class.TypeSystem
             }
 
             return descriptor;
+        }
+
+        public BootstrapMethod ResolveBootstrapMethod(int index)
+        {
+            var bootstrapMethod = default(BootstrapMethod);
+            
+            if (index >= 0
+                && index < _bootstrapMethodsAttribute.BootstrapMethods.Count
+                && !_bootstrapMethods.TryGetValue(index, out bootstrapMethod))
+            {
+                bootstrapMethod = new BootstrapMethod(this, _bootstrapMethodsAttribute.BootstrapMethods[index]);
+                _bootstrapMethods.Add(index, bootstrapMethod);
+            }
+
+            return bootstrapMethod;
+        }
+
+        public DynamicInvocation ResolveDynamicInvoke(int index)
+        {
+            if (!_dynamicInvokes.TryGetValue(index, out var invokeInfo) && _bootstrapMethods != null)
+            {
+                var constantInfo = ClassFile.ConstantPool.ResolveConstant(index);
+                if (constantInfo is InvokeDynamicInfo dynamicInfo)
+                {
+                    invokeInfo = new DynamicInvocation(this, dynamicInfo);
+                    _dynamicInvokes.Add(index, invokeInfo);
+                }
+            }
+
+            return invokeInfo;
         }
 
         public JavaClassFile CreateClassFile()

@@ -118,6 +118,9 @@ namespace JavaResolver.Class.Code
                 case ByteCodeOperandType.ClassIndex:
                     return OperandResolver?.ResolveClass(Convert.ToInt32(instruction.Operand)) ?? instruction.Operand;
                 
+                case ByteCodeOperandType.DynamicIndex:
+                    return OperandResolver?.ResolveDynamic(Convert.ToInt32(instruction.Operand) >> 16)?? instruction.Operand;
+                
                 case ByteCodeOperandType.BranchOffset:
                 case ByteCodeOperandType.WideBranchOffset:
                     int offset = Convert.ToInt32(instruction.Operand);

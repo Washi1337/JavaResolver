@@ -11,6 +11,8 @@ namespace JavaResolver.Class.Code
 
         int GetClassIndex(ClassReference reference);
         
+        int GetDynamicIndex(object instructionOperand);
+
         int GetLiteralIndex(object constant);
 
         int GetStringIndex(string text);

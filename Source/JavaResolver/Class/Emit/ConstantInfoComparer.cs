@@ -36,12 +36,12 @@ namespace JavaResolver.Class.Emit
                 return true;
             if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
                 return false;
-            return x.NameAndTypeIndex == y.NameAndTypeIndex && x.BootstrapMethodAttrIndex == y.BootstrapMethodAttrIndex;
+            return x.NameAndTypeIndex == y.NameAndTypeIndex && x.BootstrapMethodIndex == y.BootstrapMethodIndex;
         }
 
         public int GetHashCode(InvokeDynamicInfo obj)
         {
-            return (obj.BootstrapMethodAttrIndex << 16) | obj.NameAndTypeIndex;
+            return (obj.BootstrapMethodIndex << 16) | obj.NameAndTypeIndex;
         }
 
         public bool Equals(MemberRefInfo x, MemberRefInfo y)

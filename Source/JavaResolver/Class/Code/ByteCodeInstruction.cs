@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using JavaResolver.Class.Descriptors;
 using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Code
@@ -88,6 +89,7 @@ namespace JavaResolver.Class.Code
                 case ByteCodeOperandType.WideBranchOffset:
                 case ByteCodeOperandType.WideIndexCountZero:
                 case ByteCodeOperandType.WideIndexByte:
+                case ByteCodeOperandType.DynamicIndex:
                     return 4;
                 case ByteCodeOperandType.TableSwitch:
                 {
@@ -126,8 +128,11 @@ namespace JavaResolver.Class.Code
                 case ByteCodeStackBehaviour.PopValue4:
                     return 4;
                 case ByteCodeStackBehaviour.VarPop:
-                    var reference = (MethodReference) Operand;
-                    int values = reference.Descriptor.ParameterTypes.Count;
+                    var descriptor = Operand is DynamicInvocation invocation
+                        ? invocation.MethodDescriptor
+                        : ((MethodReference) Operand).Descriptor;
+                    
+                    int values = descriptor.ParameterTypes.Count;
                     switch (OpCode.Code)
                     {
                         case ByteCode.InvokeVirtual:
@@ -166,8 +171,11 @@ namespace JavaResolver.Class.Code
                 case ByteCodeStackBehaviour.PushValue6:
                     return 6;
                 case ByteCodeStackBehaviour.VarPush:
-                    var reference = (MethodReference) Operand;
-                    return reference.Descriptor.ReturnType.Prefix == 'V' ? 0 : 1;
+                    var descriptor = Operand is DynamicInvocation invocation
+                        ? invocation.MethodDescriptor
+                        : ((MethodReference) Operand).Descriptor;
+                    
+                    return descriptor.ReturnType.Prefix == 'V' ? 0 : 1;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

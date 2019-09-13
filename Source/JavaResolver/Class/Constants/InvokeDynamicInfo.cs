@@ -15,7 +15,7 @@ namespace JavaResolver.Class.Constants
             return new InvokeDynamicInfo
             {
                 StartOffset = reader.Position - 1,
-                BootstrapMethodAttrIndex = reader.ReadUInt16(),
+                BootstrapMethodIndex = reader.ReadUInt16(),
                 NameAndTypeIndex = reader.ReadUInt16(),
             };
         }
@@ -26,7 +26,7 @@ namespace JavaResolver.Class.Constants
         /// <summary>
         /// Gets or sets the index into the constant pool that references the method to invoke.
         /// </summary>
-        public ushort BootstrapMethodAttrIndex
+        public ushort BootstrapMethodIndex
         {
             get;
             set;
@@ -45,13 +45,13 @@ namespace JavaResolver.Class.Constants
         {
             base.Write(context);
             var writer = context.Writer;
-            writer.Write(BootstrapMethodAttrIndex);
+            writer.Write(BootstrapMethodIndex);
             writer.Write(NameAndTypeIndex);
         }
 
         public override string ToString()
         {
-            return $"InvokeDynamicInfo (Bootstrap: {BootstrapMethodAttrIndex}, NameAndType: {NameAndTypeIndex})";
+            return $"InvokeDynamicInfo (Bootstrap: {BootstrapMethodIndex}, NameAndType: {NameAndTypeIndex})";
         }
     }
 }

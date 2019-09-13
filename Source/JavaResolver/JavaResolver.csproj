@@ -92,7 +92,7 @@
         <Compile Include="Class\Emit\JavaClassFileBuilder.cs" />
         <Compile Include="Class\JavaClassFile.cs" />
         <Compile Include="Class\Metadata\Attributes\AttributeInfo.cs" />
-        <Compile Include="Class\Metadata\Attributes\BootstrapMethod.cs" />
+        <Compile Include="Class\Metadata\Attributes\BootstrapMethodInfo.cs" />
         <Compile Include="Class\Metadata\Attributes\BootstrapMethodsAttribute.cs" />
         <Compile Include="Class\Metadata\Attributes\CodeAttribute.cs" />
         <Compile Include="Class\Metadata\Attributes\ExceptionHandlerInfo.cs" />
@@ -116,6 +116,8 @@
         <Compile Include="Class\TypeSystem\Collections\FieldCollection.cs" />
         <Compile Include="Class\TypeSystem\Collections\MemberCollection.cs" />
         <Compile Include="Class\TypeSystem\Collections\MethodCollection.cs" />
+        <Compile Include="Class\TypeSystem\BootstrapMethod.cs" />
+        <Compile Include="Class\TypeSystem\DynamicInvocation.cs" />
         <Compile Include="Class\TypeSystem\FieldDefinition.cs" />
         <Compile Include="Class\TypeSystem\FieldReference.cs" />
         <Compile Include="Class\TypeSystem\IExtraAttributeProvider.cs" />
@@ -124,6 +126,7 @@
         <Compile Include="Class\TypeSystem\JavaClassImage.cs" />
         <Compile Include="Class\TypeSystem\MemberExtensions.cs" />
         <Compile Include="Class\TypeSystem\MethodDefinition.cs" />
+        <Compile Include="Class\TypeSystem\MethodHandle.cs" />
         <Compile Include="Class\TypeSystem\MethodReference.cs" />
         <Compile Include="IBigEndianReader.cs" />
         <Compile Include="FileSegment.cs" />

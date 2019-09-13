@@ -45,5 +45,11 @@ namespace JavaResolver.Class.Code
         {
             return _classImage.ResolveClass(classIndex);
         }
+
+        public DynamicInvocation ResolveDynamic(int dynamicIndex)
+        {
+            return _classImage.ResolveDynamicInvoke(dynamicIndex);
+        }
+        
     }
 }

@@ -34,5 +34,12 @@ namespace JavaResolver.Class.Code
         /// <param name="classIndex">The class index to resolve.</param>
         /// <returns>The resolved class.</returns>
         ClassReference ResolveClass(int classIndex);
+
+        /// <summary>
+        /// Resolves an index to a dynamic invocation in the constant pool.
+        /// </summary>
+        /// <param name="dynamicIndex">The invocation index to resolve.</param>
+        /// <returns>The resolved invocation.</returns>
+        DynamicInvocation ResolveDynamic(int dynamicIndex);
     }
 }

@@ -22,7 +22,7 @@ namespace JavaResolver.Class.Metadata.Attributes
 
             ushort count = reader.ReadUInt16();
             for (int i = 0; i < count; i++)
-                result.BootstrapMethods.Add(BootstrapMethod.FromReader(reader));
+                result.BootstrapMethods.Add(BootstrapMethodInfo.FromReader(reader));
 
             return result;
         }
@@ -33,10 +33,10 @@ namespace JavaResolver.Class.Metadata.Attributes
         /// <summary>
         /// Gets the ordered collection of bootstrap methods defined by this attribute.
         /// </summary>
-        public IList<BootstrapMethod> BootstrapMethods
+        public IList<BootstrapMethodInfo> BootstrapMethods
         {
             get;
-        } = new List<BootstrapMethod>();
+        } = new List<BootstrapMethodInfo>();
 
         /// <inheritdoc />
         public byte[] Serialize(BuildingContext context)
