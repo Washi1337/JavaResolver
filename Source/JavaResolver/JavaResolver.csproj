@@ -92,6 +92,8 @@
         <Compile Include="Class\Emit\JavaClassFileBuilder.cs" />
         <Compile Include="Class\JavaClassFile.cs" />
         <Compile Include="Class\Metadata\Attributes\AttributeInfo.cs" />
+        <Compile Include="Class\Metadata\Attributes\BootstrapMethod.cs" />
+        <Compile Include="Class\Metadata\Attributes\BootstrapMethodsAttribute.cs" />
         <Compile Include="Class\Metadata\Attributes\CodeAttribute.cs" />
         <Compile Include="Class\Metadata\Attributes\ExceptionHandlerInfo.cs" />
         <Compile Include="Class\Metadata\Attributes\ExceptionsAttribute.cs" />
