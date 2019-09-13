@@ -55,5 +55,26 @@ namespace JavaResolver.Class.Constants
         {
             return $"Utf8 (Value: {Value})";
         }
+
+        protected bool Equals(Utf8Info other)
+        {
+            return string.Equals(Value, other.Value);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) 
+                return false;
+            if (ReferenceEquals(this, obj)) 
+                return true;
+            if (obj.GetType() != this.GetType()) 
+                return false;
+            return Equals((Utf8Info) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return ((int) Tag << 24) ^ (Value != null ? Value.GetHashCode() : 0);
+        }
     }
 }

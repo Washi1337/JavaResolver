@@ -31,5 +31,7 @@ namespace JavaResolver.Class.Constants
 
         /// <inheritdoc />
         public override ConstantPoolTag Tag => ConstantPoolTag.FieldRef;
+        
+        
     }
 }

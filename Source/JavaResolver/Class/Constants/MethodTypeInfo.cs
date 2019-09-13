@@ -41,5 +41,26 @@ namespace JavaResolver.Class.Constants
         {
             return $"MethodTypeInfo (Descriptor: {DescriptorIndex})";
         }
+
+        protected bool Equals(MethodTypeInfo other)
+        {
+            return DescriptorIndex == other.DescriptorIndex;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj.GetType() != this.GetType()) 
+                return false;
+            return Equals((MethodTypeInfo) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return ((int) Tag << 24) ^ DescriptorIndex.GetHashCode();
+        }
     }
 }

@@ -53,5 +53,30 @@ namespace JavaResolver.Class.Constants
         {
             return $"MethodHandle (Kind: {ReferenceKind}, Index: {ReferenceIndex})";
         }
+
+        protected bool Equals(MethodHandleInfo other)
+        {
+            return ReferenceKind == other.ReferenceKind && ReferenceIndex == other.ReferenceIndex;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) 
+                return false;
+            if (ReferenceEquals(this, obj)) 
+                return true;
+            if (obj.GetType() != this.GetType()) 
+                return false;
+            return Equals((MethodHandleInfo) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((int) Tag << 24) ^ ((int) ReferenceKind * 397) ^ ReferenceIndex.GetHashCode();
+            }
+        }
+        
     }
 }

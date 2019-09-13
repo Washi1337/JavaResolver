@@ -50,5 +50,26 @@ namespace JavaResolver.Class.Constants
         {
             return $"String (String: {StringIndex})";
         }
+
+        protected bool Equals(StringInfo other)
+        {
+            return StringIndex == other.StringIndex;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj)) 
+                return true;
+            if (obj.GetType() != this.GetType()) 
+                return false;
+            return Equals((StringInfo) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return ((int) Tag << 24) ^ StringIndex.GetHashCode();
+        }
     }
 }

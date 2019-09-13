@@ -53,5 +53,29 @@ namespace JavaResolver.Class.Constants
         {
             return $"InvokeDynamicInfo (Bootstrap: {BootstrapMethodIndex}, NameAndType: {NameAndTypeIndex})";
         }
+
+        protected bool Equals(InvokeDynamicInfo other)
+        {
+            return BootstrapMethodIndex == other.BootstrapMethodIndex && NameAndTypeIndex == other.NameAndTypeIndex;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj.GetType() != this.GetType())
+                return false;
+            return Equals((InvokeDynamicInfo) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((int) Tag << 24) ^ (BootstrapMethodIndex.GetHashCode() * 397) ^ NameAndTypeIndex.GetHashCode();
+            }
+        }
     }
 }

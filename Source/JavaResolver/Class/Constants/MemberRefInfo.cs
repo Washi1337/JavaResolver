@@ -55,5 +55,30 @@ namespace JavaResolver.Class.Constants
         {
             return $"{Tag} (Class: {ClassIndex}, NameAndType: {NameAndTypeIndex})";
         }
+
+        protected bool Equals(MemberRefInfo other)
+        {
+            return ClassIndex == other.ClassIndex 
+                   && NameAndTypeIndex == other.NameAndTypeIndex;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) 
+                return false;
+            if (ReferenceEquals(this, obj)) 
+                return true;
+            if (obj.GetType() != this.GetType()) 
+                return false;
+            return Equals((MemberRefInfo) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((int) Tag << 24) ^ (ClassIndex.GetHashCode() * 397) ^ NameAndTypeIndex.GetHashCode();
+            }
+        }
     }
 }

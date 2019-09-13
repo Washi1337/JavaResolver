@@ -12,6 +12,7 @@ namespace JavaResolver.Sample
         {
             string path = args[0].Replace("\"", "");
             var classFile = JavaClassFile.FromFile(path);
+            classFile.MajorVersion = 52;
             var image = DumpImage(classFile);
 
             var newClassFile = image.CreateClassFile();

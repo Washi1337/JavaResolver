@@ -72,5 +72,26 @@ namespace JavaResolver.Class.Constants
         {
             return $"{Tag} (Value: {Value})";
         }
+
+        protected bool Equals(PrimitiveInfo other)
+        {
+            return Equals(_value, other._value);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) 
+                return false;
+            if (ReferenceEquals(this, obj)) 
+                return true;
+            if (obj.GetType() != this.GetType())
+                return false;
+            return Equals((PrimitiveInfo) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return ((int) Tag << 24) ^ (_value != null ? _value.GetHashCode() : 0);
+        }
     }
 }
