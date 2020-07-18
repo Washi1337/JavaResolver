@@ -1,5 +1,8 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver", "Source\JavaResolver\JavaResolver.csproj", "{08D550A9-6173-478B-99EB-281EA5806D4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaResolver.Sample", "Samples\JavaResolver.Sample\JavaResolver.Sample.csproj", "{C6E25E4D-E872-45FA-BE6B-FABFF6A8B43C}"
@@ -17,7 +20,11 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{08D550A9-6173-478B-99EB-281EA5806D4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
