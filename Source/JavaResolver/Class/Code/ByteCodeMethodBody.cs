@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using JavaResolver.Class.Emit;
 using JavaResolver.Class.Metadata;
 using JavaResolver.Class.Metadata.Attributes;
