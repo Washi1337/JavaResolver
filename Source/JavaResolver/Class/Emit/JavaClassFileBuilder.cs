@@ -60,7 +60,7 @@ namespace JavaResolver.Class.Emit
             
             AddAttributes(context, file, image);
 
-            file.ConstantPool = ConstantPoolBuffer.CreateConstantPool();
+            file.ConstantPool = ConstantPoolBuffer.ConstantPool;
             return file;
         }
 

@@ -90,12 +90,16 @@ namespace JavaResolver
 
         public void Write(float value)
         {
-            throw new System.NotImplementedException();
+            var buffer = BitConverter.GetBytes(value);
+            Array.Reverse(buffer);
+            Write(buffer);
         }
 
         public void Write(double value)
         {
-            throw new System.NotImplementedException();
+            var buffer = BitConverter.GetBytes(value);
+            Array.Reverse(buffer);
+            Write(buffer);
         }
     }
 }
