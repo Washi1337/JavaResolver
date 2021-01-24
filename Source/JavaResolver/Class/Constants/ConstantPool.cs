@@ -22,8 +22,14 @@ namespace JavaResolver.Class.Constants
             
             ushort count = reader.ReadUInt16();
 
-            for (int i = 0; i < count - 1; i++)
-                pool.Constants.Add(ConstantInfo.FromReader(reader));
+            for (int i = 1; i < count; )
+            {
+                var constantInfo = ConstantInfo.FromReader(reader);
+                // Take into account constants taking multiple indices.
+                for (int j = 0; j < constantInfo.Size; j++)
+                    pool.Constants.Add(constantInfo);
+                i += constantInfo.Size;
+            }
 
             return pool;
         }

@@ -110,12 +110,16 @@ namespace JavaResolver
 
         public float ReadSingle()
         {
-            return BitConverter.ToSingle(ReadBytes(4), 0);
+            var buffer = ReadBytes(4);
+            Array.Reverse(buffer);
+            return BitConverter.ToSingle(buffer, 0);
         }
 
-        public object ReadDouble()
+        public double ReadDouble()
         {
-            return BitConverter.ToDouble(ReadBytes(8), 0);
+            var buffer = ReadBytes(8);
+            Array.Reverse(buffer);
+            return BitConverter.ToDouble(buffer, 0);
         }
     }
 }

@@ -68,6 +68,9 @@ namespace JavaResolver.Class.Constants
             }
         }
 
+        // 8-byte values consume 2 indices.
+        public override int Size => Value is long || Value is double ? 2 : 1;
+
         public override string ToString()
         {
             return $"{Tag} (Value: {Value})";
