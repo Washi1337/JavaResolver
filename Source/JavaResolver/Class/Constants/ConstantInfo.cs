@@ -65,5 +65,10 @@ namespace JavaResolver.Class.Constants
         {
             context.Writer.Write((byte) Tag);
         }
+
+        /// <summary>
+        /// Gets the number of entries the value takes in the constant pool.
+        /// </summary>
+        public virtual int Size => 1;
     }
 }

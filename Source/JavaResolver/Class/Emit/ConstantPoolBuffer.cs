@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using JavaResolver.Class.Constants;
 using JavaResolver.Class.Descriptors;
-using JavaResolver.Class.Metadata.Attributes;
 using JavaResolver.Class.TypeSystem;
 
 namespace JavaResolver.Class.Emit
 {
     public class ConstantPoolBuffer
     {
-        private readonly IList<ConstantInfo> _constants = new List<ConstantInfo>();
         private readonly IDictionary<ClassInfo, int> _classInfos;
         private readonly IDictionary<Utf8Info, int> _utf8Infos;
         private readonly IDictionary<MemberRefInfo, int> _memberRefInfos = new Dictionary<MemberRefInfo, int>();
@@ -20,16 +17,13 @@ namespace JavaResolver.Class.Emit
         private readonly IDictionary<InvokeDynamicInfo, int> _dynamicInfos = new Dictionary<InvokeDynamicInfo, int>();
         private readonly IDictionary<MethodHandleInfo, int> _methodHandleInfos = new Dictionary<MethodHandleInfo, int>();
 
+        public ConstantPool ConstantPool { get; } = new ConstantPool();
+
         public ConstantPoolBuffer()
         {
             var comparer = new ConstantInfoComparer();
             _classInfos = new Dictionary<ClassInfo, int>(comparer);
             _utf8Infos = new Dictionary<Utf8Info, int>(comparer);
-        }
-        private int AddConstant(ConstantInfo info)
-        {
-            _constants.Add(info);
-            return _constants.Count;
         }
 
         public int GetClassIndex(ClassReference reference)
@@ -37,7 +31,7 @@ namespace JavaResolver.Class.Emit
             var classInfo = new ClassInfo((ushort) GetUtf8Index(reference.Name));
             if (!_classInfos.TryGetValue(classInfo, out int index))
             {
-                index = AddConstant(classInfo);
+                index = ConstantPool.AddConstant(classInfo);
                 _classInfos.Add(classInfo, index);
             }
 
@@ -64,7 +58,7 @@ namespace JavaResolver.Class.Emit
 
             if (!_memberRefInfos.TryGetValue(memberRefInfo, out int index))
             {
-                index = AddConstant(memberRefInfo);
+                index = ConstantPool.AddConstant(memberRefInfo);
                 _memberRefInfos.Add(memberRefInfo, index);
             }
 
@@ -79,7 +73,7 @@ namespace JavaResolver.Class.Emit
 
             if (!_nameAndTypeInfos.TryGetValue(nameAndTypeInfo, out int index))
             {
-                index = AddConstant(nameAndTypeInfo);
+                index = ConstantPool.AddConstant(nameAndTypeInfo);
                 _nameAndTypeInfos.Add(nameAndTypeInfo, index);
             }
 
@@ -124,7 +118,7 @@ namespace JavaResolver.Class.Emit
                 var stringInfo = new StringInfo((ushort) GetUtf8Index(text));
                 if (!_stringInfos.TryGetValue(stringInfo, out index))
                 {
-                    index = AddConstant(stringInfo);
+                    index = ConstantPool.AddConstant(stringInfo);
                     _stringInfos.Add(stringInfo, index);
                 }
             }
@@ -133,7 +127,7 @@ namespace JavaResolver.Class.Emit
                 var primitiveInfo = new PrimitiveInfo(constant);
                 if (!_primitiveInfos.TryGetValue(primitiveInfo, out index))
                 {
-                    index = AddConstant(primitiveInfo);
+                    index = ConstantPool.AddConstant(primitiveInfo);
                     _primitiveInfos.Add(primitiveInfo, index);
                 }
             }
@@ -146,7 +140,7 @@ namespace JavaResolver.Class.Emit
             var info = new Utf8Info(text);
             if (!_utf8Infos.TryGetValue(info, out int index))
             {
-                index = AddConstant(info);
+                index = ConstantPool.AddConstant(info);
                 _utf8Infos.Add(info, index);
             }
 
@@ -163,7 +157,7 @@ namespace JavaResolver.Class.Emit
             
             if (!_dynamicInfos.TryGetValue(info, out int index))
             {
-                index = AddConstant(info);
+                index = ConstantPool.AddConstant(info);
                 _dynamicInfos.Add(info, index);
             }
 
@@ -180,19 +174,11 @@ namespace JavaResolver.Class.Emit
 
             if (!_methodHandleInfos.TryGetValue(info, out int index))
             {
-                index = AddConstant(info);
+                index = ConstantPool.AddConstant(info);
                 _methodHandleInfos.Add(info, index);
             }
 
             return index;
-        }
-
-        public ConstantPool CreateConstantPool()
-        {
-            var pool = new ConstantPool();
-            foreach (var constantInfo in _constants)
-                pool.Constants.Add(constantInfo);
-            return pool;
         }
     }
 }

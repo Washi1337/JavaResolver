@@ -96,6 +96,6 @@ namespace JavaResolver
         /// Reads a single double-precision floating point number at the current position and increase the position by 8.
         /// </summary>
         /// <returns>The number that was read.</returns>
-        object ReadDouble();
+        double ReadDouble();
     }
 }

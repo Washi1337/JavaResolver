@@ -19,10 +19,10 @@ namespace JavaResolver.Tests.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace JavaResolver.Tests.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JavaResolver.Tests.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace JavaResolver.Tests.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace JavaResolver.Tests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] Conditionals {
+        internal static byte[] Conditionals {
             get {
                 object obj = ResourceManager.GetObject("Conditionals", resourceCulture);
                 return ((byte[])(obj));
@@ -73,7 +73,17 @@ namespace JavaResolver.Tests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] CustomException {
+        internal static byte[] ConstantPoolExample {
+            get {
+                object obj = ResourceManager.GetObject("ConstantPoolExample", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] CustomException {
             get {
                 object obj = ResourceManager.GetObject("CustomException", resourceCulture);
                 return ((byte[])(obj));
@@ -83,7 +93,7 @@ namespace JavaResolver.Tests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] Exceptions {
+        internal static byte[] Exceptions {
             get {
                 object obj = ResourceManager.GetObject("Exceptions", resourceCulture);
                 return ((byte[])(obj));
@@ -93,7 +103,7 @@ namespace JavaResolver.Tests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] HelloWorld {
+        internal static byte[] HelloWorld {
             get {
                 object obj = ResourceManager.GetObject("HelloWorld", resourceCulture);
                 return ((byte[])(obj));
@@ -103,7 +113,7 @@ namespace JavaResolver.Tests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] SimpleModel {
+        internal static byte[] SimpleModel {
             get {
                 object obj = ResourceManager.GetObject("SimpleModel", resourceCulture);
                 return ((byte[])(obj));
